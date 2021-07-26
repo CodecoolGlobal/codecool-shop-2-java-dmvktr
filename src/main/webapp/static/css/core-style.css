@@ -34,7 +34,36 @@
   80%{-webkit-transform: rotate(-20deg)}
 }
 
+.banner-slides >input {
+  display: none;
+}
 
+.banner-slides > img{
+  flex-shrink: 0;
+  min-width: 100%;
+  min-height: 100%
+}
+
+.banner-slides > div{
+  width: 20%;
+}
+
+.banner-navbar-container{
+  display: inline-flex;
+}
+
+.banner-container{
+  overflow: hidden;
+  height: 330px;
+}
+
+.banner-slides{
+  display: flex;
+  height: 400px;
+  width: 500%;
+  align-items: center;
+  overflow: hidden;
+}
 
 body {
   font-family: "helveticaneuemedium";
@@ -151,7 +180,6 @@ img {
 
 /* Section Padding */
 .section-padding-100 {
-  padding-top: 100px;
   padding-bottom: 100px; }
 
 .section-padding-100-0 {
@@ -408,6 +436,7 @@ img {
     -ms-flex: 0 0 320px;
     flex: 0 0 320px;
     width: 320px;
+    height: 400px;
     max-width: 320px;
     background-color: #fff;
     padding: 60px 75px; }
@@ -460,7 +489,7 @@ img {
       .main-content-wrapper .header-area .nav-close:hover {
         background-color: #131212; }
     .main-content-wrapper .header-area .logo {
-      margin-bottom: 100px;
+      margin-bottom: 20px;
       display: block; }
     .main-content-wrapper .header-area .amado-nav li a {
       font-size: 14px;

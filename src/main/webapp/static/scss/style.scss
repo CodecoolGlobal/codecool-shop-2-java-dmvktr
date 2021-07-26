@@ -489,12 +489,12 @@ img {
             @include trans-duration(500ms);
             @include flex(0 0 320px);
             width: 320px;
+            height: 400px;
             max-width: 320px;
             position: fixed;
             z-index: 4000;
             top: 0;
             left: -350px;
-            height: 100%;
             overflow-x: hidden;
             overflow-y: scroll;
             display: block;
