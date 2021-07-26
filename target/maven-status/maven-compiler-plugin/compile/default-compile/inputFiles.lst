@@ -1,0 +1,15 @@
+/home/viktor/Documents/Codecool/OOP/codecool-shop-1-java-dmvktr/src/main/java/com/codecool/shop/dao/implementation/ProductDaoMem.java
+/home/viktor/Documents/Codecool/OOP/codecool-shop-1-java-dmvktr/src/main/java/com/codecool/shop/model/ProductCategory.java
+/home/viktor/Documents/Codecool/OOP/codecool-shop-1-java-dmvktr/src/main/java/com/codecool/shop/config/ThymeleafConfig.java
+/home/viktor/Documents/Codecool/OOP/codecool-shop-1-java-dmvktr/src/main/java/com/codecool/shop/dao/ProductCategoryDao.java
+/home/viktor/Documents/Codecool/OOP/codecool-shop-1-java-dmvktr/src/main/java/com/codecool/shop/dao/implementation/SupplierDaoMem.java
+/home/viktor/Documents/Codecool/OOP/codecool-shop-1-java-dmvktr/src/main/java/com/codecool/shop/config/TemplateEngineUtil.java
+/home/viktor/Documents/Codecool/OOP/codecool-shop-1-java-dmvktr/src/main/java/com/codecool/shop/model/Product.java
+/home/viktor/Documents/Codecool/OOP/codecool-shop-1-java-dmvktr/src/main/java/com/codecool/shop/dao/ProductDao.java
+/home/viktor/Documents/Codecool/OOP/codecool-shop-1-java-dmvktr/src/main/java/com/codecool/shop/service/ProductService.java
+/home/viktor/Documents/Codecool/OOP/codecool-shop-1-java-dmvktr/src/main/java/com/codecool/shop/dao/SupplierDao.java
+/home/viktor/Documents/Codecool/OOP/codecool-shop-1-java-dmvktr/src/main/java/com/codecool/shop/controller/ProductController.java
+/home/viktor/Documents/Codecool/OOP/codecool-shop-1-java-dmvktr/src/main/java/com/codecool/shop/config/Initializer.java
+/home/viktor/Documents/Codecool/OOP/codecool-shop-1-java-dmvktr/src/main/java/com/codecool/shop/model/BaseModel.java
+/home/viktor/Documents/Codecool/OOP/codecool-shop-1-java-dmvktr/src/main/java/com/codecool/shop/dao/implementation/ProductCategoryDaoMem.java
+/home/viktor/Documents/Codecool/OOP/codecool-shop-1-java-dmvktr/src/main/java/com/codecool/shop/model/Supplier.java
