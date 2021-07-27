@@ -98,7 +98,7 @@
                         <!--  Catagories  -->
                         <div class="catagories-menu">
                             <ul>
-                                <li  th:each="cat,iterStat : ${categories}" th:attr="data-category-id=${cat.id}" class="active">
+                                <li  th:each="cat,iterStat : ${categories}" th:attr="data-category-id=${cat.id}" th:classappend="${cat.getName()=='T-Shirt' ? 'active' : ''}">
                                     <a href="#" th:text="${cat.name}">Cat</a>
                                 </li>
                             </ul>

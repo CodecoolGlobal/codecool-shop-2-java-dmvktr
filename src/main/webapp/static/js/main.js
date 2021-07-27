@@ -4,6 +4,7 @@ const page = {
     categoryEndpointURL: "/getProductsByCategory",
     supplierEndpointURL: "/getProductsBySuppliers",
     baseImagePath: "/static/img/product-img/",
+    currentlyActiveCategory: null,
 
     init: function (){
         this.initCategoryMenuEventListeners();
@@ -13,11 +14,21 @@ const page = {
     initCategoryMenuEventListeners: function (){
         const categories = document.querySelector(".catagories-menu");
         let menuOptions = categories.querySelectorAll('li');
+        this.assignActiveCategory(menuOptions);
 
-        menuOptions.forEach(o => o.addEventListener('click', ()=>{
-            const URL = `${this.categoryEndpointURL}?id=${o.dataset.categoryId}`;
+        menuOptions.forEach(evt => evt.addEventListener('click', ()=>{
+            const URL = `${this.categoryEndpointURL}?id=${evt.dataset.categoryId}`;
             dataHandler.fetchData(URL, this.rebuildProducts);
+            this.updateActiveCategory(evt);
         }))
+    },
+
+    assignActiveCategory: function (menuOptions) {
+        for (const category of menuOptions) {
+            if (category.classList.contains('active')) {
+                page.currentlyActiveCategory = category;
+            }
+        }
     },
 
     initSupplierMenuEventListeners: function (){
@@ -27,23 +38,54 @@ const page = {
         supplierInputs.forEach(o => o.addEventListener('click', ()=>{
             let URL = `${this.supplierEndpointURL}?`;
             for (const input of supplierInputs) {
-                if (input.checked) {
-                    URL += `${input.id}=x&`;
+                if (this.isCheckBoxTicked(input)) {
+                    URL = this.appendActiveCheckBoxIdValueToQueryString(URL, input);
                 }
             }
-            URL = URL.slice(0, -1);
+            URL = page.trimEndOfURLString(URL);
             dataHandler.fetchData(URL, this.rebuildProducts);
         }))
     },
 
-    rebuildProducts: function (products){
+    isCheckBoxTicked: function (box){
+        return box.checked;
+    },
+
+    appendActiveCheckBoxIdValueToQueryString: function (URL, checkBox){
+        URL += `${checkBox.id}=x&`;
+        return URL;
+    },
+
+    trimEndOfURLString: function (URL) {
+        return URL.slice(0, -1);
+    },
+
+    updateActiveCategory: function (eventTarget){
+       page.currentlyActiveCategory.classList.toggle('active');
+       eventTarget.classList.toggle('active');
+       page.currentlyActiveCategory = eventTarget;
+    },
+
+    rebuildProducts: function (products) {
+        console.log(products);
         const container = document.querySelector('#product-container');
         container.innerHTML = "";
+        if (products == null) {
+            page.displayNoProductFoundError(container);
+        } else {
+                for (const product of products) {
+                    page.rebuildSingleProduct(container, product);
+                }
+            }
+        },
 
-        for (const product of products) {
-            console.log(product);
-            page.rebuildSingleProduct(container, product);
-        }
+    displayNoProductFoundError: function (container){
+        container.insertAdjacentHTML('beforeend',
+            `<div class="no-product-error-container">
+                    <div class="error-img">
+                        <img src="/static/img/error-img/error_no_product.jpg">
+                    </div>
+                </div>`)
     },
 
     rebuildSingleProduct: function (container, product){
