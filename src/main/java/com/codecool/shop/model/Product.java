@@ -1,14 +1,15 @@
 package com.codecool.shop.model;
 
+import java.io.Serializable;
 import java.net.URL;
 import java.util.Currency;
 
-public class Product extends BaseModel {
+public class Product extends BaseModel implements Serializable {
 
     private float defaultPrice;
     private Currency defaultCurrency;
-    private ProductCategory productCategory;
-    private Supplier supplier;
+    private transient ProductCategory productCategory;
+    private transient Supplier supplier;
     private String imagePath;
     private String hoverImagePath;
     protected static final String baseImagePath = "/static/img/product-img/";
