@@ -9,6 +9,7 @@ const page = {
     init: function (){
         this.initCategoryMenuEventListeners();
         this.initSupplierMenuEventListeners();
+        this.initShoppingCartListeners();
     },
 
     initCategoryMenuEventListeners: function (){
@@ -121,7 +122,26 @@ const page = {
             </div>
         </div>`
         )
-    }
+    },
+
+    initShoppingCartListeners: function (){
+        const carts = document.querySelectorAll('.product-cart');
+
+        carts.forEach(cart => cart.addEventListener('click', ()=>{
+            this.startShoppingCartAnimation(cart);
+            this.cleanUpAfterAnimation(cart);
+        }))
+    },
+
+    startShoppingCartAnimation: function (cart){
+        cart.classList.add('activate-cart-animation');
+    },
+
+    cleanUpAfterAnimation: function (cart){
+        setInterval(()=>{
+            cart.classList.remove('activate-cart-animation');
+        }, 3000);
+    },
 }
 
 page.init();
