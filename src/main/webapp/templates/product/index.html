@@ -103,9 +103,9 @@
                 <!--  Catagories  -->
                 <div class="catagories-menu">
                     <ul>
-                        <li class="active"><a href="#">Chairs</a></li>
-                        <li><a href="#">Beds</a></li>
-                        <li><a href="#">Accessories</a></li>
+                        <li  th:each="cat,iterStat : ${categories}" class="active">
+                            <a href="#" th:text="${cat.name}">Cat</a>
+                        </li>
                     </ul>
                 </div>
             </div>
