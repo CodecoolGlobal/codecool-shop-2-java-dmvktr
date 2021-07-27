@@ -33,7 +33,7 @@
   margin: 0;
   padding: 0; }
 
-#shopping-cart{
+.activate-cart-animation{
   animation: cart-active 2s ease;
 }
 
@@ -76,13 +76,13 @@
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
   margin-bottom: 50px;
-  animation: banner-cover-hover 10s ease-in-out infinite;
+  animation: banner-cover-hover 13s ease-in-out infinite;
 }
 
 @keyframes banner-cover-hover {
-  00% {background-image: url("/static/img/banner-img/banner-2.png"); /* The image used */ }
-  50% {background-image: url("/static/img/banner-img/banner-1.png"); /* The image used */ }
-  100% {background-image: url("/static/img/banner-img/banner-2.png"); /* The image used */ }
+  0% {background-image: url("/static/img/banner-img/banner-1.png");}
+  50% {background-image: url("/static/img/banner-img/banner-2.png");}
+  100% {background-image: url("/static/img/banner-img/banner-1.png");}
 }
 
 .banner-slides{
