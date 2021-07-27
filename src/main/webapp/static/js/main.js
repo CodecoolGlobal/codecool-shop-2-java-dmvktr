@@ -4,6 +4,7 @@ const page = {
     categoryEndpointURL: "/getProductsByCategory",
     supplierEndpointURL: "/getProductsBySuppliers",
     baseImagePath: "/static/img/product-img/",
+    currentlyActiveCategory: null,
 
     init: function (){
         this.initCategoryMenuEventListeners();
@@ -13,11 +14,21 @@ const page = {
     initCategoryMenuEventListeners: function (){
         const categories = document.querySelector(".catagories-menu");
         let menuOptions = categories.querySelectorAll('li');
+        this.assignActiveCategory(menuOptions);
 
-        menuOptions.forEach(o => o.addEventListener('click', ()=>{
-            const URL = `${this.categoryEndpointURL}?id=${o.dataset.categoryId}`;
+        menuOptions.forEach(evt => evt.addEventListener('click', ()=>{
+            const URL = `${this.categoryEndpointURL}?id=${evt.dataset.categoryId}`;
             dataHandler.fetchData(URL, this.rebuildProducts);
+            this.updateActiveCategory(evt);
         }))
+    },
+
+    assignActiveCategory: function (menuOptions) {
+        for (let category of menuOptions) {
+            if (category.classList.contains('active')) {
+                page.currentlyActiveCategory = category;
+            }
+        }
     },
 
     initSupplierMenuEventListeners: function (){
@@ -34,6 +45,12 @@ const page = {
             URL = URL.slice(0, -1);
             dataHandler.fetchData(URL, this.rebuildProducts);
         }))
+    },
+
+    updateActiveCategory: function (eventTarget){
+       page.currentlyActiveCategory.classList.toggle('active');
+       eventTarget.classList.toggle('active');
+       page.currentlyActiveCategory = eventTarget;
     },
 
     rebuildProducts: function (products){
