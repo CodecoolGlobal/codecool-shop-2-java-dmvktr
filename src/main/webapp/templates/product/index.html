@@ -40,6 +40,17 @@
     </div>
     <!-- Search Wrapper Area End -->
 
+    <div class="banner-container">
+<!--        <div class="banner-slides">-->
+<!--            <input type="radio">-->
+<!--            <input type="radio">-->
+<!--            <input type="radio">-->
+<!--            <div><img src="/static/img/banner-img/banner1.jpg" alt=""></div>-->
+<!--            <div><img src="/static/img/banner-img/banner2.jpg" alt=""></div>-->
+<!--            <div><img src="/static/img/banner-img/banner3.jpg" alt=""></div>-->
+<!--        </div>-->
+    </div>
+
     <!-- ##### Main Content Wrapper Start ##### -->
     <div class="main-content-wrapper d-flex clearfix">
 
@@ -79,17 +90,8 @@
                 </div>
             </header>
             <!-- Header Area End -->
-            <div class="banner-container">
-                <div class="banner-slides">
-                    <input type="radio">
-                    <input type="radio">
-                    <input type="radio">
-                    <div><img src="/static/img/banner-img/banner1.jpg" alt=""></div>
-                    <div><img src="/static/img/banner-img/banner2.jpg" alt=""></div>
-                    <div><img src="/static/img/banner-img/banner3.jpg" alt=""></div>
-                </div>
-            </div>
         </div>
+
 
         <div class="shop_sidebar_area">
 
@@ -199,9 +201,9 @@
                         <div class="single-product-wrapper">
                             <!-- Product Image -->
                             <div class="product-img">
-                                <img src="/static/img/product-img/product1.jpg" alt="">
+                                <img th:src="@{${prod.baseImagePath + prod.imagePath}}" alt="">
                                 <!-- Hover Thumb -->
-                                <img class="hover-img" src="/static/img/product-img/product2.jpg" alt="">
+                                <img class="hover-img" th:src="@{${prod.baseImagePath + prod.hoverImagePath}}" alt="">
                             </div>
 
                             <!-- Product Description -->
@@ -209,7 +211,7 @@
                                 <!-- Product Meta Data -->
                                 <div class="product-meta-data">
                                     <div class="line"></div>
-                                    <p class="lead product-price" th:text="${prod.getPrice()}">100 USD</p>
+                                    <p class="lead product-price" th:text="${prod.price}">100 USD</p>
                                     <a href="product-details.html">
                                         <h4 class="card-title" th:text="${prod.name}">Product name</h4>
                                     </a>

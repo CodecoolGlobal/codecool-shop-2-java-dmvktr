@@ -1,5 +1,6 @@
 package com.codecool.shop.model;
 
+import java.net.URL;
 import java.util.Currency;
 
 public class Product extends BaseModel {
@@ -8,13 +9,18 @@ public class Product extends BaseModel {
     private Currency defaultCurrency;
     private ProductCategory productCategory;
     private Supplier supplier;
+    private String imagePath;
+    private String hoverImagePath;
+    protected static final String baseImagePath = "/static/img/product-img/";
 
 
-    public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier) {
+    public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier, String imagePath, String hoverImagePath) {
         super(name, description);
         this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
         this.setProductCategory(productCategory);
+        this.setImagePath(imagePath);
+        this.setHoverImagePath(hoverImagePath);
     }
 
     public float getDefaultPrice() {
@@ -42,8 +48,28 @@ public class Product extends BaseModel {
         this.defaultCurrency = Currency.getInstance(currency);
     }
 
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
+    }
+
+    public void setHoverImagePath(String hoverImagePath) {
+        this.hoverImagePath = hoverImagePath;
+    }
+
     public ProductCategory getProductCategory() {
         return productCategory;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public String getHoverImagePath() {
+        return hoverImagePath;
+    }
+
+    public static String getBaseImagePath() {
+        return baseImagePath;
     }
 
     public void setProductCategory(ProductCategory productCategory) {
