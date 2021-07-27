@@ -66,23 +66,35 @@
   display: inline-flex;
 }
 
-.banner-container{
+.banner-container {
   /*overflow: hidden;*/
   height: 330px;
   width: 100vw;
-  background-image: url("/static/img/banner-img/banner-1.png"); /* The image used */
+  background-image: url("/static/img/banner-img/banner-2.png"); /* The image used */
   background-color: #b53535; /* Used if the image is unavailable */
   background-position: center; /* Center the image */
   background-repeat: no-repeat; /* Do not repeat the image */
   background-size: cover; /* Resize the background image to cover the entire container */
   margin-bottom: 50px;
-  animation: banner-cover-hover 13s ease-in-out infinite;
+  animation: 15s ease-in 2s infinite running banner-cover-hover;
+}
+
+.box-shadow {
+  box-shadow: 0px 0px 20px 7px #8d8d8d;
 }
 
 @keyframes banner-cover-hover {
-  0% {background-image: url("/static/img/banner-img/banner-1.png");}
-  50% {background-image: url("/static/img/banner-img/banner-2.png");}
-  100% {background-image: url("/static/img/banner-img/banner-1.png");}
+  00%  { background-image: url("/static/img/banner-img/banner-2.png"); }
+  10%  { background-image: url("/static/img/banner-img/banner-2.png"); }
+  20%  { background-image: url("/static/img/banner-img/banner-4.png"); }
+  30%  { background-image: url("/static/img/banner-img/banner-4.png"); }
+  40%  { background-image: url("/static/img/banner-img/banner-4.png"); }
+  50%  { background-image: url("/static/img/banner-img/banner-1.png"); }
+  60%  { background-image: url("/static/img/banner-img/banner-1.png"); }
+  70%  { background-image: url("/static/img/banner-img/banner-1.png"); }
+  80%  { background-image: url("/static/img/banner-img/banner-3.png"); }
+  90%  { background-image: url("/static/img/banner-img/banner-3.png"); }
+  100% { background-image: url("/static/img/banner-img/banner-3.png"); }
 }
 
 .banner-slides{
@@ -395,10 +407,10 @@ img {
     color: #ffffff;
     background-color: #131212; }
 
-.logo {
-  width: 120px;
-  height: 120px;
-}
+/*.logo {*/
+/*  width: 120px;*/
+/*  height: 120px;*/
+/*}*/
 /* :: 4.0 Search Wrapper Area CSS */
 .search-wrapper {
   position: fixed;
@@ -1477,7 +1489,7 @@ img {
 
 
 .shop_sidebar_area_new {
-  background-color: #d7c4e5;
+  background-color: #e9e9e9;
   padding: 20px;
 }
 /* ##### The End ##### */
