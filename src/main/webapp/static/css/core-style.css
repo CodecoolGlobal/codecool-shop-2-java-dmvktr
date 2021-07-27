@@ -63,8 +63,22 @@
 }
 
 .banner-container{
-  overflow: hidden;
+  /*overflow: hidden;*/
   height: 330px;
+  width: 100vw;
+  background-image: url("/static/img/banner-img/banner1.jpg"); /* The image used */
+  background-color: #b53535; /* Used if the image is unavailable */
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover; /* Resize the background image to cover the entire container */
+  margin-bottom: 50px;
+  animation: banner-cover-hover 10s ease-in-out infinite;
+}
+
+@keyframes banner-cover-hover {
+  00% {background-image: url("/static/img/banner-img/banner1.jpg"); /* The image used */ }
+  50% {background-image: url("/static/img/banner-img/banner2.jpg"); /* The image used */ }
+  100% {background-image: url("/static/img/banner-img/banner3.jpg"); /* The image used */ }
 }
 
 .banner-slides{
