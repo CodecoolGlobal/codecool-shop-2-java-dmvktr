@@ -467,17 +467,17 @@ img {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 320px;
     flex: 0 0 320px;
-    width: 320px;
+    width: 400px;
     height: 400px;
-    max-width: 320px;
+    max-width: 400px;
     background-color: #fff;
-    padding: 60px 75px; }
+    padding: 50px 50px; }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .main-content-wrapper .header-area {
         -webkit-box-flex: 0;
         -ms-flex: 0 0 280px;
         flex: 0 0 280px;
-        width: 280px;
+        width: 350px;
         max-width: 280px;
         padding: 50px; } }
     @media only screen and (max-width: 767px) {
@@ -1469,6 +1469,12 @@ img {
     border-radius: 0;
     background-color: #f5f7fa; }
 
+
+
+.shop_sidebar_area_new {
+  background-color: #d7c4e5;
+  padding: 20px;
+}
 /* ##### The End ##### */
 
 /*# sourceMappingURL=core-style.css.map */

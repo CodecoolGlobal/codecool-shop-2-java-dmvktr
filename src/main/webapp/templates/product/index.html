@@ -8,7 +8,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title  -->
-    <title>Amado - Furniture Ecommerce Template | Shop</title>
+    <title>CoolCode - Get your Geek on with these Tech Meme Tees and Laptop Stickers</title>
 
     <!-- Favicon  -->
     <link rel="icon" href="/static/img/core-img/favicon.ico">
@@ -88,66 +88,71 @@
                 <div class="cart-fav-search mb-100">
                     <a href="cart.html" class="cart-nav"><img id="shopping-cart" src="/static/img/core-img/cart.png" alt=""> Cart <span>(0)</span></a>
                 </div>
+
+                <div class="shop_sidebar_area_new">
+                    <!-- ##### Single Widget ##### -->
+                    <div class="widget catagory mb-50">
+                        <!-- Widget Title -->
+                        <h6 class="widget-title mb-30">Categories</h6>
+
+                        <!--  Catagories  -->
+                        <div class="catagories-menu">
+                            <ul>
+                                <li  th:each="cat,iterStat : ${categories}" th:attr="data-category-id=${cat.id}" class="active">
+                                    <a href="#" th:text="${cat.name}">Cat</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- ##### Single Widget ##### -->
+                    <div class="widget brands mb-50">
+                        <!-- Widget Title -->
+                        <h6 class="widget-title mb-30">Brands</h6>
+
+                        <div class="widget-desc">
+                            <!-- Single Form Check -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="amado">
+                                <label class="form-check-label" for="amado">Amado</label>
+                            </div>
+                            <!-- Single Form Check -->
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="ikea">
+                                <label class="form-check-label" for="ikea">Ikea</label>
+                            </div>
+                            <!-- Single Form Check -->
+                        </div>
+                    </div>
+
+
+                    <!-- ##### Single Widget ##### -->
+                    <div class="widget price mb-50">
+                        <!-- Widget Title -->
+                        <h6 class="widget-title mb-30">Price</h6>
+
+                        <div class="widget-desc">
+                            <div class="slider-range">
+                                <div data-min="10" data-max="1000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="10" data-value-max="1000" data-label-result="">
+                                    <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                    <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                                </div>
+                                <div class="range-price">$10 - $1000</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </header>
             <!-- Header Area End -->
+
         </div>
 
 
-        <div class="shop_sidebar_area">
-
-            <!-- ##### Single Widget ##### -->
-            <div class="widget catagory mb-50">
-                <!-- Widget Title -->
-                <h6 class="widget-title mb-30">Categories</h6>
-
-                <!--  Catagories  -->
-                <div class="catagories-menu">
-                    <ul>
-                        <li  th:each="cat,iterStat : ${categories}" th:attr="data-category-id=${cat.id}" class="active">
-                            <a href="#" th:text="${cat.name}">Cat</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <!-- ##### Single Widget ##### -->
-            <div class="widget brands mb-50">
-                <!-- Widget Title -->
-                <h6 class="widget-title mb-30">Brands</h6>
-
-                <div class="widget-desc">
-                    <!-- Single Form Check -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="amado">
-                        <label class="form-check-label" for="amado">Amado</label>
-                    </div>
-                    <!-- Single Form Check -->
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="" id="ikea">
-                        <label class="form-check-label" for="ikea">Ikea</label>
-                    </div>
-                    <!-- Single Form Check -->
-                </div>
-            </div>
+<!--        <div class="shop_sidebar_area_new">-->
 
 
-            <!-- ##### Single Widget ##### -->
-            <div class="widget price mb-50">
-                <!-- Widget Title -->
-                <h6 class="widget-title mb-30">Price</h6>
-
-                <div class="widget-desc">
-                    <div class="slider-range">
-                        <div data-min="10" data-max="1000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="10" data-value-max="1000" data-label-result="">
-                            <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
-                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                            <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
-                        </div>
-                        <div class="range-price">$10 - $1000</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<!--        </div>-->
 
         <div class="amado_product_area section-padding-100">
             <div class="container-fluid">
@@ -212,13 +217,6 @@
                                 <div class="product-meta-data">
                                     <div class="line"></div>
                                     <p class="lead product-price" th:text="${prod.price}">100 USD</p>
-                                    <a href="product-details.html">
-                                        <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                                    </a>
-                                    <p class="card-text" th:text="${prod.description}">Product description... </p>
-                                </div>
-                                <!-- Ratings & Cart -->
-                                <div class="ratings-cart text-right">
                                     <div class="ratings">
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                         <i class="fa fa-star" aria-hidden="true"></i>
@@ -226,8 +224,15 @@
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                         <i class="fa fa-star" aria-hidden="true"></i>
                                     </div>
+                                    <a href="product-details.html">
+                                        <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                                    </a>
+                                    <p class="card-text" th:text="${prod.description}">Product description... </p>
+                                </div>
+                                <!-- Ratings & Cart -->
+                                <div class="ratings-cart text-right" style="min-width: 50px">
                                     <div class="cart">
-                                        <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="/static/img/core-img/cart.png" alt=""></a>
+                                        <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="/static/img/core-img/cart-purple.png" alt=""></a>
                                     </div>
                                 </div>
                             </div>
@@ -261,8 +266,8 @@
                 <!-- Newsletter Text -->
                 <div class="col-12 col-lg-6 col-xl-7">
                     <div class="newsletter-text mb-100">
-                        <h2>Subscribe for a <span>25% Discount</span></h2>
-                        <p>Nulla ac convallis lorem, eget euismod nisl. Donec in libero sit amet mi vulputate consectetur. Donec auctor interdum purus, ac finibus massa bibendum nec.</p>
+                        <h2>Subscribe for a <span>25% Discount</span> on your first purchase.</h2>
+                        <p>Cows are common animals in the Overworld who offer a reliable source of leather, meat and milk. They're usually found in the wild, but can also be found in villages near butchers' houses and in animal pens.</p>
                     </div>
                 </div>
                 <!-- Newsletter Form -->
@@ -287,13 +292,11 @@
                 <div class="col-12 col-lg-4">
                     <div class="single_widget_area">
                         <!-- Logo -->
-                        <div class="footer-logo mr-50">
-                            <a href="index2.html"><img src="/static/img/core-img/logo2.png" alt=""></a>
-                        </div>
+<!--                        <div class="footer-logo mr-50">-->
+<!--                            <a href="index2.html"><img src="/static/img/core-img/logo2.png" alt=""></a>-->
+<!--                        </div>-->
                         <!-- Copywrite Text -->
-                        <p class="copywrite"><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a> & Re-distributed by <a href="https://themewagon.com/" target="_blank">Themewagon</a>
-<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        <p class="copywrite">Copyright &copy;<script>document.write(new Date().getFullYear());</script> Viktor, Norbi & Roky for CoolCode Plc.</p>
                     </div>
                 </div>
                 <!-- Single Widget Area -->
@@ -305,15 +308,15 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
                                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#footerNavContent" aria-controls="footerNavContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
                                 <div class="collapse navbar-collapse" id="footerNavContent">
                                     <ul class="navbar-nav ml-auto">
-                                        <li class="nav-item active">
-                                            <a class="nav-link" href="index2.html">Home</a>
-                                        </li>
+<!--                                        <li class="nav-item active">-->
+<!--                                            <a class="nav-link" href="index2.html">Home</a>-->
+<!--                                        </li>-->
                                         <li class="nav-item">
                                             <a class="nav-link" href="index.html">Shop</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" href="product-details.html">Product</a>
-                                        </li>
+<!--                                        <li class="nav-item">-->
+<!--                                            <a class="nav-link" href="product-details.html">Product</a>-->
+<!--                                        </li>-->
                                         <li class="nav-item">
                                             <a class="nav-link" href="cart.html">Cart</a>
                                         </li>
