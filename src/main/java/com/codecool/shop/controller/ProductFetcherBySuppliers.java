@@ -32,19 +32,18 @@ public class ProductFetcherBySuppliers extends HttpServlet {
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
         ProductService productService = new ProductService(productDataStore,productCategoryDataStore, supplierDataStore);
 
-        //TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        //WebContext context = new WebContext(req, resp, req.getServletContext());
-
         Enumeration<String> supplierIDs = req.getParameterNames();
-        List<Integer> ids = new ArrayList<>();
-
-        while (supplierIDs.hasMoreElements()) {
-            String id = supplierIDs.nextElement();
-            ids.add(Integer.valueOf(id));
+        List<Product> products;
+        if (!supplierIDs.hasMoreElements()) {
+            products = null;
+        } else {
+            List<Integer> ids = new ArrayList<>();
+            while (supplierIDs.hasMoreElements()) {
+                String id = supplierIDs.nextElement();
+                ids.add(Integer.valueOf(id));
+            }
+            products = productService.getProductsForSuppliers(ids);
         }
-
-
-        List<Product> products = productService.getProductsForSuppliers(ids);
 
         Gson gson = new Gson();
         String jsonResponse = gson.toJson(products);

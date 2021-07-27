@@ -2,10 +2,12 @@ import {dataHandler} from "./data-handler.js";
 
 const page = {
     categoryEndpointURL: "/getProductsByCategory",
+    supplierEndpointURL: "/getProductsBySuppliers",
     baseImagePath: "/static/img/product-img/",
 
     init: function (){
         this.initCategoryMenuEventListeners();
+        this.initSupplierMenuEventListeners();
     },
 
     initCategoryMenuEventListeners: function (){
@@ -14,6 +16,22 @@ const page = {
 
         menuOptions.forEach(o => o.addEventListener('click', ()=>{
             const URL = `${this.categoryEndpointURL}?id=${o.dataset.categoryId}`;
+            dataHandler.fetchData(URL, this.rebuildProducts);
+        }))
+    },
+
+    initSupplierMenuEventListeners: function (){
+        const supplierCheckbox = document.querySelector("#supplier-checkbox");
+        let supplierInputs = supplierCheckbox.querySelectorAll('input');
+
+        supplierInputs.forEach(o => o.addEventListener('click', ()=>{
+            let URL = `${this.supplierEndpointURL}?`;
+            for (const input of supplierInputs) {
+                if (input.checked) {
+                    URL += `${input.id}=x&`;
+                }
+            }
+            URL = URL.slice(0, -1);
             dataHandler.fetchData(URL, this.rebuildProducts);
         }))
     },

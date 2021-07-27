@@ -110,7 +110,7 @@
                         <!-- Widget Title -->
                         <h6 class="widget-title mb-30">Supplier</h6>
 
-                        <div class="widget-desc">
+                        <div id="supplier-checkbox" class="widget-desc">
                             <!-- Single Form Check -->
                             <div th:each="sup,iterStat : ${suppliers}" class="form-check">
                                 <input class="form-check-input" type="checkbox" th:id="${sup.id}" checked>
