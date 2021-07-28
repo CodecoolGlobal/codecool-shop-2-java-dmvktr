@@ -91,15 +91,15 @@ public class Product extends BaseModel implements Serializable {
     public String toString() {
         return String.format("id: %1$d, " +
                         "name: %2$s, " +
-                        "defaultPrice: %3$f, " +
-                        "defaultCurrency: %4$s, " +
-                        "productCategory: %5$s, " +
-                        "supplier: %6$s",
+                        "defaultPrice: %3$f, ",
+//                        "defaultCurrency: %4$s, " +
+//                        "productCategory: %5$s, " +
+//                        "supplier: %6$s",
                 this.id,
                 this.name,
-                this.defaultPrice,
-                this.defaultCurrency.toString(),
-                this.productCategory.getName(),
-                this.supplier.getName());
+                this.defaultPrice);
+//                this.defaultCurrency.toString(),
+//                this.productCategory.getName(),
+//                this.supplier.getName());
     }
 }
