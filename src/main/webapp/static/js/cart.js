@@ -7,6 +7,7 @@ const cart = {
 
     init: function (){
         this.initCartEventListeners();
+        this.displayCartTotalSummary();
     },
 
     initCartEventListeners: function (){
@@ -14,11 +15,19 @@ const cart = {
 
         carts.forEach(cart => cart.addEventListener('click', ()=>{
             const URL = `${this.updateOrderBaseURL}?user_id=${this.userId}&product_id=${cart.dataset.productId}&quantity_diff=1`;
-            dataHandler.fetchData(URL, this.testing);
+            dataHandler.fetchData(URL, this.logResponse);
         }))
     },
 
-    testing: function (data){
+    displayCartTotalSummary: function (){
+        const subtotalValue = document.querySelector('.subtotal').dataset.subtotal;
+        const cartSummarySubtotalSpan = document.querySelector('#cart-summary-subtotal');
+        const cartSummaryTotalSpan = document.querySelector('#cart-summary-total');
+        cartSummarySubtotalSpan.innerHTML = subtotalValue;
+        cartSummaryTotalSpan.innerHTML = subtotalValue;
+    },
+
+    logResponse: function (data){
         console.log(data);
     },
 }
