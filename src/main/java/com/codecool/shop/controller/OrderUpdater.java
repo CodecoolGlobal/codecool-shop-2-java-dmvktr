@@ -18,7 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"/update-order"})
 public class OrderUpdater extends HttpServlet {
@@ -33,6 +35,15 @@ public class OrderUpdater extends HttpServlet {
         System.out.println(userID + "-" + productID + "-" + quantity);
 
         productService.getOrderDao().handleOrderUpdate(userID, productID, quantity);
+        Gson gson = new Gson();
+        Map<String, String> responseMap = new HashMap<>();
+        responseMap.put("response", "ok");
+        String jsonResponse = gson.toJson(responseMap);
+        resp.setContentType("application/json");
+        resp.setCharacterEncoding("UTF-8");
+        PrintWriter out = resp.getWriter();
+        out.write(jsonResponse);
+        out.flush();
         System.out.println(productService.getOrderDao().getBy(userID).get());
     }
 }
