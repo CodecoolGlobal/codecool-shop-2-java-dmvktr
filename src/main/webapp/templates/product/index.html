@@ -40,15 +40,7 @@
     </div>
     <!-- Search Wrapper Area End -->
 
-    <div class="banner-container">
-<!--        <div class="banner-slides">-->
-<!--            <input type="radio">-->
-<!--            <input type="radio">-->
-<!--            <input type="radio">-->
-<!--            <div><img src="/static/img/banner-img/banner1.jpg" alt=""></div>-->
-<!--            <div><img src="/static/img/banner-img/banner2.jpg" alt=""></div>-->
-<!--            <div><img src="/static/img/banner-img/banner3.jpg" alt=""></div>-->
-<!--        </div>-->
+    <div class="banner-container box-shadow">
     </div>
 
     <!-- ##### Main Content Wrapper Start ##### -->
@@ -85,7 +77,7 @@
                     </ul>
                 </nav>
                 <!-- Cart Menu -->
-                <div class="cart-fav-search mb-100">
+                <div class="cart-fav-search mb-30">
                     <a href="cart.html" class="cart-nav"><img id="shopping-cart" src="/static/img/core-img/cart.png" alt=""> Cart <span>(0)</span></a>
                 </div>
 
@@ -138,6 +130,14 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Button Group -->
+                <div class="amado-btn-group mt-30 mb-100">
+                    <a href="#" class="btn amado-btn mb-15">CC Discount</a>
+                    <a href="#" class="btn amado-btn active">New this week</a>
+                </div>
+
+
             </header>
             <!-- Header Area End -->
 
@@ -152,50 +152,49 @@
         <div class="amado_product_area section-padding-100">
             <div class="container-fluid">
 
-                <div class="row">
-                    <div class="card">
-                        <strong th:text="${category.name}">Category Title</strong>
-                    </div>
-                    <div class="col-12">
-                        <div class="product-topbar d-xl-flex align-items-end justify-content-between">
-                            <!-- Total Products -->
-                            <div class="total-products">
-                                <p>Showing 1-8 0f 25</p>
-                                <div class="view d-flex">
-                                    <a href="#"><i class="fa fa-th-large" aria-hidden="true"></i></a>
-                                    <a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>
-                                </div>
-                            </div>
-                            <!-- Sorting -->
-                            <div class="product-sorting d-flex">
-                                <div class="sort-by-date d-flex align-items-center mr-15">
-                                    <p>Sort by</p>
-                                    <form action="#" method="get">
-                                        <select name="select" id="sortBydate">
-                                            <option value="value">Date</option>
-                                            <option value="value">Newest</option>
-                                            <option value="value">Popular</option>
-                                        </select>
-                                    </form>
-                                </div>
-                                <div class="view-product d-flex align-items-center">
-                                    <p>View</p>
-                                    <form action="#" method="get">
-                                        <select name="select" id="viewProduct">
-                                            <option value="value">12</option>
-                                            <option value="value">24</option>
-                                            <option value="value">48</option>
-                                            <option value="value">96</option>
-                                        </select>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<!--                <div class="row">-->
+<!--                    <div class="card">-->
+<!--                        <strong th:text="${category.name}">Category Title</strong>-->
+<!--                    </div>-->
+<!--                    <div class="col-12">-->
+<!--                        <div class="product-topbar d-xl-flex align-items-end justify-content-between">-->
+<!--                             Total Products -->
+<!--                            <div class="total-products">-->
+<!--                                <p>Showing 1-8 0f 25</p>-->
+<!--                                <div class="view d-flex">-->
+<!--                                    <a href="#"><i class="fa fa-th-large" aria-hidden="true"></i></a>-->
+<!--                                    <a href="#"><i class="fa fa-bars" aria-hidden="true"></i></a>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                             Sorting -->
+<!--                            <div class="product-sorting d-flex">-->
+<!--                                <div class="sort-by-date d-flex align-items-center mr-15">-->
+<!--                                    <p>Sort by</p>-->
+<!--                                    <form action="#" method="get">-->
+<!--                                        <select name="select" id="sortBydate">-->
+<!--                                            <option value="value">Date</option>-->
+<!--                                            <option value="value">Newest</option>-->
+<!--                                            <option value="value">Popular</option>-->
+<!--                                        </select>-->
+<!--                                    </form>-->
+<!--                                </div>-->
+<!--                                <div class="view-product d-flex align-items-center">-->
+<!--                                    <p>View</p>-->
+<!--                                    <form action="#" method="get">-->
+<!--                                        <select name="select" id="viewProduct">-->
+<!--                                            <option value="value">12</option>-->
+<!--                                            <option value="value">24</option>-->
+<!--                                            <option value="value">48</option>-->
+<!--                                            <option value="value">96</option>-->
+<!--                                        </select>-->
+<!--                                    </form>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
 
                 <div id="product-container" class="row">
-
                     <!-- Single Product Area -->
                     <div class="col-12 col-sm-6 col-md-12 col-xl-6" th:each="prod,iterStat : ${products}">
                         <div class="single-product-wrapper">
@@ -207,7 +206,7 @@
                             </div>
 
                             <!-- Product Description -->
-                            <div class="product-description d-flex align-items-center justify-content-between">
+                            <div class="product-description d-flex align-items-top justify-content-between">
                                 <!-- Product Meta Data -->
                                 <div class="product-meta-data">
                                     <div class="line"></div>
@@ -225,7 +224,7 @@
                                     <p class="card-text" th:text="${prod.description}">Product description... </p>
                                 </div>
                                 <!-- Ratings & Cart -->
-                                <div class="ratings-cart text-right" style="min-width: 50px">
+                                <div class="ratings-cart text-right" style="min-width: 30px">
                                     <div class="cart">
                                         <a href="#" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img class="product-cart" src="/static/img/core-img/cart-purple.png" alt=""></a>
                                     </div>
@@ -261,7 +260,7 @@
                 <!-- Newsletter Text -->
                 <div class="col-12 col-lg-6 col-xl-7">
                     <div class="newsletter-text mb-100">
-                        <h2>Subscribe for a <span>25% Discount</span> on your first purchase.</h2>
+                        <h2>Subscribe for a <span>25% Discount</span> on your first purchase if you're a Codecooler this summer.</h2>
                         <p>Cows are common animals in the Overworld who offer a reliable source of leather, meat and milk. They're usually found in the wild, but can also be found in villages near butchers' houses and in animal pens.</p>
                     </div>
                 </div>
@@ -291,7 +290,7 @@
 <!--                            <a href="index2.html"><img src="/static/img/core-img/logo2.png" alt=""></a>-->
 <!--                        </div>-->
                         <!-- Copywrite Text -->
-                        <p class="copywrite">Copyright &copy;<script>document.write(new Date().getFullYear());</script> Viktor, Norbi & Roky for CoolCode Plc.</p>
+                        <p class="copywrite">Copyright &copy; <script>document.write(new Date().getFullYear());</script> Viktor, Norbi & Roky for CoolCode Plc.</p>
                     </div>
                 </div>
                 <!-- Single Widget Area -->
