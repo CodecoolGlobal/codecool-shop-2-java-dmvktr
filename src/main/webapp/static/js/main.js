@@ -90,6 +90,7 @@ const page = {
     },
 
     rebuildSingleProduct: function (container, product){
+        console.log(product)
         container.insertAdjacentHTML('beforeend', `
         <div class="col-12 col-sm-6 col-md-12 col-xl-6">
             <div class="single-product-wrapper">
@@ -100,7 +101,7 @@ const page = {
                 <div class="product-description d-flex align-items-center justify-content-between">
                     <div class="product-meta-data">
                         <div class="line"></div>
-                        <p class="lead product-price">${product['defaultPrice']}</p>
+                        <p class="lead product-price">${product['defaultPrice']} ${product['defaultCurrency']}</p>
                         <div class="ratings">
                             <i class="fa fa-star" aria-hidden="true"></i>
                             <i class="fa fa-star" aria-hidden="true"></i>
