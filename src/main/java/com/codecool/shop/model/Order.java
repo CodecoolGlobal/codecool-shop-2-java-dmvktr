@@ -16,11 +16,15 @@ public class Order {
     private void addProduct(Product product, int quantity) {
         for (LineItem item : items) {
             if (isProductInItem(product, item)) {
-                item.setQuantity(quantity);
+                item.updateQuantity(quantity);
                 return;
             }
         }
         items.add(new LineItem(product, quantity));
+    }
+
+    public void removeItem(LineItem item) {
+        items.remove(item);
     }
 
     private boolean isProductInItem(Product product, LineItem item) {
@@ -41,5 +45,15 @@ public class Order {
 
     public void setOrderID(int orderID) {
         this.orderID = orderID;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (LineItem item : items) {
+            sb.append(item);
+            sb.append("\n");
+        }
+        return sb.toString();
     }
 }

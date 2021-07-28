@@ -2,8 +2,8 @@ package com.codecool.shop.model;
 
 public class LineItem {
 
-    Product product;
-    int quantity;
+    private Product product;
+    private int quantity;
 
     public LineItem(Product product, int quantity) {
         this.product = product;
@@ -14,8 +14,19 @@ public class LineItem {
         return this.product;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public void updateQuantity(int quantityDiff) {
+        quantity += quantityDiff;
     }
 
+    public boolean isQuantityZero() {
+        return quantity == 0;
+    }
+
+    @Override
+    public String toString() {
+        return "LineItem{" +
+                "product=" + product +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
