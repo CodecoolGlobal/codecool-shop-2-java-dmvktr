@@ -33,15 +33,16 @@
   margin: 0;
   padding: 0; }
 
-.activate-cart-animation{
+.activate-cart-animation {
   animation: cart-active 2s ease;
 }
 
 @keyframes cart-active {
-  20%{-webkit-transform: rotate(20deg)}
-  40%{-webkit-transform: rotate(-20deg)}
-  60%{-webkit-transform: rotate(20deg)}
-  80%{-webkit-transform: rotate(-20deg)}
+  0%{content: url("/static/img/core-img/cart-orange.png");}
+  20%{-webkit-transform: rotate(20deg); content: url("/static/img/core-img/cart-orange.png");}
+  40%{-webkit-transform: rotate(-20deg); content: url("/static/img/core-img/cart-orange.png");}
+  60%{-webkit-transform: rotate(20deg); content: url("/static/img/core-img/cart-orange.png");}
+  80%{-webkit-transform: rotate(-20deg); content: url("/static/img/core-img/cart-orange.png");}
 }
 
 .banner-slides >input {
