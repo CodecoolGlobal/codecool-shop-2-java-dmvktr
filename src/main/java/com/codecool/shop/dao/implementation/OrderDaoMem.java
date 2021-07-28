@@ -27,19 +27,18 @@ public class OrderDaoMem implements OrderDao {
         return instance;
     }
 
-    public void handleCartUpdate(int userID, int productID, int quantity) {
+    public void handleOrderUpdate(int userID, int productID, int quantityDiff) {
         Optional<Order> order = getBy(userID);
         if (order.isPresent()) {
-            addProductToOrder(order.get(), productDataStore.find(productID), quantity);
+            updateProductQuantityInOrder(order.get(), productDataStore.find(productID), quantityDiff);
         }
         else {
             Order newOrder = addOrder(userID);
-            addProductToOrder(newOrder, productDataStore.find(productID), quantity);
+            updateProductQuantityInOrder(newOrder, productDataStore.find(productID), quantityDiff);
         }
     }
 
-    @Override
-    public Order addOrder(int userID) {
+    private Order addOrder(int userID) {
         Order order = new Order(userID);
         order.setOrderID(data.size() + 1);
         data.add(order);
@@ -69,16 +68,17 @@ public class OrderDaoMem implements OrderDao {
         return data.stream().filter(order -> order.getUserID() == userID).findFirst();
     }
 
-
-    public void addProductToOrder(Order order, Product product, int quantity) {
+    public void updateProductQuantityInOrder(Order order, Product product, int quantityDiff) {
         for (LineItem item : order.getItems()) {
             if (isProductInItem(product, item)) {
-                item.setQuantity(quantity);
+                item.updateQuantity(quantityDiff);
+                if (item.isQuantityZero()) {
+                    order.removeItem(item);
+                }
                 return;
             }
         }
-        order.getItems().add(new LineItem(product, quantity));
-
+        order.getItems().add(new LineItem(product, quantityDiff));
     }
 
     private boolean isProductInItem(Product product, LineItem item) {

@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface OrderDao {
 
-    Order addOrder(int userID);
+    void handleOrderUpdate(int userID, int productID, int quantity);
     Order find(int orderID);
     void remove(int orderID);
 
@@ -15,7 +15,7 @@ public interface OrderDao {
     Optional<Order> getBy(int userID);
     //List<Product> getBy();
 
-    void addProductToOrder(Order order, Product product, int quantity);
+    void updateProductQuantityInOrder(Order order, Product product, int quantity);
 
 
 }
