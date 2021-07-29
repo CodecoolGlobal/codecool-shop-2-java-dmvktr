@@ -69,7 +69,7 @@ const cart = {
         const productId = lineItem['product']['id'];
         const productImagePath = `${lineItem['product']['baseImagePath']}${lineItem['product']['imagePath']}`;
         const subTotal = lineItem['subTotalPrice'];
-        const unitPrice = `${lineItem['product']['defaultPrice']}${lineItem['product']['defaultCurrency']}`;
+        const unitPrice = `${lineItem['product']['defaultPrice']} ${lineItem['product']['defaultCurrency']}`;
 
         tbody.insertAdjacentHTML('beforeend',
             `<tr>
