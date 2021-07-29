@@ -92,7 +92,7 @@ const page = {
     rebuildSingleProduct: function (container, product){
         console.log(product)
         container.insertAdjacentHTML('beforeend', `
-        <div class="col-12 col-sm-6 col-md-12 col-xl-6">
+        <div class="col-12 col-sm-4 col-md-12 col-xl-4">
             <div class="single-product-wrapper">
                 <div class="product-img">
                     <img src="${this.baseImagePath}${product['imagePath']}" alt="">
