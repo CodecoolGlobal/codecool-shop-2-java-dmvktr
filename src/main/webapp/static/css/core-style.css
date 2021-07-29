@@ -494,30 +494,30 @@ img {
     position: relative;
     z-index: 1;
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 320px;
-    flex: 0 0 320px;
-    width: 350px;
-    height: 350px;
-    max-width: 350px;
+    -ms-flex: 0 0 250px;
+    flex: 0 0 250px;
+    width: 250px;
+    height: 250px;
+    max-width: 250px;
     background-color: #fff;
-    padding: 50px 50px; }
+    padding: 50px 40px 50px 50px; }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .main-content-wrapper .header-area {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 280px;
-        flex: 0 0 280px;
-        width: 350px;
-        max-width: 280px;
+        -ms-flex: 0 0 250px;
+        flex: 0 0 250px;
+        width: 250px;
+        max-width: 250px;
         padding: 50px; } }
     @media only screen and (max-width: 767px) {
       .main-content-wrapper .header-area {
         -webkit-transition-duration: 500ms;
         transition-duration: 500ms;
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 320px;
-        flex: 0 0 320px;
-        width: 320px;
-        max-width: 320px;
+        -ms-flex: 0 0 250px;
+        flex: 0 0 250px;
+        width: 250px;
+        max-width: 250px;
         position: fixed;
         z-index: 4000;
         top: 0;
@@ -666,17 +666,17 @@ img {
     position: relative;
     z-index: 1;
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 calc(95% - 550px);
-    flex: 0 0 calc(95% - 550px);
-    width: calc(95% - 550px);
-    max-width: calc(95% - 550px); }
+    -ms-flex: 0 0 calc(95% - 200px);
+    flex: 0 0 calc(95% - 200px);
+    width: calc(95% - 200px);
+    max-width: calc(95% - 200px); }
     @media only screen and (min-width: 992px) and (max-width: 1199px) {
       .main-content-wrapper .amado_product_area {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 calc(100% - 550px);
-        flex: 0 0 calc(100% - 550px);
-        width: calc(100% - 550px);
-        max-width: calc(100% - 550px); } }
+        -ms-flex: 0 0 calc(100% - 200px);
+        flex: 0 0 calc(100% - 200px);
+        width: calc(100% - 200px);
+        max-width: calc(100% - 200px); } }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .main-content-wrapper .amado_product_area {
         -webkit-box-flex: 0;
@@ -699,24 +699,24 @@ img {
     position: relative;
     z-index: 1;
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 calc(95% - 350px);
-    flex: 0 0 calc(95% - 350px);
-    width: calc(95% - 350);
-    max-width: calc(95% - 350px); }
+    -ms-flex: 0 0 calc(95% - 200px);
+    flex: 0 0 calc(95% - 200px);
+    width: calc(95% - 200);
+    max-width: calc(95% - 200px); }
     @media only screen and (min-width: 992px) and (max-width: 1199px) {
       .main-content-wrapper .cart-table-area {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 calc(100% - 350px);
-        flex: 0 0 calc(100% - 350px);
-        width: calc(100% - 350px);
-        max-width: calc(100% - 350px); } }
+        -ms-flex: 0 0 calc(100% - 200px);
+        flex: 0 0 calc(100% - 200px);
+        width: calc(100% - 200px);
+        max-width: calc(100% - 200px); } }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .main-content-wrapper .cart-table-area {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 calc(100% - 280px);
-        flex: 0 0 calc(100% - 280px);
-        width: calc(100% - 280px);
-        max-width: calc(100% - 280px); } }
+        -ms-flex: 0 0 calc(100% - 200px);
+        flex: 0 0 calc(100% - 200px);
+        width: calc(100% - 200px);
+        max-width: calc(100% - 200px); } }
     @media only screen and (max-width: 767px) {
       .main-content-wrapper .cart-table-area {
         -webkit-box-flex: 0;
@@ -743,10 +743,10 @@ img {
           border-top: none;
           border-bottom: none;
           -webkit-box-flex: 0;
-          -ms-flex: 0 0 25%;
-          flex: 0 0 25%;
-          width: 25%;
-          max-width: 25%;
+          -ms-flex: 0 0 20%;
+          flex: 0 0 20%;
+          width: 20%;
+          max-width: 20%;
           font-size: 12px;
           color: #242424;
           text-transform: capitalize;
@@ -766,10 +766,10 @@ img {
         .main-content-wrapper .cart-table-area table tbody tr td {
           border: none;
           -webkit-box-flex: 0;
-          -ms-flex: 0 0 25%;
-          flex: 0 0 25%;
-          width: 25%;
-          max-width: 25%; }
+          -ms-flex: 0 0 20%;
+          flex: 0 0 20%;
+          width: 20%;
+          max-width: 20%; }
           .main-content-wrapper .cart-table-area table tbody tr td h5 {
             font-size: 16px;
             color: #252525; }
@@ -831,6 +831,7 @@ img {
               text-align: center;
               cursor: pointer;
               color: #242424;
+              margin-right: 10px;
               font-size: 10px; }
               @media only screen and (min-width: 768px) and (max-width: 991px) {
                 .main-content-wrapper .cart-table-area table tbody tr td .qty-btn .quantity .qty-minus {
@@ -1510,6 +1511,7 @@ img {
 header {
   margin-bottom: 100px;
 }
+
 /* ##### The End ##### */
 
 /*# sourceMappingURL=core-style.css.map */

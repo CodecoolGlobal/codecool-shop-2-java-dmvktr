@@ -29,6 +29,9 @@ public class ProductControllerCheckout extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductService productService = ProductServiceFactory.get();
 
+        // todo get user_id
+        Order order = productService.getOrderDao().getBy(1).orElse(null);
+
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
         context.setVariable("user_id", req.getParameter("user_id"));
