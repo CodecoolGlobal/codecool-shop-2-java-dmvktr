@@ -34,13 +34,18 @@ const cart = {
 
     initQuantityAdjustmentButtonListeners: function (){
         const increaseQuantityButtons = document.querySelectorAll('.qty-plus');
-        increaseQuantityButtons.forEach(button => button.addEventListener('click', ()=>{
-        const quantityDiv = document.querySelector('.quantity');
-        const productId = quantityDiv.dataset.productId;
-        const URL = `${this.updateOrderBaseURL}?user_id=${this.userId}&product_id=${productId}&quantity_diff=1`;
-        dataHandler.fetchData(URL, this.logResponse);
-        }))
+        const decreaseQuantityButtons = document.querySelectorAll('.qty-minus');
+        increaseQuantityButtons.forEach(button => button.addEventListener('click', this.adjustCartContent))
+        decreaseQuantityButtons.forEach(button=>button.addEventListener('click', this.adjustCartContent))
     },
+
+    adjustCartContent: function (evt){
+        const quantityDiv = evt.target.closest('.quantity');
+        const quantityDiff = evt.currentTarget.classList.contains('qty-plus')? "1":"-1";
+        const productId = quantityDiv.dataset.productId;
+        const URL = `${cart.updateOrderBaseURL}?user_id=${cart.userId}&product_id=${productId}&quantity_diff=${quantityDiff}`;
+        dataHandler.fetchData(URL, cart.logResponse);
+        },
 
     logResponse: function (data){
         console.log(data);
