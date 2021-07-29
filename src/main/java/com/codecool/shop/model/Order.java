@@ -59,6 +59,10 @@ public class Order {
         return items;
     }
 
+    public boolean containsAtLeastOneLineItem() {
+        return items.size() > 0;
+    }
+
     public void setOrderID(int orderID) {
         this.orderID = orderID;
     }
