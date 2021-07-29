@@ -1,5 +1,7 @@
 package com.codecool.shop.model;
 
+import java.math.BigDecimal;
+
 public class LineItem {
 
     private Product product;
@@ -16,6 +18,10 @@ public class LineItem {
 
     public Product getProduct() {
         return this.product;
+    }
+
+    public BigDecimal getSubtotal() {
+        return product.getDefaultPrice().multiply(BigDecimal.valueOf(quantity));
     }
 
     public void updateQuantity(int quantityDiff) {
