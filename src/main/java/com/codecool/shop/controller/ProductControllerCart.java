@@ -33,11 +33,9 @@ public class ProductControllerCart extends HttpServlet {
         Optional<Order> order = productService.getOrderDao().getBy(1);
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        if(order.isPresent()) {
-            context.setVariable("order", order.get());
-        } else {
-            context.setVariable("order", null);
-        }
+
+        context.setVariable("order", order.orElse(null));
+
         engine.process("product/cart.html", context, resp.getWriter());
     }
 

@@ -65,8 +65,8 @@
                                         <th>Subtotal</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr th:if="${order != null && order.getItems().size > 0}" th:each="item,iterStat : ${order.getItems()}">
+                                <tbody th:if="${order} AND ${order.containsAtLeastOneLineItem()}">
+                                    <tr th:each="item,iterStat : ${order.getItems()}">
                                         <td class="cart_product_img">
                                             <a href="#"><img th:src="@{${item.getProduct().getBaseImagePath() + item.getProduct().getImagePath()}}" alt="Product"></a>
                                         </td>
