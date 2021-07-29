@@ -12,6 +12,7 @@ public class Order {
     private BigDecimal totalPrice;
     private CheckoutDetails checkoutDetails = null;
 
+
     public Order(int userID) {
         this.userID = userID;
     }
@@ -30,6 +31,14 @@ public class Order {
     public void removeItem(LineItem item) {
         items.remove(item);
         refreshTotalPrice();
+    }
+
+    public CheckoutDetails getCheckoutDetails() {
+        return checkoutDetails;
+    }
+
+    public void setCheckoutDetails(CheckoutDetails checkoutDetails) {
+        this.checkoutDetails = checkoutDetails;
     }
 
     public void setCheckout(CheckoutDetails checkoutDetails) {

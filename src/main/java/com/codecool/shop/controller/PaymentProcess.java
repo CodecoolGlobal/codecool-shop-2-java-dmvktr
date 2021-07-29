@@ -8,6 +8,7 @@ import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.CheckoutDetails;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.service.ProductServiceFactory;
@@ -20,27 +21,25 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Objects;
 import java.util.Optional;
 
-@WebServlet(urlPatterns = {"/checkout"})
-public class ProductControllerCheckout extends HttpServlet {
+@WebServlet(urlPatterns = {"/payment"})
+public class PaymentProcess extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductService productService = ProductServiceFactory.get();
-
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("user_id", req.getParameter("user_id"));
-        context.setVariable("category", productService.getProductCategory(1));
-        context.setVariable("categories", productService.getProductCategoryDao().getAll());
-        context.setVariable("suppliers", productService.getSupplierDao().getAll());
-        context.setVariable("products", productService.getProductsForCategory(1));
-        engine.process("product/checkout.html", context, resp.getWriter());
+        engine.process("product/paypalpayment.html", context, resp.getWriter());
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        ProductService productService = ProductServiceFactory.get();
+        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
+        WebContext context = new WebContext(req, resp, req.getServletContext());
         String firstName = req.getParameter("first_name");
         String lastName = req.getParameter("last_name");
         String company = req.getParameter("company");
@@ -51,8 +50,16 @@ public class ProductControllerCheckout extends HttpServlet {
         String zipCode = req.getParameter("zip_code");
         String phoneNumber = req.getParameter("phone_number");
         String comment = req.getParameter("comment");
-        System.out.println(firstName + email + country);
+        String paymentMethod = req.getParameter("payment-method");
+        CheckoutDetails checkoutDetails = new CheckoutDetails(firstName, lastName, company, email, country, streetAddress, city, zipCode, phoneNumber, comment);
         Optional<Order> order = OrderDaoMem.getInstance().getBy(Integer.parseInt(req.getParameter("user_id")));
+        order.get().setCheckoutDetails(checkoutDetails);
+        if (Objects.equals(paymentMethod, "paypal")) {
+            engine.process("product/paypalpayment.html", context, resp.getWriter());
+            String username = req.getParameter("username");
+            String password = req.getParameter("password");
+            System.out.println(username);
+        }
     }
 
 }
