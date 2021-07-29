@@ -40,13 +40,13 @@ const cart = {
     },
 
     adjustCartContent: function (evt) {
+        const quantityDiv = evt.target.closest('.quantity');
         const quantityDisplayField = quantityDiv.querySelector('input');
         const quantityDiff = evt.currentTarget.classList.contains('qty-plus') ? 1 : -1;
         const currentQuantityValue = parseInt(quantityDisplayField.value);
         if(currentQuantityValue === 1 && cart.isQuantityDecreaseButtonUsed(evt)){
             return;
         }
-        const quantityDiv = evt.target.closest('.quantity');
         let newQuantity = currentQuantityValue + quantityDiff;
         const productId = quantityDiv.dataset.productId;
         const URL = `${cart.updateOrderBaseURL}?user_id=${cart.userId}&product_id=${productId}&quantity_diff=${quantityDiff}`;
@@ -63,7 +63,7 @@ const cart = {
         return evt.currentTarget.classList.contains('qty-minus');
     },
 
-    buildCartSummaryTableBody: function (lineItem){
+    buildCartSummaryTableBody: function (lineItem, tbody){
         const quantity = lineItem['quantity'];
         const productName = lineItem['product']['name'];
         const productId = lineItem['product']['id'];
@@ -71,17 +71,16 @@ const cart = {
         const subTotal = lineItem['subTotalPrice'];
         const unitPrice = `${lineItem['product']['defaultPrice']}${lineItem['product']['defaultCurrency']}`;
 
-        const tbody = document.querySelector('tbody').innerHTML = "";
         tbody.insertAdjacentHTML('beforeend',
             `<tr>
                     <td class="cart_product_img">
                         <a href="#"><img src="${productImagePath}" alt="Product"></a>
                     </td>
                     <td class="name">
-                        <span>"${productName}"</span>
+                        <span>${productName}</span>
                     </td>
                     <td class="price" data-price="${unitPrice}">
-                        <span>"${unitPrice}"</span>
+                        <span>${unitPrice}</span>
                     </td>
                     <td class="qty">
                         <div class="qty-btn d-flex">
@@ -93,18 +92,21 @@ const cart = {
                             </div>
                         </div>
                     </td>
-                    <td class="subtotal" data-subtotal="${subTotal.toFixed(2)}">
-                        <span>"${subTotal}"</span>
+                    <td class="subtotal" data-subtotal="${subTotal}">
+                        <span>${subTotal} ${lineItem['product']['defaultCurrency']}</span>
                     </td>
                 </tr>`)
     },
 
     rebuildCartSummary: function (cartContent){
         if(cartContent != null){
+            const tbody = document.querySelector('tbody');
+            tbody.innerHTML = "";
             for (const lineItem of cartContent['items']) {
-                cart.buildCartSummaryTableBody(lineItem);
+                cart.buildCartSummaryTableBody(lineItem, tbody);
             }
         }
+        cart.initQuantityAdjustmentButtonListeners();
     },
 }
 
