@@ -28,16 +28,16 @@ public class ProductControllerCart extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<LineItem> items = null;
         ProductService productService = ProductServiceFactory.get();
+        // TODO remove hardcoded order #1 during 2nd sprint
         Optional<Order> order = productService.getOrderDao().getBy(1);
-        if(order.isPresent()) {
-             items = order.get().getItems();
-        }
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        // TODO change during second sprint
-        context.setVariable("lineitems", items);
+        if(order.isPresent()) {
+            context.setVariable("order", order.get());
+        } else {
+            context.setVariable("order", null);
+        }
         engine.process("product/cart.html", context, resp.getWriter());
     }
 
