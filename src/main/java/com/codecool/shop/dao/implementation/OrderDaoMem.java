@@ -77,11 +77,13 @@ public class OrderDaoMem implements OrderDao {
                     order.removeItem(item);
                 }
                 order.refreshTotalPrice();
+                order.refreshItemCount();
                 return;
             }
         }
         order.getItems().add(new LineItem(product, quantityDiff));
         order.refreshTotalPrice();
+        order.refreshItemCount();
     }
 
     private boolean isProductInItem(Product product, LineItem item) {

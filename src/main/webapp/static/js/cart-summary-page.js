@@ -9,7 +9,6 @@ const cart = {
 
     init: function () {
         this.initCartEventListeners();
-        // this.displayCartTotalSummary();
         this.initQuantityAdjustmentButtonListeners();
     },
 
@@ -20,16 +19,6 @@ const cart = {
             const URL = `${this.updateOrderBaseURL}?user_id=${this.userId}&product_id=${cart.dataset.productId}&quantity_diff=1`;
             dataHandler.fetchData(URL, this.logResponse);
         }))
-    },
-
-    displayCartTotalSummary: function () {
-        const subtotalValue = document.querySelector('.subtotal').dataset.subtotal;
-        cart.setCartSummaryField(cart.cartSummarySubtotalSpan, subtotalValue);
-        cart.setCartSummaryField(cart.cartSummaryTotalSpan, subtotalValue);
-    },
-
-    setCartSummaryField: function (fieldName, value) {
-        fieldName.innerHTML = value;
     },
 
     initQuantityAdjustmentButtonListeners: function () {
@@ -44,7 +33,7 @@ const cart = {
         const quantityDisplayField = quantityDiv.querySelector('input');
         const quantityDiff = evt.currentTarget.classList.contains('qty-plus') ? 1 : -1;
         const currentQuantityValue = parseInt(quantityDisplayField.value);
-        if(currentQuantityValue === 1 && cart.isQuantityDecreaseButtonUsed(evt)){
+        if (currentQuantityValue === 1 && cart.isQuantityDecreaseButtonUsed(evt)) {
             return;
         }
         let newQuantity = currentQuantityValue + quantityDiff;
@@ -59,11 +48,11 @@ const cart = {
         console.log(data);
     },
 
-    isQuantityDecreaseButtonUsed: function (evt){
+    isQuantityDecreaseButtonUsed: function (evt) {
         return evt.currentTarget.classList.contains('qty-minus');
     },
 
-    buildCartSummaryTableBody: function (lineItem, tbody){
+    buildCartSummaryTableBody: function (lineItem, tbody) {
         const quantity = lineItem['quantity'];
         const productName = lineItem['product']['name'];
         const productId = lineItem['product']['id'];
@@ -98,8 +87,8 @@ const cart = {
                 </tr>`)
     },
 
-    rebuildCartSummary: function (cartContent){
-        if(cartContent != null){
+    rebuildCartSummary: function (cartContent) {
+        if (cartContent != null) {
             const tbody = document.querySelector('tbody');
             tbody.innerHTML = "";
             for (const lineItem of cartContent['items']) {
@@ -108,9 +97,14 @@ const cart = {
         }
         cart.updateCartTotal(cartContent);
         cart.initQuantityAdjustmentButtonListeners();
+        cart.updateCartInMenu(cartContent);
     },
 
-    updateCartTotal: function (cartContent){
+    updateCartInMenu: function (cartContent) {
+        document.querySelector("#sidebar-cart").innerHTML = `(${cartContent['itemCount']})`;
+    },
+
+    updateCartTotal: function (cartContent) {
         const cartSummarySubtotal = document.querySelector("#cart-summary-subtotal");
         const cartSummaryTotal = document.querySelector("#cart-summary-total");
 

@@ -14,8 +14,12 @@ const cart = {
 
         carts.forEach(cart => cart.addEventListener('click', () => {
             const URL = `${this.updateOrderBaseURL}?user_id=${this.userId}&product_id=${cart.dataset.productId}&quantity_diff=1`;
-            dataHandler.fetchData(URL, this.logResponse);
+            dataHandler.fetchData(URL, this.updateCartInMenu);
         }))
+    },
+
+    updateCartInMenu: function (cartContent) {
+        document.querySelector("#sidebar-cart").innerHTML = `(${cartContent['itemCount']})`;
     },
 
     logResponse: function (data) {

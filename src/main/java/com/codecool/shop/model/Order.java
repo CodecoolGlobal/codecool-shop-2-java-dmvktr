@@ -10,29 +10,30 @@ public class Order {
     private int userID;
     private List<LineItem> items = new ArrayList<>();
     private BigDecimal totalPrice;
+    private int itemCount;
     private CheckoutDetails checkoutDetails = null;
 
 
     public Order(int userID) {
         this.userID = userID;
-        refreshTotalPrice();
+//        refreshTotalPrice();
     }
 
     private void addProduct(Product product, int quantity) {
         for (LineItem item : items) {
             if (isProductInItem(product, item)) {
                 item.updateQuantity(quantity);
-                refreshTotalPrice();
+//                refreshTotalPrice();
                 return;
             }
         }
         items.add(new LineItem(product, quantity));
-        refreshTotalPrice();
+//        refreshTotalPrice();
     }
 
     public void removeItem(LineItem item) {
         items.remove(item);
-        refreshTotalPrice();
+//        refreshTotalPrice();
     }
 
     public CheckoutDetails getCheckoutDetails() {
@@ -51,6 +52,12 @@ public class Order {
         totalPrice = items.stream()
                 .map(LineItem::getSubTotalPrice)
                 .reduce(BigDecimal.ZERO, BigDecimal::add);
+    }
+
+    public void refreshItemCount() {
+        itemCount = items.stream()
+            .map(LineItem::getQuantity)
+            .reduce(0, Integer::sum);
     }
 
     private boolean isProductInItem(Product product, LineItem item) {
@@ -79,6 +86,10 @@ public class Order {
 
     public BigDecimal getTotalPrice() {
         return totalPrice;
+    }
+
+    public int getItemCount() {
+        return itemCount;
     }
 
     @Override
