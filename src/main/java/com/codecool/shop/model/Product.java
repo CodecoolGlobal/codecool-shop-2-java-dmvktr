@@ -1,12 +1,12 @@
 package com.codecool.shop.model;
 
 import java.io.Serializable;
-import java.net.URL;
+import java.math.BigDecimal;
 import java.util.Currency;
 
 public class Product extends BaseModel implements Serializable {
 
-    private float defaultPrice;
+    private BigDecimal defaultPrice;
     private Currency defaultCurrency;
     private transient ProductCategory productCategory;
     private transient Supplier supplier;
@@ -15,7 +15,7 @@ public class Product extends BaseModel implements Serializable {
     protected static final String baseImagePath = "/static/img/product-img/";
 
 
-    public Product(String name, float defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier, String imagePath, String hoverImagePath) {
+    public Product(String name, BigDecimal defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier, String imagePath, String hoverImagePath) {
         super(name, description);
         this.setPrice(defaultPrice, currencyString);
         this.setSupplier(supplier);
@@ -24,11 +24,11 @@ public class Product extends BaseModel implements Serializable {
         this.setHoverImagePath(hoverImagePath);
     }
 
-    public float getDefaultPrice() {
+    public BigDecimal getDefaultPrice() {
         return defaultPrice;
     }
 
-    public void setDefaultPrice(float defaultPrice) {
+    public void setDefaultPrice(BigDecimal defaultPrice) {
         this.defaultPrice = defaultPrice;
     }
 
@@ -44,7 +44,7 @@ public class Product extends BaseModel implements Serializable {
         return String.valueOf(this.defaultPrice) + " " + this.defaultCurrency.toString();
     }
 
-    public void setPrice(float price, String currency) {
+    public void setPrice(BigDecimal price, String currency) {
         this.defaultPrice = price;
         this.defaultCurrency = Currency.getInstance(currency);
     }
