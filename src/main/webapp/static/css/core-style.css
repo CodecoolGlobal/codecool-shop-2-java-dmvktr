@@ -112,7 +112,13 @@
 
 body {
   font-family: "futuramedium", sans-serif;
-  font-size: 16px; }
+  font-size: 16px;
+}
+
+html {
+  overflow-y: auto;
+  overflow-y: overlay;
+}
 
 h1,
 h2,
