@@ -52,7 +52,7 @@ public class PaymentProcess extends HttpServlet {
         String comment = req.getParameter("comment");
         String paymentMethod = req.getParameter("payment-method");
         CheckoutDetails checkoutDetails = new CheckoutDetails(firstName, lastName, company, email, country, streetAddress, city, zipCode, phoneNumber, comment);
-        Optional<Order> order = OrderDaoMem.getInstance().getBy(Integer.parseInt(req.getParameter("user_id")));
+        Optional<Order> order = OrderDaoMem.getInstance().getBy(1);
         order.get().setCheckoutDetails(checkoutDetails);
         if (Objects.equals(paymentMethod, "paypal")) {
             engine.process("product/paypalpayment.html", context, resp.getWriter());

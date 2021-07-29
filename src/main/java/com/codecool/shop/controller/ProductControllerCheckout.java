@@ -30,19 +30,15 @@ public class ProductControllerCheckout extends HttpServlet {
         ProductService productService = ProductServiceFactory.get();
 
         // todo get user_id
-        Order order = productService.getOrderDao().getBy(1).orElse(null);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("user_id", req.getParameter("user_id"));
-        context.setVariable("category", productService.getProductCategory(1));
-        context.setVariable("categories", productService.getProductCategoryDao().getAll());
-        context.setVariable("suppliers", productService.getSupplierDao().getAll());
-        context.setVariable("products", productService.getProductsForCategory(1));
+        Optional<Order> order = productService.getOrderDao().getBy(1);
+        context.setVariable("order", order.orElse(null));
         engine.process("product/checkout.html", context, resp.getWriter());
     }
 
-    @Override
+    /*@Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String firstName = req.getParameter("first_name");
         String lastName = req.getParameter("last_name");
@@ -56,6 +52,6 @@ public class ProductControllerCheckout extends HttpServlet {
         String comment = req.getParameter("comment");
         System.out.println(firstName + email + country);
         Optional<Order> order = OrderDaoMem.getInstance().getBy(Integer.parseInt(req.getParameter("user_id")));
-    }
+    }*/
 
 }
