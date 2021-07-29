@@ -478,6 +478,7 @@ img {
 .main-content-wrapper {
   position: relative;
   z-index: 1;
+  margin-bottom: 100px;
   -webkit-transition-duration: 500ms;
   transition-duration: 500ms;
   -ms-flex-wrap: wrap;
@@ -485,6 +486,7 @@ img {
   @media only screen and (max-width: 767px) {
     .main-content-wrapper {
       margin-top: 70px;
+      margin-bottom: 100px;
       z-index: 100; } }
   .main-content-wrapper .header-area {
     -webkit-transition-duration: 500ms;
@@ -494,9 +496,9 @@ img {
     -webkit-box-flex: 0;
     -ms-flex: 0 0 320px;
     flex: 0 0 320px;
-    width: 400px;
-    height: 400px;
-    max-width: 400px;
+    width: 350px;
+    height: 350px;
+    max-width: 350px;
     background-color: #fff;
     padding: 50px 50px; }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
@@ -697,17 +699,17 @@ img {
     position: relative;
     z-index: 1;
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 calc(95% - 320px);
-    flex: 0 0 calc(95% - 320px);
-    width: calc(95% - 320px);
-    max-width: calc(95% - 320px); }
+    -ms-flex: 0 0 calc(95% - 350px);
+    flex: 0 0 calc(95% - 350px);
+    width: calc(95% - 350);
+    max-width: calc(95% - 350px); }
     @media only screen and (min-width: 992px) and (max-width: 1199px) {
       .main-content-wrapper .cart-table-area {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 calc(100% - 320px);
-        flex: 0 0 calc(100% - 320px);
-        width: calc(100% - 320px);
-        max-width: calc(100% - 320px); } }
+        -ms-flex: 0 0 calc(100% - 350px);
+        flex: 0 0 calc(100% - 350px);
+        width: calc(100% - 350px);
+        max-width: calc(100% - 350px); } }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .main-content-wrapper .cart-table-area {
         -webkit-box-flex: 0;
@@ -1502,6 +1504,11 @@ img {
 .shop_sidebar_area_new {
   background-color: #e9e9e9;
   padding: 20px;
+  margin-bottom: 50px;
+}
+
+header {
+  margin-bottom: 100px;
 }
 /* ##### The End ##### */
 
