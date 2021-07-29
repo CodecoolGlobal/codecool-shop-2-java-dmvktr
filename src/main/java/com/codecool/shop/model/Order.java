@@ -10,6 +10,7 @@ public class Order {
     private int userID;
     private List<LineItem> items = new ArrayList<>();
     private BigDecimal totalPrice;
+    private CheckoutDetails checkoutDetails = null;
 
     public Order(int userID) {
         this.userID = userID;
@@ -29,6 +30,10 @@ public class Order {
     public void removeItem(LineItem item) {
         items.remove(item);
         refreshTotalPrice();
+    }
+
+    public void setCheckout(CheckoutDetails checkoutDetails) {
+        this.checkoutDetails = checkoutDetails;
     }
 
     private void refreshTotalPrice() {
