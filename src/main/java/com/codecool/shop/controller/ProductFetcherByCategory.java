@@ -44,7 +44,6 @@ public class ProductFetcherByCategory extends HttpServlet {
         PrintWriter out = resp.getWriter();
         out.write(jsonResponse);
         out.flush();
-        //engine.process("product/index.html", context, resp.getWriter());
     }
 
 }
