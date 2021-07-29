@@ -38,20 +38,6 @@ public class ProductControllerCheckout extends HttpServlet {
         engine.process("product/checkout.html", context, resp.getWriter());
     }
 
-    /*@Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String firstName = req.getParameter("first_name");
-        String lastName = req.getParameter("last_name");
-        String company = req.getParameter("company");
-        String email = req.getParameter("email");
-        String country = req.getParameter("country");
-        String streetAddress = req.getParameter("street_address");
-        String city = req.getParameter("city");
-        String zipCode = req.getParameter("zip_code");
-        String phoneNumber = req.getParameter("phone_number");
-        String comment = req.getParameter("comment");
-        System.out.println(firstName + email + country);
-        Optional<Order> order = OrderDaoMem.getInstance().getBy(Integer.parseInt(req.getParameter("user_id")));
-    }*/
+
 
 }
