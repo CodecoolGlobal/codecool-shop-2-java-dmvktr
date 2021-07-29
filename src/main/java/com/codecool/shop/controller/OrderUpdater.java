@@ -6,6 +6,7 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.service.ProductServiceFactory;
@@ -21,6 +22,7 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @WebServlet(urlPatterns = {"/update-order"})
 public class OrderUpdater extends HttpServlet {
@@ -35,15 +37,14 @@ public class OrderUpdater extends HttpServlet {
         System.out.println(userID + "-" + productID + "-" + quantity);
 
         productService.getOrderDao().handleOrderUpdate(userID, productID, quantity);
+
+        Order order = productService.getOrderDao().getBy(1).orElse(null);
         Gson gson = new Gson();
-        Map<String, String> responseMap = new HashMap<>();
-        responseMap.put("response", "ok");
-        String jsonResponse = gson.toJson(responseMap);
+        String jsonResponse = gson.toJson(order);
         resp.setContentType("application/json");
         resp.setCharacterEncoding("UTF-8");
         PrintWriter out = resp.getWriter();
         out.write(jsonResponse);
         out.flush();
-        System.out.println(productService.getOrderDao().getBy(userID).get());
     }
 }
