@@ -1,5 +1,6 @@
 package com.codecool.shop.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ public class Order {
     private int orderID;
     private int userID;
     private List<LineItem> items = new ArrayList<>();
+    private BigDecimal totalPrice;
 
     public Order(int userID) {
         this.userID = userID;
@@ -21,10 +23,19 @@ public class Order {
             }
         }
         items.add(new LineItem(product, quantity));
+        refreshTotalPrice();
     }
 
     public void removeItem(LineItem item) {
         items.remove(item);
+        refreshTotalPrice();
+    }
+
+    private void refreshTotalPrice() {
+        totalPrice = items.stream()
+                .map(LineItem::getSubtotal)
+                .reduce(BigDecimal::add)
+                .orElse(BigDecimal.ZERO);
     }
 
     private boolean isProductInItem(Product product, LineItem item) {
@@ -45,6 +56,10 @@ public class Order {
 
     public void setOrderID(int orderID) {
         this.orderID = orderID;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
     }
 
     @Override
