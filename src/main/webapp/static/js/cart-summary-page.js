@@ -41,9 +41,17 @@ const cart = {
 
     adjustCartContent: function (evt) {
         const quantityDiv = evt.target.closest('.quantity');
-        const quantityDiff = evt.currentTarget.classList.contains('qty-plus') ? "1" : "-1";
+        const quantityDisplayField = quantityDiv.querySelector('input');
+        const quantityDiff = evt.currentTarget.classList.contains('qty-plus') ? 1 : -1;
+        const oldValue = parseInt(quantityDisplayField.value);
+        let newQuantity = oldValue + quantityDiff;
+        if(newQuantity === 0){
+            newQuantity = 1;
+        }
         const productId = quantityDiv.dataset.productId;
         const URL = `${cart.updateOrderBaseURL}?user_id=${cart.userId}&product_id=${productId}&quantity_diff=${quantityDiff}`;
+
+        quantityDisplayField.value = String(newQuantity);
         dataHandler.fetchData(URL, cart.logResponse);
     },
 
