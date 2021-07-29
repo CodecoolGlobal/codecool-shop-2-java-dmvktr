@@ -15,14 +15,16 @@ public class LineItem {
     public LineItem(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
+        refreshSubTotalPrice();
     }
 
     public Product getProduct() {
         return this.product;
     }
 
-    public BigDecimal getSubtotal() {
-        return product.getDefaultPrice().multiply(BigDecimal.valueOf(quantity));
+    public BigDecimal getSubTotalPrice() {
+        refreshSubTotalPrice();
+        return subTotalPrice;
     }
 
     public void updateQuantity(int quantityDiff) {

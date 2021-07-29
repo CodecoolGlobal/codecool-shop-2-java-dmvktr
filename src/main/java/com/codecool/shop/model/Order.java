@@ -14,12 +14,14 @@ public class Order {
 
     public Order(int userID) {
         this.userID = userID;
+        refreshTotalPrice();
     }
 
     private void addProduct(Product product, int quantity) {
         for (LineItem item : items) {
             if (isProductInItem(product, item)) {
                 item.updateQuantity(quantity);
+                refreshTotalPrice();
                 return;
             }
         }
@@ -36,11 +38,10 @@ public class Order {
         this.checkoutDetails = checkoutDetails;
     }
 
-    private void refreshTotalPrice() {
+    public void refreshTotalPrice() {
         totalPrice = items.stream()
-                .map(LineItem::getSubtotal)
-                .reduce(BigDecimal::add)
-                .orElse(BigDecimal.ZERO);
+                .map(LineItem::getSubTotalPrice)
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
     }
 
     private boolean isProductInItem(Product product, LineItem item) {
