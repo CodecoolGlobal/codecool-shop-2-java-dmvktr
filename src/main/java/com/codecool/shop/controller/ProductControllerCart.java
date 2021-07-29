@@ -7,6 +7,8 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
 import com.codecool.shop.dao.implementation.ProductDaoMem;
 import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.model.LineItem;
+import com.codecool.shop.model.Order;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.service.ProductServiceFactory;
 import org.thymeleaf.TemplateEngine;
@@ -18,20 +20,24 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
 
 @WebServlet(urlPatterns = {"/cart"})
 public class ProductControllerCart extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<LineItem> items = null;
         ProductService productService = ProductServiceFactory.get();
-
+        Optional<Order> order = productService.getOrderDao().getBy(1);
+        if(order.isPresent()) {
+             items = order.get().getItems();
+        }
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("category", productService.getProductCategory(1));
-        context.setVariable("categories", productService.getProductCategoryDao().getAll());
-        context.setVariable("suppliers", productService.getSupplierDao().getAll());
-        context.setVariable("products", productService.getProductsForCategory(1));
+        // TODO change during second sprint
+        context.setVariable("lineitems", items);
         engine.process("product/cart.html", context, resp.getWriter());
     }
 
