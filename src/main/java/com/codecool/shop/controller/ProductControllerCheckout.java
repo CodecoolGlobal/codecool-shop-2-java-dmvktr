@@ -28,10 +28,6 @@ public class ProductControllerCheckout extends HttpServlet {
         ProductService productService = ProductServiceFactory.get();
 
         // todo get user_id
-        int userID = req.getParameter("user_id") == null ? Integer.parseInt(req.getParameter("user_id")) : 0;
-        if (userID == 0) {
-            System.out.println("sorry, no checkout data for user!");
-        }
         Order order = productService.getOrderDao().getBy(1).orElse(null);
 
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());

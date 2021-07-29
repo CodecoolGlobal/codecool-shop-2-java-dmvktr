@@ -36,6 +36,7 @@ public class OrderDaoMem implements OrderDao {
             Order newOrder = addOrder(userID);
             updateProductQuantityInOrder(newOrder, productDataStore.find(productID), quantityDiff);
         }
+
     }
 
     private Order addOrder(int userID) {
@@ -75,10 +76,12 @@ public class OrderDaoMem implements OrderDao {
                 if (item.isQuantityZero()) {
                     order.removeItem(item);
                 }
+                order.refreshTotalPrice();
                 return;
             }
         }
         order.getItems().add(new LineItem(product, quantityDiff));
+        order.refreshTotalPrice();
     }
 
     private boolean isProductInItem(Product product, LineItem item) {

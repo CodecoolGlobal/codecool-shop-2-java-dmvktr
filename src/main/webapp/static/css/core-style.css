@@ -699,24 +699,24 @@ img {
     position: relative;
     z-index: 1;
     -webkit-box-flex: 0;
-    -ms-flex: 0 0 calc(95% - 350px);
-    flex: 0 0 calc(95% - 350px);
-    width: calc(95% - 350);
-    max-width: calc(95% - 350px); }
+    -ms-flex: 0 0 calc(95% - 200px);
+    flex: 0 0 calc(95% - 200px);
+    width: calc(95% - 200);
+    max-width: calc(95% - 200px); }
     @media only screen and (min-width: 992px) and (max-width: 1199px) {
       .main-content-wrapper .cart-table-area {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 calc(100% - 350px);
-        flex: 0 0 calc(100% - 350px);
-        width: calc(100% - 350px);
-        max-width: calc(100% - 350px); } }
+        -ms-flex: 0 0 calc(100% - 200px);
+        flex: 0 0 calc(100% - 200px);
+        width: calc(100% - 200px);
+        max-width: calc(100% - 200px); } }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .main-content-wrapper .cart-table-area {
         -webkit-box-flex: 0;
-        -ms-flex: 0 0 calc(100% - 280px);
-        flex: 0 0 calc(100% - 280px);
-        width: calc(100% - 280px);
-        max-width: calc(100% - 280px); } }
+        -ms-flex: 0 0 calc(100% - 200px);
+        flex: 0 0 calc(100% - 200px);
+        width: calc(100% - 200px);
+        max-width: calc(100% - 200px); } }
     @media only screen and (max-width: 767px) {
       .main-content-wrapper .cart-table-area {
         -webkit-box-flex: 0;
@@ -831,6 +831,7 @@ img {
               text-align: center;
               cursor: pointer;
               color: #242424;
+              margin-right: 10px;
               font-size: 10px; }
               @media only screen and (min-width: 768px) and (max-width: 991px) {
                 .main-content-wrapper .cart-table-area table tbody tr td .qty-btn .quantity .qty-minus {

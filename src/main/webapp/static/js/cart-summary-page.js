@@ -106,7 +106,16 @@ const cart = {
                 cart.buildCartSummaryTableBody(lineItem, tbody);
             }
         }
+        cart.updateCartTotal(cartContent);
         cart.initQuantityAdjustmentButtonListeners();
+    },
+
+    updateCartTotal: function (cartContent){
+        const cartSummarySubtotal = document.querySelector("#cart-summary-subtotal");
+        const cartSummaryTotal = document.querySelector("#cart-summary-total");
+
+        cartSummarySubtotal.innerText = cartContent['totalPrice'];
+        cartSummaryTotal.innerText = cartContent['totalPrice'];
     },
 }
 

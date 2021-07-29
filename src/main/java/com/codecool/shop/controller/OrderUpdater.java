@@ -34,7 +34,6 @@ public class OrderUpdater extends HttpServlet {
         int userID = Integer.parseInt(req.getParameter("user_id"));
         int productID = Integer.parseInt(req.getParameter("product_id"));
         int quantity = Integer.parseInt(req.getParameter("quantity_diff"));
-        System.out.println(userID + "-" + productID + "-" + quantity);
 
         productService.getOrderDao().handleOrderUpdate(userID, productID, quantity);
 
@@ -46,6 +45,5 @@ public class OrderUpdater extends HttpServlet {
         PrintWriter out = resp.getWriter();
         out.write(jsonResponse);
         out.flush();
-        System.out.println(order);
     }
 }
