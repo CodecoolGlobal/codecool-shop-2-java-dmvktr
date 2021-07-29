@@ -122,19 +122,17 @@
 
                             <div class="payment-method">
                                 <!-- Cash on delivery -->
-                                <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" id="cod" checked>
-                                    <label class="custom-control-label" for="cod">Cash on Delivery</label>
-                                </div>
-                                <!-- Paypal -->
-                                <div class="custom-control custom-checkbox mr-sm-2">
-                                    <input type="checkbox" class="custom-control-input" id="paypal">
+                                <form>
+                                    <input type="radio" name="payment-method" class="payment-custom-control-input" id="credit-card">
+                                    <label class="custom-control-label" for="credit-card">Credit card</label><br>
+                                    <input type="radio" name="payment-method" class="payment-custom-control-input" id="paypal">
                                     <label class="custom-control-label" for="paypal">Paypal <img class="ml-15" src="static/img/core-img/paypal.png" alt=""></label>
-                                </div>
+                                </form>
+                                <!-- Paypal -->
                             </div>
 
                             <div class="cart-btn mt-100">
-                                <a href="#" class="btn amado-btn w-100">Checkout</a>
+                                <a href="#" class="btn amado-btn w-100" id="checkout-button">Checkout</a>
                             </div>
                         </div>
                     </div>
@@ -163,7 +161,8 @@
     <!-- Plugins js -->
     <script src="static/js/plugins.js"></script>
     <!-- Active js -->
-    <script src="static/js/active.js"></script>
+
+    <script src="static/js/checkout.js"></script>
 
 </body>
 
