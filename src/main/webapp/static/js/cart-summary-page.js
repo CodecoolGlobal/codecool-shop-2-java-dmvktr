@@ -9,7 +9,7 @@ const cart = {
 
     init: function () {
         this.initCartEventListeners();
-        this.displayCartTotalSummary();
+        // this.displayCartTotalSummary();
         this.initQuantityAdjustmentButtonListeners();
     },
 
