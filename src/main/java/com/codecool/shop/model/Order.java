@@ -4,19 +4,23 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Order keeps track of the user id, all line items with products and quantities.
+ * Checkout details are also stored here in later stages of the Checkout process
+ */
 public class Order {
 
     private int orderID;
-    private int userID;
-    private List<LineItem> items = new ArrayList<>();
+    private final int userID;
+    private List<LineItem> items;
     private BigDecimal totalPrice;
     private int itemCount;
-    private CheckoutDetails checkoutDetails = null;
+    private CheckoutDetails checkoutDetails;
 
 
     public Order(int userID) {
         this.userID = userID;
-//        refreshTotalPrice();
+        items = new ArrayList<>();
     }
 
     private void addProduct(Product product, int quantity) {
