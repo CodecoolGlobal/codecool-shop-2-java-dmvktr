@@ -56,9 +56,10 @@ public class PaymentProcess extends HttpServlet {
         order.get().setCheckoutDetails(checkoutDetails);
         if (Objects.equals(paymentMethod, "paypal")) {
             engine.process("product/paypalpayment.html", context, resp.getWriter());
-            String username = req.getParameter("username");
-            String password = req.getParameter("password");
-            System.out.println(username);
+        }
+        if (Objects.equals(paymentMethod, "credit-card")) {
+            engine.process("product/credit_card_payment.html", context, resp.getWriter());
+
         }
     }
 

@@ -33,9 +33,21 @@ public class PaymentConfirmation extends HttpServlet{
         ProductService productService = ProductServiceFactory.get();
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        engine.process("product/confirmation.html", context, resp.getWriter());
         Optional<Order> order = OrderDaoMem.getInstance().getBy(Integer.parseInt(req.getParameter("user_id")));
-        System.out.println(order.get().getCheckoutDetails().getFirstName());
+        /*context.setVariable("first_name",order.get().getCheckoutDetails().getFirstName());
+        context.setVariable("last_name",order.get().getCheckoutDetails().getLastName());
+        context.setVariable("company",order.get().getCheckoutDetails().getCompany());
+        context.setVariable("email",order.get().getCheckoutDetails().getEmail());
+        context.setVariable("country",order.get().getCheckoutDetails().getCountry());
+        context.setVariable("street_address",order.get().getCheckoutDetails().getStreetAddress());
+        context.setVariable("city",order.get().getCheckoutDetails().getCity());
+        context.setVariable("zip_code",order.get().getCheckoutDetails().getZipCode());
+        context.setVariable("phone_number",order.get().getCheckoutDetails().getPhoneNumber());
+        context.setVariable("comment",order.get().getCheckoutDetails().getComment());*/
+
+
+        context.setVariable("order", order.orElse(null));
+        engine.process("product/confirmation.html", context, resp.getWriter());
     }
 
 }
