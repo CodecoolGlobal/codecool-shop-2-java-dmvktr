@@ -46,5 +46,6 @@ public class OrderUpdater extends HttpServlet {
         PrintWriter out = resp.getWriter();
         out.write(jsonResponse);
         out.flush();
+        System.out.println(order);
     }
 }
