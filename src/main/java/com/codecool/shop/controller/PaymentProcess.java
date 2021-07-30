@@ -32,7 +32,7 @@ public class PaymentProcess extends HttpServlet {
         ProductService productService = ProductServiceFactory.get();
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        engine.process("product/paypalpayment.html", context, resp.getWriter());
+        engine.process("product/paypal_payment.html", context, resp.getWriter());
     }
 
     @Override
@@ -55,7 +55,7 @@ public class PaymentProcess extends HttpServlet {
         Optional<Order> order = OrderDaoMem.getInstance().getBy(1);
         order.get().setCheckoutDetails(checkoutDetails);
         if (Objects.equals(paymentMethod, "paypal")) {
-            engine.process("product/paypalpayment.html", context, resp.getWriter());
+            engine.process("product/paypal_payment.html", context, resp.getWriter());
         }
         if (Objects.equals(paymentMethod, "credit-card")) {
             engine.process("product/credit_card_payment.html", context, resp.getWriter());

@@ -25,9 +25,9 @@
       <div class="panel panel-default">
         <div class="panel-heading">
           <div class="row cc-row">
-            <br><br><br><br>
-            <h3 class="text-center">Credit Card Payment</h3>
-            <img class="img-responsive cc-img" src="static/img/core-img/creditcardicons.png" alt="">
+            <br>
+            <h3 class="text-center">PayPal Payment</h3>
+            <img class="img-responsive cc-img" src="static/img/core-img/paypal.jpeg" alt="">
           </div>
         </div>
         <div class="panel-body">
@@ -35,33 +35,20 @@
             <div class="row">
               <div class="col-xs-12 col-md-12">
                 <div class="form-group">
-                  <label>CARD NUMBER</label>
+                  <label>User Name</label>
                   <div class="input-group">
-                    <input type="tel" class="form-control" placeholder="Valid Card Number" />
-                    <span class="input-group-addon"><span class="fa fa-credit-card"></span></span>
+                    <input type="text" class="form-control" placeholder="Valid User Name" />
                   </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-xs-7 col-md-7">
-                <div class="form-group">
-                  <label><span class="visible-xs-inline">EXP</span> DATE</label>
-                  <input type="tel" class="form-control" placeholder="MM / YY" />
-                </div>
-              </div>
-              <div class="col-xs-5 col-md-5 pull-right">
-                <div class="form-group">
-                  <label>CVC</label>
-                  <input type="tel" class="form-control" placeholder="CVC" />
                 </div>
               </div>
             </div>
             <div class="row">
               <div class="col-xs-12 col-md-12">
                 <div class="form-group">
-                  <label>CARD OWNER</label>
-                  <input type="text" class="form-control" placeholder="Card Owner" />
+                  <label>Password</label>
+                  <div class="input-group">
+                    <input type="password" class="form-control" placeholder="Valid Password" />
+                  </div>
                 </div>
               </div>
             </div>
@@ -70,7 +57,7 @@
         <div class="panel-footer">
           <div class="row cc-row">
             <div class="col-xs-12">
-              <a href="/order-confirmation?user_id=1"><button class="btn btn-warning btn-lg btn-block">Process payment</button></a>
+              <a href="/order-confirmation?user_id=1"><button class="btn btn-primary btn-lg btn-block">Process payment</button></a>
             </div>
           </div>
         </div>

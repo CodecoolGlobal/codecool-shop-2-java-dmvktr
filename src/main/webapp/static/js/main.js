@@ -1,6 +1,8 @@
 import {dataHandler} from "./data-handler.js";
 
 const page = {
+    userId: 1,
+    updateOrderBaseURL: "/update-order",
     categoryEndpointURL: "/getProductsByCategory",
     supplierEndpointURL: "/getProductsBySuppliers",
     baseImagePath: "/static/img/product-img/",
@@ -9,7 +11,27 @@ const page = {
     init: function (){
         this.initCategoryMenuEventListeners();
         this.initSupplierMenuEventListeners();
-        this.initShoppingCartListeners();
+        this.initCartEventListeners();
+    },
+
+    initCartEventListeners: function () {
+        let carts = document.querySelectorAll('.product-cart');
+
+        carts.forEach(cart => cart.addEventListener('click', (e) => {
+            e.preventDefault();
+            this.startShoppingCartAnimation(cart);
+            this.cleanUpAfterAnimation(cart);
+            const URL = `${this.updateOrderBaseURL}?user_id=${this.userId}&product_id=${cart.dataset.productId}&quantity_diff=1`;
+            dataHandler.fetchData(URL, this.updateCartInMenu);
+        }))
+    },
+
+    updateCartInMenu: function (cartContent) {
+        document.querySelector("#sidebar-cart").innerHTML = `(${cartContent['itemCount']})`;
+    },
+
+    logResponse: function (data) {
+        console.log(data);
     },
 
     initCategoryMenuEventListeners: function (){
@@ -77,6 +99,7 @@ const page = {
                 for (const product of products) {
                     page.rebuildSingleProduct(container, product);
                 }
+                page.initCartEventListeners();
             }
         },
 
@@ -109,29 +132,20 @@ const page = {
                             <i class="fa fa-star" aria-hidden="true"></i>
                             <i class="fa fa-star" aria-hidden="true"></i>
                         </div>
-                        <a href="product-details.html">
+                        <a href="">
                             <h4 class="card-title">${product['name']}</h4>
                         </a>
                         <p class="card-text">${product['description']} </p>
                     </div>
                     <div class="ratings-cart text-right" style="min-width: 50px">
                         <div class="cart">
-                            <a href="cart.html" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img src="/static/img/core-img/cart-purple.png" alt=""></a>
+                            <a href="#" data-toggle="tooltip" data-placement="left" title data-original-title="Add to Cart"><img data-product-id=${product['id']} class="product-cart" src="/static/img/core-img/cart-purple.png" alt=""></a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>`
         )
-    },
-
-    initShoppingCartListeners: function (){
-        const carts = document.querySelectorAll('.product-cart');
-
-        carts.forEach(cart => cart.addEventListener('click', ()=>{
-            this.startShoppingCartAnimation(cart);
-            this.cleanUpAfterAnimation(cart);
-        }))
     },
 
     startShoppingCartAnimation: function (cart){

@@ -25,7 +25,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 
-@WebServlet(urlPatterns = {"/order_confirmation"})
+@WebServlet(urlPatterns = {"/order-confirmation"})
 public class PaymentConfirmation extends HttpServlet{
 
     @Override
@@ -35,7 +35,7 @@ public class PaymentConfirmation extends HttpServlet{
         WebContext context = new WebContext(req, resp, req.getServletContext());
         Optional<Order> order = OrderDaoMem.getInstance().getBy(Integer.parseInt(req.getParameter("user_id")));
         context.setVariable("order", order.orElse(null));
-        engine.process("product/confirmation.html", context, resp.getWriter());
+        engine.process("product/order_confirmation.html", context, resp.getWriter());
     }
 
 }

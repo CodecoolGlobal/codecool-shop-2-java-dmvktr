@@ -108,8 +108,8 @@ const cart = {
         const cartSummarySubtotal = document.querySelector("#cart-summary-subtotal");
         const cartSummaryTotal = document.querySelector("#cart-summary-total");
 
-        cartSummarySubtotal.innerText = cartContent['totalPrice'];
-        cartSummaryTotal.innerText = cartContent['totalPrice'];
+        cartSummarySubtotal.innerText = `${cartContent['totalPrice']} EUR`;
+        cartSummaryTotal.innerText = `${cartContent['totalPrice']} EUR`;
     },
 }
 

@@ -1516,6 +1516,27 @@ header {
   color: #9860bc;
 }
 
+.cc-img {
+  margin: 0 auto;
+}
+
+/*.cc-container {*/
+/*  display: flex;*/
+/*  justify-content: center;*/
+/*  align-items: center;*/
+/*}*/
+
+.cc-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cc-inner-container {
+  width: 350px;
+  margin-top: 10%;
+}
+
 /* ##### The End ##### */
 
 /*# sourceMappingURL=core-style.css.map */
