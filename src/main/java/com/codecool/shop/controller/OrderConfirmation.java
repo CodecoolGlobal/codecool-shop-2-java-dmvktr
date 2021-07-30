@@ -26,16 +26,17 @@ import java.util.Optional;
 
 
 @WebServlet(urlPatterns = {"/order-confirmation"})
-public class PaymentConfirmation extends HttpServlet{
+public class OrderConfirmation extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductService productService = ProductServiceFactory.get();
         TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
         WebContext context = new WebContext(req, resp, req.getServletContext());
-        Optional<Order> order = OrderDaoMem.getInstance().getBy(Integer.parseInt(req.getParameter("user_id")));
+        Optional<Order> order = productService.getOrderDao().getBy(1);
         context.setVariable("order", order.orElse(null));
         engine.process("product/order_confirmation.html", context, resp.getWriter());
+        productService.getOrderDao().setUsersOrderItemsToNull(1);
     }
 
 }

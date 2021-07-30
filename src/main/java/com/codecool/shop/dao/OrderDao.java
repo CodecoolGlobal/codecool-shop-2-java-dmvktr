@@ -13,7 +13,7 @@ public interface OrderDao {
 
     List<Order> getAll();
     Optional<Order> getBy(int userID);
-    //List<Product> getBy();
+    void setUsersOrderItemsToNull(int userID);
 
     void updateProductQuantityInOrder(Order order, Product product, int quantity);
 

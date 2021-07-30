@@ -27,17 +27,20 @@ public class Order {
         for (LineItem item : items) {
             if (isProductInItem(product, item)) {
                 item.updateQuantity(quantity);
-//                refreshTotalPrice();
                 return;
             }
         }
         items.add(new LineItem(product, quantity));
-//        refreshTotalPrice();
     }
 
     public void removeItem(LineItem item) {
         items.remove(item);
-//        refreshTotalPrice();
+    }
+
+    public void setItemsToNull() {
+        items = new ArrayList<>();
+        refreshTotalPrice();
+        refreshItemCount();
     }
 
     public CheckoutDetails getCheckoutDetails() {

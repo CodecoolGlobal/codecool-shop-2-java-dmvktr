@@ -69,6 +69,14 @@ public class OrderDaoMem implements OrderDao {
         return data.stream().filter(order -> order.getUserID() == userID).findFirst();
     }
 
+    @Override
+    public void setUsersOrderItemsToNull(int userID) {
+        Order order = data.stream().filter(o -> o.getUserID() == userID).findFirst().orElse(null);
+        if (order != null) {
+            order.setItemsToNull();
+        }
+    }
+
     public void updateProductQuantityInOrder(Order order, Product product, int quantityDiff) {
         for (LineItem item : order.getItems()) {
             if (isProductInItem(product, item)) {
