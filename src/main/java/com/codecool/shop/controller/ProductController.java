@@ -1,18 +1,11 @@
 package com.codecool.shop.controller;
 
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.controller.util.EngineProcessor;
 import com.codecool.shop.model.Order;
-import com.codecool.shop.service.ProductService;
+import com.codecool.shop.service.*;
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.service.ProductServiceFactory;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -29,15 +22,16 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductService productService = ProductServiceFactory.get();
-        Optional<Order> order = productService.getOrderDao().getBy(1);
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        context.setVariable("category", productService.getProductCategory(1));
-        context.setVariable("categories", productService.getProductCategoryDao().getAll());
-        context.setVariable("suppliers", productService.getSupplierDao().getAll());
-        context.setVariable("products", productService.getProductsForCategory(1));
-        context.setVariable("order", order.orElse(null));
-        engine.process("product/index.html", context, resp.getWriter());
+
+        Map<String, Object> templateVariables = new HashMap<>();
+        templateVariables.put("order", productService.getOrderDao().getBy(1).orElse(null));
+        templateVariables.put("category", productService.getProductCategory(1));
+        templateVariables.put("categories", productService.getProductCategoryDao().getAll());
+        templateVariables.put("suppliers", productService.getSupplierDao().getAll());
+        templateVariables.put("products", productService.getProductsForCategory(1));
+
+        String htmlFilename = "product/index.html";
+        EngineProcessor.apply(req, resp, templateVariables, htmlFilename);
     }
 
 }
