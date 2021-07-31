@@ -1,13 +1,9 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.controller.util.CheckoutDetailsFactory;
+import com.codecool.shop.controller.util.EngineProcessor;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
 import com.codecool.shop.model.CheckoutDetails;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.service.ProductService;
@@ -21,6 +17,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -28,39 +26,20 @@ import java.util.Optional;
 public class PaymentProcessController extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        ProductService productService = ProductServiceFactory.get();
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        engine.process("product/paypal_payment.html", context, resp.getWriter());
-    }
-
-    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductService productService = ProductServiceFactory.get();
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        String firstName = req.getParameter("first_name");
-        String lastName = req.getParameter("last_name");
-        String company = req.getParameter("company");
-        String email = req.getParameter("email");
-        String country = req.getParameter("country");
-        String streetAddress = req.getParameter("street_address");
-        String city = req.getParameter("city");
-        String zipCode = req.getParameter("zip_code");
-        String phoneNumber = req.getParameter("phone_number");
-        String comment = req.getParameter("comment");
-        String paymentMethod = req.getParameter("payment-method");
-        CheckoutDetails checkoutDetails = new CheckoutDetails(firstName, lastName, company, email, country, streetAddress, city, zipCode, phoneNumber, comment);
-        Optional<Order> order = OrderDaoMem.getInstance().getBy(1);
-        order.get().setCheckoutDetails(checkoutDetails);
-        if (Objects.equals(paymentMethod, "paypal")) {
-            engine.process("product/paypal_payment.html", context, resp.getWriter());
-        }
-        if (Objects.equals(paymentMethod, "credit-card")) {
-            engine.process("product/credit_card_payment.html", context, resp.getWriter());
 
+        CheckoutDetails checkoutDetails = CheckoutDetailsFactory.get(req);
+        String paymentMethod = req.getParameter("payment-method");
+        productService.getOrderDao().getBy(1).ifPresent(order -> order.setCheckoutDetails(checkoutDetails));
+        String htmlFilename;
+        if (paymentMethod.equals("paypal")) {
+            htmlFilename = "product/paypal_payment.html";
+        } else {
+            htmlFilename = "product/credit_card_payment.html";
         }
+        Map<String, Object> templateVariables = new HashMap<>();
+        EngineProcessor.apply(req, resp, templateVariables, htmlFilename);
     }
 
 }
