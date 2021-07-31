@@ -1,25 +1,19 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.config.TemplateEngineUtil;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.OrderDaoMem;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.controller.util.EngineProcessor;
 import com.codecool.shop.model.Order;
-import com.codecool.shop.service.ProductService;
-import com.codecool.shop.service.ProductServiceFactory;
+import com.codecool.shop.service.*;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.WebContext;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
 @WebServlet(urlPatterns = {"/checkout"})
@@ -29,15 +23,11 @@ public class CheckoutController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductService productService = ProductServiceFactory.get();
 
-        // todo get user_id
+        Map<String, Object> templateVariables = new HashMap<>();
+        // TODO remove hardcoded order #1 during 2nd sprint
+        templateVariables.put("order", productService.getOrderDao().getBy(1).orElse(null));
 
-        TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        WebContext context = new WebContext(req, resp, req.getServletContext());
-        Optional<Order> order = productService.getOrderDao().getBy(1);
-        context.setVariable("order", order.orElse(null));
-        engine.process("product/checkout.html", context, resp.getWriter());
+        String htmlFilename = "product/checkout.html";
+        EngineProcessor.apply(req, resp, templateVariables, htmlFilename);
     }
-
-
-
 }
