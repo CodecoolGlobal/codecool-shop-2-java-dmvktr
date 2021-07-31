@@ -25,7 +25,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 @WebServlet(urlPatterns = {"/payment"})
-public class PaymentProcess extends HttpServlet {
+public class PaymentProcessController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

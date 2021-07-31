@@ -21,22 +21,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-@WebServlet(urlPatterns = {"/getProductsByCategory"})
-public class ProductFetcherByCategory extends HttpServlet {
+@WebServlet(urlPatterns = {"/getProductsBySuppliers"})
+public class ProductFetcherBySuppliersController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         ProductService productService = ProductServiceFactory.get();
 
-        //TemplateEngine engine = TemplateEngineUtil.getTemplateEngine(req.getServletContext());
-        //WebContext context = new WebContext(req, resp, req.getServletContext());
-        int categoryId = Integer.parseInt(req.getParameter("id"));
+        Enumeration<String> supplierIDs = req.getParameterNames();
+        List<Product> products;
+        if (!supplierIDs.hasMoreElements()) {
+            products = null;
+        } else {
+            List<Integer> ids = new ArrayList<>();
+            while (supplierIDs.hasMoreElements()) {
+                String id = supplierIDs.nextElement();
+                ids.add(Integer.valueOf(id));
+            }
+            products = productService.getProductsForSuppliers(ids);
+        }
 
-        List<Product> products = productService.getProductsForCategory(categoryId);
         Gson gson = new Gson();
         String jsonResponse = gson.toJson(products);
         resp.setContentType("application/json");
