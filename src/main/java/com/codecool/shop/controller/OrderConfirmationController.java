@@ -15,7 +15,7 @@ import java.util.*;
 public class OrderConfirmationController extends HttpServlet{
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ProductService productService = ProductServiceFactory.get();
 
         Map<String, Object> templateVariables = new HashMap<>();

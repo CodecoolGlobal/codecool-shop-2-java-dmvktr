@@ -1,7 +1,6 @@
 package com.codecool.shop.controller.util;
 
 import com.codecool.shop.model.CheckoutDetails;
-
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;

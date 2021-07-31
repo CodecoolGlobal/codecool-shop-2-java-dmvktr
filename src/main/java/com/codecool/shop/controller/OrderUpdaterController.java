@@ -4,7 +4,6 @@ import com.codecool.shop.controller.util.JsonReturner;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.service.ProductServiceFactory;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,7 @@ import java.io.IOException;
 public class OrderUpdaterController extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ProductService productService = ProductServiceFactory.get();
 
         try {

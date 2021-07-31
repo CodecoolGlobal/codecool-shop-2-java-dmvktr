@@ -3,7 +3,6 @@ package com.codecool.shop.controller;
 import com.codecool.shop.controller.util.JsonReturner;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.service.*;
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +14,7 @@ import java.util.*;
 public class ProductFetcherBySuppliersController extends HttpServlet {
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ProductService productService = ProductServiceFactory.get();
 
         Enumeration<String> supplierIDs = req.getParameterNames();
