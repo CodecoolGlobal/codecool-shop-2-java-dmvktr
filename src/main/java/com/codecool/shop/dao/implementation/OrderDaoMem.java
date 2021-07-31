@@ -16,10 +16,6 @@ public class OrderDaoMem implements OrderDao {
     private static OrderDaoMem instance = null;
     private ProductDao productDataStore = ProductDaoMem.getInstance();
 
-    private OrderDaoMem() {
-
-    }
-
     public static OrderDaoMem getInstance() {
         if (instance == null) {
             instance = new OrderDaoMem();
@@ -36,7 +32,6 @@ public class OrderDaoMem implements OrderDao {
             Order newOrder = addOrder(userID);
             updateProductQuantityInOrder(newOrder, productDataStore.find(productID), quantityDiff);
         }
-
     }
 
     private Order addOrder(int userID) {
@@ -97,5 +92,4 @@ public class OrderDaoMem implements OrderDao {
     private boolean isProductInItem(Product product, LineItem item) {
         return item.getProduct().getId() == product.getId();
     }
-
 }
