@@ -10,22 +10,18 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@WebServlet(urlPatterns = {"/"})
-public class ProductController extends HttpServlet {
+@WebServlet(urlPatterns = {"/checkout"})
+public class CheckoutController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         ProductService productService = ProductServiceFactory.get();
 
         Map<String, Object> templateVariables = new HashMap<>();
+        // TODO remove hardcoded order #1 during 2nd sprint
         templateVariables.put("order", productService.getOrderDao().getBy(1).orElse(null));
-        templateVariables.put("category", productService.getProductCategory(1));
-        templateVariables.put("categories", productService.getProductCategoryDao().getAll());
-        templateVariables.put("suppliers", productService.getSupplierDao().getAll());
-        templateVariables.put("products", productService.getProductsForCategory(1));
 
-        String htmlFilename = "product/index.html";
+        String htmlFilename = "product/checkout.html";
         EngineProcessor.apply(req, resp, templateVariables, htmlFilename);
     }
-
 }
