@@ -29,7 +29,7 @@ public class ProductService{
     }
 
     public List<Product> getProductsForCategory(int categoryId){
-        var category = productCategoryDao.find(categoryId);
+        ProductCategory category = productCategoryDao.find(categoryId);
         return productDao.getBy(category);
     }
 
