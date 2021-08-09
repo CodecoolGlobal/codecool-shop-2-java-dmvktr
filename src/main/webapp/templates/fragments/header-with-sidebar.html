@@ -1,0 +1,82 @@
+
+<!-- Header Area Start -->
+<header class="header-area clearfix" th:fragment="header-with-sidebar">
+    <!-- Close Icon -->
+    <div class="nav-close">
+        <i class="fa fa-close" aria-hidden="true"></i>
+    </div>
+    <!-- Logo -->
+    <div class="logo">
+        <a href="/"><img src="/static/img/core-img/logo.png" alt=""></a>
+    </div>
+    <!-- Amado Nav -->
+    <nav class="amado-nav">
+        <ul>
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/cart">Cart</a></li>
+            <li><a href="/checkout">Checkout</a></li>
+        </ul>
+    </nav>
+    <!-- Cart Menu -->
+    <div class="cart-fav-search mb-30">
+        <a href="/cart" class="cart-nav"><img id="shopping-cart" src="/static/img/core-img/cart.png" alt=""> Cart <span id="sidebar-cart" th:text="${order} ? ${'(' + order.itemCount + ')'} : '(0)'">(0)</span></a>
+    </div>
+
+    <div class="shop_sidebar_area_new">
+        <!-- ##### Single Widget ##### -->
+        <div class="widget catagory mb-50">
+            <!-- Widget Title -->
+            <h6 class="widget-title mb-30">Categories</h6>
+
+            <!--  Catagories  -->
+            <div class="catagories-menu">
+                <ul>
+                    <li  th:each="cat,iterStat : ${categories}" th:attr="data-category-id=${cat.id}" th:classappend="${cat.getName()=='T-Shirt' ? 'active' : ''}">
+                        <a href="#" th:text="${cat.name}">Cat</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ##### Single Widget ##### -->
+        <div class="widget brands mb-50">
+            <!-- Widget Title -->
+            <h6 class="widget-title mb-30">Supplier</h6>
+
+            <div id="supplier-checkbox" class="widget-desc">
+                <!-- Single Form Check -->
+                <div th:each="sup,iterStat : ${suppliers}" class="form-check">
+                    <input class="form-check-input" type="checkbox" th:id="${sup.id}" checked>
+                    <label class="form-check-label" th:for="${sup.id}" th:text="${sup.name}">Supplier</label>
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- ##### Single Widget ##### -->
+        <div class="widget price mb-50">
+            <!-- Widget Title -->
+            <h6 class="widget-title mb-30">Price</h6>
+
+            <div class="widget-desc">
+                <div class="slider-range">
+                    <div data-min="10" data-max="1000" data-unit="$" class="slider-range-price ui-slider ui-slider-horizontal ui-widget ui-widget-content ui-corner-all" data-value-min="10" data-value-max="1000" data-label-result="">
+                        <div class="ui-slider-range ui-widget-header ui-corner-all"></div>
+                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                        <span class="ui-slider-handle ui-state-default ui-corner-all" tabindex="0"></span>
+                    </div>
+                    <div class="range-price">$10 - $50</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Button Group -->
+    <div class="amado-btn-group mt-30 mb-100">
+        <a href="#" class="btn amado-btn mb-15">CC Discount</a>
+        <a href="#" class="btn amado-btn active">New this week</a>
+    </div>
+</header>
+<!-- Header Area End -->
+

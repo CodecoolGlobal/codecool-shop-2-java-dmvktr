@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!-- Title  -->
+    <title>CoolCode | Cart</title>
+
+    <!-- Favicon  -->
+    <link rel="icon" href="static/img/core-img/favicon.ico">
+
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="static/css/core-style.css">
+    <link rel="stylesheet" href="/static/scss/style.css">
+
+</head>
+
+<body>
+    <!-- Search Wrapper Area Start -->
+    <div th:insert="fragments/search.html :: search">...</div>
+    <!-- Search Wrapper Area End -->
+
+    <!-- ##### Main Content Wrapper Start ##### -->
+    <div class="main-content-wrapper d-flex clearfix">
+
+        <!-- Mobile Nav (max width 767px)-->
+        <div class="mobile-nav">
+            <!-- Navbar Brand -->
+            <div class="amado-navbar-brand">
+                <a href="index.html"><img src="static/img/core-img/logo.png" alt=""></a>
+            </div>
+            <!-- Navbar Toggler -->
+            <div class="amado-navbar-toggler">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+
+        <!-- Header Area Start -->
+        <div class="banner-navbar-container">
+            <header th:insert="fragments/header.html :: header">...</header>
+        </div>
+        <!-- Header Area End -->
+
+        <div class="cart-table-area section-padding-100">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-12 col-lg-9">
+                        <div class="cart-title mt-50">
+                            <h2>Shopping Cart</h2>
+                        </div>
+
+                        <div class="cart-table clearfix">
+                            <table class="table table-responsive">
+                                <thead>
+                                    <tr>
+                                        <th>Product Image</th>
+                                        <th>Name</th>
+                                        <th>Price</th>
+                                        <th>Quantity</th>
+                                        <th>Subtotal</th>
+                                    </tr>
+                                </thead>
+                                <tbody th:if="${order} AND ${order.containsAtLeastOneLineItem()}">
+                                    <tr th:each="item,iterStat : ${order.getItems()}">
+                                        <td class="cart_product_img">
+                                            <a href="#"><img th:src="@{${item.getProduct().getBaseImagePath() + item.getProduct().getImagePath()}}" alt="Product"></a>
+                                        </td>
+                                        <td class="name">
+                                            <span th:text="${item.getProduct().getName()}">T-Shirt</span>
+                                        </td>
+                                        <td class="price" th:data-price="${item.getProduct().getDefaultPrice()}">
+                                            <span th:text="${item.getProduct().getPrice()}">$130</span>
+                                        </td>
+                                        <td class="qty">
+                                            <div class="qty-btn d-flex">
+                                                <p>Qty</p>
+                                                <div class="quantity" th:data-product-id="${item.getProduct().id}">
+                                                    <span class="qty-minus"><i class="fa fa-minus" aria-hidden="true"></i></span>
+                                                    <input type="number" class="qty-text" id="qty" step="1" min="1" max="300" name="quantity" th:value="${item.quantity}">
+                                                    <span class="qty-plus"><i class="fa fa-plus" aria-hidden="true"></i></span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td class="subtotal" th:data-subtotal="${#numbers.formatDecimal(item.quantity * item.getProduct().getDefaultPrice(), 0, 'COMMA', 1, 'POINT')}">
+                                            <span th:text="${#numbers.formatDecimal(item.quantity * item.getProduct().getDefaultPrice(), 0, 'COMMA', 1, 'POINT')} + ' ' + ${item.getProduct().getDefaultCurrency()}">$130</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-3">
+                        <div class="cart-summary">
+                            <h5>Cart Total</h5>
+                            <ul class="summary-table">
+                                <li><span>subtotal:</span> <span id="cart-summary-subtotal" th:text="${order} ? ${order.getTotalPrice() + ' EUR'}  : '0 EUR'">$140.00</span></li>
+                                <li><span>delivery:</span> <span id="cart-summary-delivery">Free</span></li>
+                                <li><span>total:</span> <span id="cart-summary-total" th:text="${order} ? ${order.getTotalPrice() + ' EUR'} : '0 EUR'">$140.00</span></li>
+                            </ul>
+                            <div class="cart-btn mt-100">
+                                <a href="/checkout" class="btn amado-btn w-100">Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Main Content Wrapper End ##### -->
+
+
+    <!-- ##### Newsletter Area Start ##### -->
+    <section th:insert="fragments/newsletter.html :: newsletter">...</section>
+    <!-- ##### Newsletter Area End ##### -->
+
+
+    <!-- ##### Footer Area Start ##### -->
+    <div th:insert="fragments/footer.html :: footer">...</div>
+    <!-- ##### Footer Area End ##### -->
+
+    <!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
+    <script src="static/js/jquery/jquery-2.2.4.min.js"></script>
+    <!-- Popper js -->
+    <script src="static/js/popper.min.js"></script>
+    <!-- Bootstrap js -->
+    <script src="static/js/bootstrap.min.js"></script>
+    <!-- Plugins js -->
+    <script src="static/js/plugins.js"></script>
+    <!-- Active js -->
+    <script src="static/js/active.js"></script>
+    <script type="module" src="static/js/cart-summary-page.js"></script>
+
+</body>
+
+</html>

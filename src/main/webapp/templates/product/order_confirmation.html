@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+  <!-- Title  -->
+  <title>Payment</title>
+
+  <!-- Favicon  -->
+  <link rel="icon" href="static/img/core-img/favicon.ico">
+
+  <!-- Core Style CSS -->
+  <link rel="stylesheet" href="static/css/core-style.css">
+  <link rel="stylesheet" href="static/static/css/style.css">
+</head>
+<body>
+
+<div class="container cc-container">
+  <div class="row cc-row">
+    <div class="cc-inner-container">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <div class="row cc-row">
+            <br><br>
+            <h1 th:text="'Order #2021-223' + ${order.getOrderID()}" class="text-center">Order</h1>
+            <img class="img-responsive cc-img" src="static/img/core-img/logo.png" alt="">
+            <br><br>
+          </div>
+        </div>
+        <div class="panel-body">
+            <div class="row">
+              <div class="col-xs-12 col-md-12">
+                <h3 th:text="${order.getCheckoutDetails().getFirstName() + ', thank you for your order!'}">Name</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12 col-md-12">
+                <h6 th:text="'Your order will be shipped to ' + ${order.getCheckoutDetails().getCity() + ' within 2-3 business days.'}">Your order will be shipped.</h6>
+              </div>
+            </div>
+          <br>
+            <div class="row">
+              <div class="col-xs-12 col-md-12">
+                <p th:text="'A confirmation email has been sent to ' + ${order.getCheckoutDetails().getEmail()} + '.'">email.</p>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="static/js/jquery/jquery-2.2.4.min.js"></script>
+  <!-- Popper js -->
+  <script src="static/js/popper.min.js"></script>
+  <!-- Bootstrap js -->
+  <script src="static/js/bootstrap.min.js"></script>
+  <!-- Plugins js -->
+  <script src="static/js/plugins.js"></script>
+  <!-- Active js -->
+</body>
+</html>
