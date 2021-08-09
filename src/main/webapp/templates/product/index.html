@@ -1,67 +1,123 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8" />
-    <meta name="author" content="Codecool" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
-    <title>Codecool Shop</title>
+    <!-- Title  -->
+    <title>CoolCode | Get your Geek on with these Tech Meme Tees and Laptop Stickers</title>
 
-    <!-- Bootstrap components -->
-    <!-- Latest compiled and minified Jquery -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <!-- Favicon  -->
+    <link rel="icon" href="/static/img/core-img/favicon.ico">
 
-    <!--Latest compiled and minified Popper -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <!-- Core Style CSS -->
+    <link rel="stylesheet" href="/static/css/core-style.css">
+    <link rel="stylesheet" href="/static/scss/style.css">
 
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
-    <!-- Latest compiled and minified CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
-    <!-- End of Bootstrap components -->
-
-    <link rel="stylesheet" type="text/css" href="/static/css/custom.css" />
 </head>
 
 <body>
+<!-- Search Wrapper Area Start -->
+<div th:insert="fragments/search.html :: search">...</div>
+<!-- Search Wrapper Area End -->
 
-<div class="jumbotron text-center">
-    <h1>Codecool Shop</h1>
-</div>
+<div class="banner-container box-shadow"></div>
 
-<div class="container">
-    <div class="card">
-        <strong th:text="${category.name}">Category Title</strong>
-    </div>
+<!-- ##### Main Content Wrapper Start ##### -->
+<div class="main-content-wrapper d-flex clearfix">
 
-    <div id="products" class="row">
-        <div class="col col-sm-12 col-md-6 col-lg-4" th:each="prod,iterStat : ${products}">
-            <div class="card">
-                <img class="" src="http://placehold.it/400x250/000/fff" th:attr="src='/static/img/product_' + ${prod.id} + '.jpg'" alt="" />
-                <div class="card-header">
-                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
-                    <p class="card-text" th:text="${prod.description}">Product description... </p>
-                </div>
-                <div class="card-body">
-                    <div class="card-text">
-                        <p class="lead" th:text="${prod.getPrice()}">100 USD</p>
-                    </div>
-                    <div class="card-text">
-                        <a class="btn btn-success" href="#">Add to cart</a>
-                    </div>
-                </div>
-            </div>
+    <!-- Mobile Nav (max width 767px)-->
+    <div class="mobile-nav">
+        <!-- Navbar Brand -->
+        <div class="amado-navbar-brand">
+            <a href="index.html"><img src="/static/img/core-img/logo.png" alt=""></a>
+        </div>
+        <!-- Navbar Toggler -->
+        <div class="amado-navbar-toggler">
+            <span></span><span></span><span></span>
         </div>
     </div>
 
-</div>
 
-<div th:replace="footer.html :: copy"></div>
+    <!-- Header Area Start -->
+    <div class="banner-navbar-container">
+        <header th:insert="fragments/header-with-sidebar.html :: header-with-sidebar">...</header>
+    </div>
+    <!-- Header Area End -->
+
+    <div class="amado_product_area section-padding-100">
+        <div class="container-fluid">
+            <div id="product-container" class="row">
+                <!-- Single Product Area -->
+                <div class="col-12 col-sm-4 col-md-12 col-xl-4" th:each="prod,iterStat : ${products}">
+                    <div class="single-product-wrapper">
+                        <!-- Product Image -->
+                        <div class="product-img">
+                            <img th:src="@{${prod.baseImagePath + prod.imagePath}}" alt="">
+                            <!-- Hover Thumb -->
+                            <img class="hover-img" th:src="@{${prod.baseImagePath + prod.hoverImagePath}}" alt="">
+                        </div>
+
+                        <!-- Product Description -->
+                        <div class="product-description d-flex align-items-top justify-content-between">
+                            <!-- Product Meta Data -->
+                            <div class="product-meta-data">
+                                <div class="line"></div>
+                                <p class="lead product-price" th:text="${prod.price}">100 USD</p>
+                                <div class="ratings">
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                    <i class="fa fa-star" aria-hidden="true"></i>
+                                </div>
+                                <a href="#">
+                                    <h4 class="card-title" th:text="${prod.name}">Product name</h4>
+                                </a>
+                                <p class="card-text" th:text="${prod.description}">Product description... </p>
+                            </div>
+                            <!-- Ratings & Cart -->
+                            <div class="ratings-cart text-right" style="min-width: 30px">
+                                <div class="cart">
+                                    <a href="#" data-toggle="tooltip" data-placement="left" title="Add to Cart"><img th:data-product-id="${prod.id}" class="product-cart" src="/static/img/core-img/cart-purple.png" alt=""></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- ##### Main Content Wrapper End ##### -->
+
+<!-- ##### Newsletter Area Start ##### -->
+<section th:insert="fragments/newsletter.html :: newsletter">...</section>
+<!-- ##### Newsletter Area End ##### -->
+
+
+<!-- ##### Footer Area Start ##### -->
+<div th:insert="fragments/footer.html :: footer">...</div>
+<!-- ##### Footer Area End ##### -->
+
+
+<!-- ##### jQuery (Necessary for All JavaScript Plugins) ##### -->
+<script src="/static/js/jquery/jquery-2.2.4.min.js"></script>
+<!-- Popper js -->
+<script src="/static/js/popper.min.js"></script>
+<!-- Bootstrap js -->
+<script src="/static/js/bootstrap.min.js"></script>
+<!-- Plugins js -->
+<script src="/static/js/plugins.js"></script>
+<!-- Active js -->
+<script src="/static/js/active.js"></script>
+<script type="module" src="/static/js/main.js" defer></script>
 
 </body>
+
 </html>

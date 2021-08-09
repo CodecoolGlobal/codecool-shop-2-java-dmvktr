@@ -43,8 +43,8 @@ public class LineItem {
     @Override
     public String toString() {
         return "LineItem{" +
-                "product=" + product +
-                ", quantity=" + quantity +
-                '}';
+            "product=" + product +
+            ", quantity=" + quantity +
+            '}';
     }
 }
