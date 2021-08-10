@@ -1,21 +1,37 @@
 package com.codecool.shop.service;
 
-import com.codecool.shop.dao.OrderDao;
-import com.codecool.shop.dao.ProductCategoryDao;
-import com.codecool.shop.dao.ProductDao;
-import com.codecool.shop.dao.SupplierDao;
-import com.codecool.shop.dao.implementation.OrderDaoMem;
-import com.codecool.shop.dao.implementation.ProductCategoryDaoMem;
-import com.codecool.shop.dao.implementation.ProductDaoMem;
-import com.codecool.shop.dao.implementation.SupplierDaoMem;
+import com.codecool.shop.dao.implementation.*;
+
+import javax.sql.DataSource;
 
 public class ProductServiceFactory {
-    private static ProductDao productDataStore = ProductDaoMem.getInstance();
-    private static ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
-    private static SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
-    private static OrderDao orderDataStore = OrderDaoMem.getInstance();
 
-    public static ProductService get() {
-        return new ProductService(productDataStore,productCategoryDataStore, supplierDataStore, orderDataStore);
+    private static ProductServiceFactory instance = null;
+    private static ProductService productService;
+
+    private ProductServiceFactory() {
+        productService = new ProductService(ProductDaoMem.getInstance(), ProductCategoryDaoMem.getInstance(), SupplierDaoMem.getInstance(), OrderDaoMem.getInstance());
+    }
+
+    private ProductServiceFactory(DataSource dataSource) {
+        productService = new ProductService(ProductDaoJDBC.getInstance(), ProductCategoryDaoJDBC.getInstance(), SupplierDaoJDBC.getInstance(), OrderDaoMem.getInstance(), dataSource);
+    }
+
+    public static ProductServiceFactory initialize() {
+        if (instance == null) {
+            instance = new ProductServiceFactory();
+        }
+        return instance;
+    }
+
+    public static ProductServiceFactory initialize(DataSource dataSource) {
+        if (instance == null) {
+            instance = new ProductServiceFactory(dataSource);
+        }
+        return instance;
+    }
+
+    public static ProductService getProductService() {
+        return productService;
     }
 }

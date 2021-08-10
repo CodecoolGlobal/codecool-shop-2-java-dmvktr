@@ -15,7 +15,7 @@ public class OrderUpdaterController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ProductService productService = ProductServiceFactory.get();
+        ProductService productService = ProductServiceFactory.getProductService();
 
         try {
             int userID = Integer.parseInt(req.getParameter("user_id"));
@@ -27,6 +27,7 @@ public class OrderUpdaterController extends HttpServlet {
         }
 
         Order order = productService.getOrderDao().getBy(1).orElse(null);
+        System.out.println(order);
         JsonReturner.apply(resp, order);
     }
 }

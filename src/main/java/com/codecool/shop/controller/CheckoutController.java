@@ -15,7 +15,7 @@ public class CheckoutController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ProductService productService = ProductServiceFactory.get();
+        ProductService productService = ProductServiceFactory.getProductService();
 
         Map<String, Object> templateVariables = new HashMap<>();
         // TODO remove hardcoded order #1 during 2nd sprint

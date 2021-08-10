@@ -18,7 +18,7 @@ public class PaymentProcessController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ProductService productService = ProductServiceFactory.get();
+        ProductService productService = ProductServiceFactory.getProductService();
 
         CheckoutDetails checkoutDetails = CheckoutDetailsFactory.get(req);
         String paymentMethod = req.getParameter("payment-method");
