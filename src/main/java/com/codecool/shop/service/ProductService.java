@@ -12,10 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductService{
-    private ProductDao productDao;
-    private ProductCategoryDao productCategoryDao;
-    private SupplierDao supplierDao;
-    private OrderDao orderDao;
+    ProductDao productDao;
+    ProductCategoryDao productCategoryDao;
+    SupplierDao supplierDao;
+    OrderDao orderDao;
 
     public ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao, SupplierDao supplierDao, OrderDao orderDao) {
         this.productDao = productDao;
@@ -29,7 +29,7 @@ public class ProductService{
     }
 
     public List<Product> getProductsForCategory(int categoryId){
-        var category = productCategoryDao.find(categoryId);
+        ProductCategory category = productCategoryDao.find(categoryId);
         return productDao.getBy(category);
     }
 
