@@ -1,6 +1,8 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.controller.util.EngineProcessor;
+import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.service.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,10 +17,11 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ProductService productService = ProductServiceFactory.getProductService();
+        ProductService productService = ProductServiceFactory.get();
+        OrderDao orderDao = OrderDaoMem.getInstance();
 
         Map<String, Object> templateVariables = new HashMap<>();
-        templateVariables.put("order", productService.getOrderDao().getBy(1).orElse(null));
+        templateVariables.put("order", orderDao.getBy(1).orElse(null));
 //        templateVariables.put("category", productService.getProductCategory(2));
         templateVariables.put("categories", productService.getProductCategoryDao().getAll());
         templateVariables.put("suppliers", productService.getSupplierDao().getAll());

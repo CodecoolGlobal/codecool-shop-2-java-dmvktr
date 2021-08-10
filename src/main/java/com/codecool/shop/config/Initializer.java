@@ -8,17 +8,11 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.service.ProductServiceFactory;
-import org.postgresql.ds.PGSimpleDataSource;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import javax.sql.DataSource;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.math.BigDecimal;
-import java.sql.SQLException;
-import java.util.Properties;
 
 @WebListener
 public class Initializer implements ServletContextListener {
@@ -26,42 +20,20 @@ public class Initializer implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
-        Properties appProperties = getAppProperties();
-        if (appProperties != null) {
-            if (appProperties.getProperty("product_persistence").equals("jdbc")) {
-                try {
-                    DataSource dataSource = getDataSource(appProperties);
-                    ProductServiceFactory.initialize(dataSource);
-                    System.out.println(dataSource);
-                    return;
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+        if (AppProperties.isProductPersistenceInMemory()) {
+            ProductServiceFactory.initialize();
+            createMemoryProductsObjects();
+        } else if (AppProperties.isProductPersistenceInDatabase()) {
+            ProductServiceFactory.initialize(AppProperties.getDataSource());
         }
-        ProductServiceFactory.initialize();
-        createMemoryProductsObjects();
     }
 
-    private DataSource getDataSource(Properties appProperties) throws SQLException {
-        PGSimpleDataSource dataSource = new PGSimpleDataSource();
-        try {
-            dataSource.setServerName(appProperties.getProperty("url"));
-            dataSource.setDatabaseName(appProperties.getProperty("database"));
-            dataSource.setUser(appProperties.getProperty("user"));
-            dataSource.setPassword(appProperties.getProperty("password"));
-            System.out.println("Trying to connect...");
-            dataSource.getConnection().close();
-            System.out.println("Connection OK");
-            return dataSource;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return null;
-        }
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) {
     }
 
     private void createMemoryProductsObjects() {
-        ProductService productService = ProductServiceFactory.getProductService();
+        ProductService productService = ProductServiceFactory.get();
         SupplierDao supplierDao = productService.getSupplierDao();
         ProductCategoryDao productCategoryDao = productService.getProductCategoryDao();
         ProductDao productDao = productService.getProductDao();
@@ -92,34 +64,4 @@ public class Initializer implements ServletContextListener {
         productDao.add(new Product("Laptop Sticker: Release is Coming", new BigDecimal("13.9"), "EUR", "The bushes reach 1.8m/6ft high, but this is unusual, and perhaps unique to this garden.", laptopSticker, coolStuff, "Sticker_Release-is-Coming.jpeg", "Sticker_Release-is-Coming.jpeg"));
         productDao.add(new Product("Laptop Sticker: Stack Overflow", new BigDecimal("12.9"), "EUR", "Vines and grass are seemingly content with their positions in the garden, none trying to reach beyond, at least not yet.", laptopSticker, coolStuff, "Sticker_Stack-overflow.jpeg", "Sticker_Stack-overflow.jpeg"));
     }
-
-    private Properties getAppProperties() {
-        String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
-        String appConfigPath = rootPath + "connection.properties";
-
-
-        Properties appProperties = new Properties();
-        try {
-            appProperties.load(new FileInputStream(appConfigPath));
-            return appProperties;
-
-        } catch (IOException e) {
-            return null;
-        }
-    }
-
-    /*
-    String url = "";
-    String database = "";
-    String user = "";
-    String password = "";
-    String productPersistence = "";
-    String orderPersistence = "";
-    url = appProperties.getProperty("url");
-    database = appProperties.getProperty("database");
-    user = appProperties.getProperty("user");
-    password = appProperties.getProperty("password");
-    productPersistence = appProperties.getProperty("product_persistence");
-    orderPersistence = appProperties.getProperty("order_persistence");
-    */
 }

@@ -73,7 +73,7 @@ public class SupplierDaoJDBC implements SupplierDao {
             }
             return suppliers;
         } catch (SQLException e) {
-            throw new RuntimeException("Unable to read Product Categories from database", e);
+            throw new RuntimeException("Unable to read Suppliers from database", e);
         }
     }
 }

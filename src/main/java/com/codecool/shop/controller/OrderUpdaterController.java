@@ -1,6 +1,8 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.controller.util.JsonReturner;
+import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.service.ProductServiceFactory;
@@ -15,18 +17,18 @@ public class OrderUpdaterController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ProductService productService = ProductServiceFactory.getProductService();
+        OrderDao orderDao = OrderDaoMem.getInstance();
 
         try {
             int userID = Integer.parseInt(req.getParameter("user_id"));
             int productID = Integer.parseInt(req.getParameter("product_id"));
             int quantity = Integer.parseInt(req.getParameter("quantity_diff"));
-            productService.getOrderDao().handleOrderUpdate(userID, productID, quantity);
+            orderDao.handleOrderUpdate(userID, productID, quantity);
         } catch (NumberFormatException e) {
             System.out.println("Unable to process product change (please check the query string): " + e);
         }
 
-        Order order = productService.getOrderDao().getBy(1).orElse(null);
+        Order order = orderDao.getBy(1).orElse(null);
         System.out.println(order);
         JsonReturner.apply(resp, order);
     }

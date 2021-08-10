@@ -12,7 +12,7 @@ public class Product extends BaseModel implements Serializable {
     private transient Supplier supplier;
     private String imagePath;
     private String hoverImagePath;
-    protected static final String baseImagePath = "/static/img/product-img/";
+    protected final String baseImagePath = "/static/img/product-img/";
 
 
     public Product(String name, BigDecimal defaultPrice, String currencyString, String description, ProductCategory productCategory, Supplier supplier, String imagePath, String hoverImagePath) {

@@ -12,30 +12,26 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
-import javax.xml.crypto.Data;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductService{
-    ProductDao productDao;
-    ProductCategoryDao productCategoryDao;
-    SupplierDao supplierDao;
-    OrderDao orderDao;
-    DataSource dataSource;
+    private ProductDao productDao;
+    private ProductCategoryDao productCategoryDao;
+    private SupplierDao supplierDao;
+    private DataSource dataSource;
 
-    public ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao, SupplierDao supplierDao, OrderDao orderDao) {
+    public ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao, SupplierDao supplierDao) {
         this.productDao = productDao;
         this.productCategoryDao = productCategoryDao;
         this.supplierDao = supplierDao;
-        this.orderDao = orderDao;
     }
 
-    public ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao, SupplierDao supplierDao, OrderDao orderDao, DataSource dataSource) {
+    public ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao, SupplierDao supplierDao, DataSource dataSource) {
         this.dataSource = dataSource;
         this.productDao = productDao;
         this.productCategoryDao = productCategoryDao;
         this.supplierDao = supplierDao;
-        this.orderDao = orderDao;
         setDataSourceForDaos();
     }
 
@@ -75,10 +71,6 @@ public class ProductService{
 
     public SupplierDao getSupplierDao() {
         return supplierDao;
-    }
-
-    public OrderDao getOrderDao() {
-        return orderDao;
     }
 
     public ProductDao getProductDao() {

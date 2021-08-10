@@ -11,7 +11,6 @@ import com.codecool.shop.util.DateProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +23,7 @@ public class OrderDaoMem implements OrderDao {
     static final Logger logger = LoggerFactory.getLogger(OrderDaoMem.class);
 
     public OrderDaoMem() {
-        productDataStore = ProductServiceFactory.getProductService().getProductDao();
+        productDataStore = ProductServiceFactory.get().getProductDao();
     }
 
     public static OrderDaoMem getInstance() {
