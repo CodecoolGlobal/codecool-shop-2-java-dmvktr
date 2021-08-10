@@ -50,7 +50,7 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
             category.setId(rs.getInt(1));
             return category;
         } catch (SQLException e) {
-            throw new RuntimeException("Unable to read Product Categories from database", e);
+            throw new RuntimeException("Unable to read Category from database", e);
         }
     }
 

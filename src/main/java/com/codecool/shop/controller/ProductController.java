@@ -22,7 +22,7 @@ public class ProductController extends HttpServlet {
 //        templateVariables.put("category", productService.getProductCategory(2));
         templateVariables.put("categories", productService.getProductCategoryDao().getAll());
         templateVariables.put("suppliers", productService.getSupplierDao().getAll());
-        templateVariables.put("products", productService.getProductsForCategory(23423423));
+        templateVariables.put("products", productService.getProductsForCategory(1));
 
         String htmlFilename = "product/index.html";
         EngineProcessor.apply(req, resp, templateVariables, htmlFilename);

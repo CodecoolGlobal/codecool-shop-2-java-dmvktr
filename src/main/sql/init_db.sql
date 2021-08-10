@@ -42,9 +42,11 @@ ALTER TABLE ONLY product
 
 INSERT INTO supplier VALUES (1, 'Hacker Tees', 'Hacker Tees for your Geeky Needs');
 INSERT INTO supplier VALUES (2, 'Cool Stuff', 'Your T-shirts, customized');
+SELECT pg_catalog.setval('supplier_id_seq', 2, true);
 
 INSERT INTO category VALUES (1, 'T-Shirt', 'Apparel', 'A t-shirt commonly shortened to tee, is awesome.');
 INSERT INTO category VALUES (2, 'Laptop Sticker', 'Stationery', 'A sticker to your laptop.');
+SELECT pg_catalog.setval('category_id_seq', 2, true);
 
 INSERT INTO product VALUES (1, 'GitHub Half Sleeve Unisex T-Shirt', 21.9, 'EUR', 'The cloth belt is mostly decorative and a sign of wealth.', 1, 2, 'CoolCode_GitHub.jpeg', 'CoolCode_GitHub_hover.jpeg');
 INSERT INTO product VALUES (2, 'Bug Feature Half Sleeve Unisex T-Shirt', 19.9, 'EUR', 'His long sleeved, silky jacket covers him to just below his waist and is buttoned up completely at the top right side.', 1, 1, 'CoolCode_Bug-Feature.jpeg', 'CoolCode_Bug-Feature_hover.jpeg');
@@ -58,3 +60,4 @@ INSERT INTO product VALUES (9, 'Laptop Sticker: Code Mode On', 14.9, 'EUR', 'A d
 INSERT INTO product VALUES (10, 'Laptop Sticker: Don''t Touch My Laptop', 14.9, 'EUR', 'A, pudgy boulder sits in the front left, and next to it is a message carved into the stone.', 2, 1, 'Sticker_Dont-Touch.jpeg', 'Sticker_Dont-Touch.jpeg');
 INSERT INTO product VALUES (11, 'Laptop Sticker: Release is Coming', 13.9, 'EUR', 'The bushes reach 1.8m/6ft high, but this is unusual, and perhaps unique to this garden.', 2, 1, 'Sticker_Release-is-Coming.jpeg', 'Sticker_Release-is-Coming.jpeg');
 INSERT INTO product VALUES (12, 'Laptop Sticker: Stack Overflow', 12.9, 'EUR', 'Vines and grass are seemingly content with their positions in the garden, none trying to reach beyond, at least not yet.', 2, 1, 'Sticker_Stack-overflow.jpeg', 'Sticker_Stack-overflow.jpeg');
+SELECT pg_catalog.setval('product_id_seq', 12, true);
