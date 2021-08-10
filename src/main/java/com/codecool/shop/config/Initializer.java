@@ -13,13 +13,44 @@ import com.codecool.shop.model.Supplier;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
+import java.util.Properties;
 
 @WebListener
 public class Initializer implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
+
+        String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
+        String appConfigPath = rootPath + "connection.properties";
+
+        String url = "";
+        String database = "";
+        String user = "";
+        String password = "";
+        String productPersistence = "";
+        String orderPersistence = "";
+
+
+        Properties appProperties = new Properties();
+        try {
+            appProperties.load(new FileInputStream(appConfigPath));
+            url = appProperties.getProperty("url");
+            database = appProperties.getProperty("database");
+            user = appProperties.getProperty("user");
+            password = appProperties.getProperty("password");
+            productPersistence = appProperties.getProperty("product_persistence");
+            orderPersistence = appProperties.getProperty("order_persistence");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+
+
         ProductDao productDataStore = ProductDaoMem.getInstance();
         ProductCategoryDao productCategoryDataStore = ProductCategoryDaoMem.getInstance();
         SupplierDao supplierDataStore = SupplierDaoMem.getInstance();
