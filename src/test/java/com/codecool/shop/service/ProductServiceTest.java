@@ -80,9 +80,12 @@ class ProductServiceTest {
     }
 
     @Test
-    void getProductsForSuppliers_onMethodCall_returnedValueNotNull() {
+    void getProductsForSuppliers_onInvalidSupplierID_returnsEmptyList() {
         List<Integer> supplierIDs = new ArrayList<>(Arrays.asList(200));
-        assertNotNull(productService.getProductsForSuppliers(supplierIDs));
+        Supplier testSupplier1 = mock(Supplier.class);
+        when(supplierDao.find(1)).thenReturn(testSupplier1);
+        List<Product> testSuppliers = productService.getProductsForSuppliers(supplierIDs);
+        assertEquals(0, testSuppliers.size());
     }
 
     @Test
