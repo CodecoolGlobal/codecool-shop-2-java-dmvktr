@@ -15,7 +15,7 @@ public class ProductFetcherBySuppliersController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ProductService productService = ProductServiceFactory.get();
+        ProductService productService = ProductServiceStore.get();
 
         Enumeration<String> supplierIDs = req.getParameterNames();
         List<Product> products = null;

@@ -7,7 +7,7 @@ import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 import com.codecool.shop.service.ProductService;
-import com.codecool.shop.service.ProductServiceFactory;
+import com.codecool.shop.service.ProductServiceStore;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -21,10 +21,10 @@ public class Initializer implements ServletContextListener {
     public void contextInitialized(ServletContextEvent sce) {
 
         if (AppProperties.isProductPersistenceInMemory()) {
-            ProductServiceFactory.initialize();
+            ProductServiceStore.initialize();
             createMemoryProductsObjects();
         } else if (AppProperties.isProductPersistenceInDatabase()) {
-            ProductServiceFactory.initialize(AppProperties.getDataSource());
+            ProductServiceStore.initialize(AppProperties.getDataSource());
         }
     }
 
@@ -33,7 +33,7 @@ public class Initializer implements ServletContextListener {
     }
 
     private void createMemoryProductsObjects() {
-        ProductService productService = ProductServiceFactory.get();
+        ProductService productService = ProductServiceStore.get();
         SupplierDao supplierDao = productService.getSupplierDao();
         ProductCategoryDao productCategoryDao = productService.getProductCategoryDao();
         ProductDao productDao = productService.getProductDao();
