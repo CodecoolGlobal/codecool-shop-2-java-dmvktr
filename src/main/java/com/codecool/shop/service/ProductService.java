@@ -1,6 +1,5 @@
 package com.codecool.shop.service;
 
-import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
@@ -16,9 +15,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductService{
-    private ProductDao productDao;
-    private ProductCategoryDao productCategoryDao;
-    private SupplierDao supplierDao;
+    private final ProductDao productDao;
+    private final ProductCategoryDao productCategoryDao;
+    private final SupplierDao supplierDao;
     private DataSource dataSource;
 
     public ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao, SupplierDao supplierDao) {
@@ -58,9 +57,7 @@ public class ProductService{
         List<Product> products = new ArrayList<>();
         for (Supplier supplier: suppliers) {
             List<Product> productsBySupplier = productDao.getBy(supplier);
-            for (Product product : productsBySupplier) {
-                products.add(product);
-            }
+            products.addAll(productsBySupplier);
         }
         return products;
     }
@@ -77,7 +74,4 @@ public class ProductService{
         return productDao;
     }
 
-    public DataSource getDataSource() {
-        return dataSource;
-    }
 }

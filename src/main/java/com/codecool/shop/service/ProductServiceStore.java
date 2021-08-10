@@ -4,7 +4,7 @@ import com.codecool.shop.dao.implementation.*;
 
 import javax.sql.DataSource;
 
-public class ProductServiceFactory {
+public class ProductServiceStore {
 
     private static ProductService productService;
 

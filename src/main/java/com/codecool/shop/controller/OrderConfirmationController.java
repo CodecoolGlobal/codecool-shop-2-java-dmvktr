@@ -3,7 +3,6 @@ package com.codecool.shop.controller;
 import com.codecool.shop.controller.util.EngineProcessor;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
-import com.codecool.shop.service.*;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

@@ -4,8 +4,7 @@ import com.codecool.shop.controller.util.JsonReturner;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.model.Order;
-import com.codecool.shop.service.ProductService;
-import com.codecool.shop.service.ProductServiceFactory;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;

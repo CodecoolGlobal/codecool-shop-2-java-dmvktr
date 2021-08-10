@@ -5,8 +5,7 @@ import com.codecool.shop.controller.util.EngineProcessor;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.model.CheckoutDetails;
-import com.codecool.shop.service.ProductService;
-import com.codecool.shop.service.ProductServiceFactory;
+
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
