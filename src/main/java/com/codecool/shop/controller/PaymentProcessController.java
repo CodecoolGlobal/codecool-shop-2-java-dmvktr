@@ -2,6 +2,8 @@ package com.codecool.shop.controller;
 
 import com.codecool.shop.controller.util.CheckoutDetailsFactory;
 import com.codecool.shop.controller.util.EngineProcessor;
+import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
 import com.codecool.shop.model.CheckoutDetails;
 import com.codecool.shop.service.ProductService;
 import com.codecool.shop.service.ProductServiceFactory;
@@ -18,11 +20,11 @@ public class PaymentProcessController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ProductService productService = ProductServiceFactory.getProductService();
+        OrderDao orderDao = OrderDaoMem.getInstance();
 
         CheckoutDetails checkoutDetails = CheckoutDetailsFactory.get(req);
         String paymentMethod = req.getParameter("payment-method");
-        productService.getOrderDao().getBy(1).ifPresent(order -> order.setCheckoutDetails(checkoutDetails));
+        orderDao.getBy(1).ifPresent(order -> order.setCheckoutDetails(checkoutDetails));
         String htmlFilename;
         if (paymentMethod.equals("paypal")) {
             htmlFilename = "product/paypal_payment.html";

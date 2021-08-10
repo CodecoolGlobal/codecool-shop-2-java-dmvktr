@@ -49,7 +49,7 @@ public class ProductDaoJDBC implements ProductDao {
     @Override
     public Product find(int id) {
         try (Connection conn = dataSource.getConnection()) {
-            String sql = "SELECT id, name, description FROM supplier WHERE id = ?";
+            String sql = "SELECT id, name, default_price, default_currency, description, category_id, supplier_id, image_path, hover_image_path FROM product WHERE id = ?";
             PreparedStatement st = conn.prepareStatement(sql);
             st.setInt(1, id);
             ResultSet rs = st.executeQuery();
@@ -66,7 +66,7 @@ public class ProductDaoJDBC implements ProductDao {
             product.setId(rs.getInt(1));
             return product;
         } catch (SQLException e) {
-            throw new RuntimeException("Unable to read Supplier from database", e);
+            throw new RuntimeException("Unable to read Product from database", e);
         }
     }
 

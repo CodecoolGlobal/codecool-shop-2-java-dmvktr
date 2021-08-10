@@ -32,7 +32,7 @@ class ProductServiceTest {
         productCategoryDao = mock(ProductCategoryDao.class);
         supplierDao = mock(SupplierDao.class);
         orderDao = mock(OrderDao.class);
-        productService = new ProductService(productDao, productCategoryDao, supplierDao, orderDao);
+        productService = new ProductService(productDao, productCategoryDao, supplierDao);
         sampleProductCategory = new ProductCategory("test", "test", "test");
     }
 
