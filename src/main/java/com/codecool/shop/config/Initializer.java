@@ -12,6 +12,7 @@ import com.codecool.shop.service.ProductServiceStore;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
+import javax.sql.DataSource;
 import java.math.BigDecimal;
 
 @WebListener
@@ -20,12 +21,15 @@ public class Initializer implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
 
-        if (AppProperties.isProductPersistenceInMemory()) {
-            ProductServiceStore.initialize();
-            createMemoryProductsObjects();
-        } else if (AppProperties.isProductPersistenceInDatabase()) {
-            ProductServiceStore.initialize(AppProperties.getDataSource());
+        if (AppProperties.isProductPersistenceInDatabase()) {
+            DataSource dataSource = AppProperties.getDataSource();
+            if (dataSource != null) {
+                ProductServiceStore.initialize(dataSource);
+                return;
+            }
         }
+        ProductServiceStore.initialize();
+        createMemoryProductsObjects();
     }
 
     @Override

@@ -20,7 +20,7 @@ public class OrderDaoMem implements OrderDao {
     private List<Order> data = new ArrayList<>();
     private static OrderDaoMem instance = null;
     private final ProductDao productDataStore;
-    static final Logger logger = LoggerFactory.getLogger(OrderDaoMem.class);
+    private static Logger logger = LoggerFactory.getLogger(OrderDaoMem.class);
 
     public OrderDaoMem() {
         productDataStore = ProductServiceStore.get().getProductDao();
@@ -40,7 +40,7 @@ public class OrderDaoMem implements OrderDao {
         }
         else {
             Order newOrder = addOrder(userID);
-            logger.info(DateProvider.getCurrentDateTime() +  " | User " + userID + " created new order " + newOrder.getOrderID());
+            logger.info("{} User {} created Order {}", DateProvider.getCurrentDateTime(), userID, newOrder.getOrderID());
             updateProductQuantityInOrder(newOrder, productDataStore.find(productID), quantityDiff);
         }
     }
@@ -84,11 +84,11 @@ public class OrderDaoMem implements OrderDao {
         for (LineItem item : order.getItems()) {
             if (isProductInItem(product, item)) {
                 item.updateQuantity(quantityDiff);
-                logger.info(DateProvider.getCurrentDateTime() +  " | User " + order.getUserID() + " updated " + product.getName() + " quantity by " + quantityDiff);
+                logger.info("{} User {} updated Product {} quantity by {} in Order {}", DateProvider.getCurrentDateTime(), + order.getUserID(), product.getId(), quantityDiff, order.getOrderID());
 
                 if (item.isQuantityZero()) {
                     order.removeItem(item);
-                    logger.info(DateProvider.getCurrentDateTime() +  " | User " + order.getUserID() + " removed " + product.getName() + " from cart.");
+                    logger.info("{} User {} removed Product {} from Order {}.", DateProvider.getCurrentDateTime(), order.getUserID(), product.getId(), order.getUserID());
                 }
                 order.refreshTotalPrice();
                 order.refreshItemCount();
@@ -98,7 +98,7 @@ public class OrderDaoMem implements OrderDao {
         order.getItems().add(new LineItem(product, quantityDiff));
         order.refreshTotalPrice();
         order.refreshItemCount();
-        logger.info(DateProvider.getCurrentDateTime() +  " | User " + order.getUserID() + " added " + product.getName() + " to cart.");
+        logger.info("{} User {} added Product {} to Order {}", DateProvider.getCurrentDateTime(), order.getUserID(), product.getId(), order.getOrderID());
 
     }
 
