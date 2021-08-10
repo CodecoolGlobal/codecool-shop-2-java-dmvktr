@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -68,4 +69,30 @@ class ProductServiceTest {
         List<Product> sampleProducts = productService.getProductsForCategory(1);
         assertEquals(0, sampleProducts.size());
     }
+
+    @Test
+    void getProductsForSuppliers_onMethodCall_callsSupplierDaoFind() {
+//
+//        when(productCategoryDao.find(Mockito.anyInt())).thenReturn(sampleProductCategory);
+        List<Integer> supplierIDs = new ArrayList<>(Arrays.asList(0, 1, 2));
+        productService.getProductsForSuppliers(supplierIDs);
+        verify(supplierDao, times(3)).find(Mockito.anyInt());
+    }
+
+    @Test
+    void getProductsForSuppliers_onMethodCall_returnedValueNotNull() {
+        List<Integer> supplierIDs = new ArrayList<>(Arrays.asList(200));
+        assertNotNull(productService.getProductsForSuppliers(supplierIDs));
+    }
+
+    @Test
+    void getProductsForSuppliers_onValidProductSupplierID_returnsNotEmptyListOfProducts() {
+        List<Integer> supplierIDs = new ArrayList<>(Arrays.asList(0, 1, 2));
+        Supplier testSupplier = new Supplier("Zara", "Croatian");
+        List<Product> testProductList = new ArrayList<>(Arrays.asList(mock(Product.class), mock(Product.class)));
+        when(supplierDao.find(Mockito.anyInt())).thenReturn(testSupplier);
+        when(productDao.getBy(testSupplier)).thenReturn(testProductList);
+        assertTrue(productService.getProductsForSuppliers(supplierIDs).size() > 0);
+    }
+
 }
