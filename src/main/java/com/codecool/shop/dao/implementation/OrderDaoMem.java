@@ -6,6 +6,7 @@ import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 
+import com.codecool.shop.service.ProductServiceFactory;
 import com.codecool.shop.util.DateProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,8 +20,12 @@ public class OrderDaoMem implements OrderDao {
 
     private List<Order> data = new ArrayList<>();
     private static OrderDaoMem instance = null;
-    private ProductDao productDataStore = ProductDaoMem.getInstance();
+    private ProductDao productDataStore;
     static final Logger logger = LoggerFactory.getLogger(OrderDaoMem.class);
+
+    public OrderDaoMem() {
+        productDataStore = ProductServiceFactory.getProductService().getProductDao();
+    }
 
     public static OrderDaoMem getInstance() {
         if (instance == null) {

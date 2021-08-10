@@ -15,7 +15,7 @@ public class ProductController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ProductService productService = ProductServiceFactory.get();
+        ProductService productService = ProductServiceFactory.getProductService();
 
         Map<String, Object> templateVariables = new HashMap<>();
         templateVariables.put("order", productService.getOrderDao().getBy(1).orElse(null));
