@@ -38,9 +38,7 @@ class ProductServiceTest {
 
     @Test
     void getProductCategory_onMethodCall_callsProductCategoryDaoFind() {
-//
-//        when(productCategoryDao.find(Mockito.anyInt())).thenReturn(sampleProductCategory);
-        ProductCategory productCategory = productService.getProductCategory(1);
+        productService.getProductCategory(1);
         verify(productCategoryDao).find(Mockito.anyInt());
     }
 
