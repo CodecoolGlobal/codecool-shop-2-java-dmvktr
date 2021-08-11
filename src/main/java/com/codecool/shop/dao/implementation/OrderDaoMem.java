@@ -8,6 +8,7 @@ import com.codecool.shop.model.Product;
 
 import com.codecool.shop.service.ProductServiceStore;
 import com.codecool.shop.util.DateProvider;
+import com.codecool.shop.util.LogMessageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,14 +40,27 @@ public class OrderDaoMem implements OrderDao {
             updateProductQuantityInOrder(order.get(), productDataStore.find(productID), quantityDiff);
         }
         else {
-            Order newOrder = addOrder(userID);
+            Order newOrder = addUserOrder(userID);
             logger.info("{} User {} created Order {}", DateProvider.getCurrentDateTime(), userID, newOrder.getOrderID());
             updateProductQuantityInOrder(newOrder, productDataStore.find(productID), quantityDiff);
         }
     }
 
-    private Order addOrder(int userID) {
+    public void handleOrderUnassignedToUserID(int orderID, int productID, int quantityDiff){
+        Order order = find(orderID);
+        updateProductQuantityInOrder(order, productDataStore.find(productID), quantityDiff);
+        logger.info("{} Visitor updated Order {}", DateProvider.getCurrentDateTime(), orderID);
+    }
+
+    public Order addUserOrder(Integer userID) {
         Order order = new Order(userID);
+        order.setOrderID(data.size() + 1);
+        data.add(order);
+        return order;
+    }
+
+    public Order addOrder() {
+        Order order = new Order();
         order.setOrderID(data.size() + 1);
         data.add(order);
         return order;
@@ -71,8 +85,8 @@ public class OrderDaoMem implements OrderDao {
     }
 
     @Override
-    public Optional<Order> getBy(int userID) {
-        return data.stream().filter(order -> order.getUserID() == userID).findFirst();
+    public Optional<Order> getBy(Integer userID) {
+        return data.stream().filter(order -> order.getUserID().equals(userID)).findFirst();
     }
 
     @Override
@@ -81,14 +95,16 @@ public class OrderDaoMem implements OrderDao {
     }
 
     public void updateProductQuantityInOrder(Order order, Product product, int quantityDiff) {
+        String logMessage;
         for (LineItem item : order.getItems()) {
             if (isProductInItem(product, item)) {
+                logMessage = LogMessageFactory.generateLogMessage("update", order, product, quantityDiff);
                 item.updateQuantity(quantityDiff);
-                logger.info("{} User {} updated Product {} quantity by {} in Order {}", DateProvider.getCurrentDateTime(), + order.getUserID(), product.getId(), quantityDiff, order.getOrderID());
-
+                logger.info(logMessage);
                 if (item.isQuantityZero()) {
                     order.removeItem(item);
-                    logger.info("{} User {} removed Product {} from Order {}.", DateProvider.getCurrentDateTime(), order.getUserID(), product.getId(), order.getUserID());
+                    logMessage = LogMessageFactory.generateLogMessage("remove", order, product, quantityDiff);
+                    logger.info(logMessage);
                 }
                 order.refreshTotalPrice();
                 order.refreshItemCount();
@@ -98,11 +114,19 @@ public class OrderDaoMem implements OrderDao {
         order.getItems().add(new LineItem(product, quantityDiff));
         order.refreshTotalPrice();
         order.refreshItemCount();
-        logger.info("{} User {} added Product {} to Order {}", DateProvider.getCurrentDateTime(), order.getUserID(), product.getId(), order.getOrderID());
+        logMessage = LogMessageFactory.generateLogMessage("add", order, product, quantityDiff);
+        logger.info(logMessage);
 
     }
 
     private boolean isProductInItem(Product product, LineItem item) {
         return item.getProduct().getId() == product.getId();
+    }
+
+    public void mergeOrders(Order sessionOrderWithoutUserID, Order targetOrderWithUserID){
+        List<LineItem> cartContentWhenLoggedIn = targetOrderWithUserID.getItems();
+        List<LineItem> cartContentWhenLoggedOut = sessionOrderWithoutUserID.getItems();
+        cartContentWhenLoggedIn.addAll(cartContentWhenLoggedOut);
+        // TODO SHould be OK by reference but might need setter?!
     }
 }
