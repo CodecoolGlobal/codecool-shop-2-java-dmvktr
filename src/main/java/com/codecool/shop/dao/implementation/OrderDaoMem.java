@@ -8,6 +8,7 @@ import com.codecool.shop.model.Product;
 
 import com.codecool.shop.service.ProductServiceStore;
 import com.codecool.shop.util.DateProvider;
+import com.codecool.shop.util.LogActionType;
 import com.codecool.shop.util.LogMessageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -98,12 +99,12 @@ public class OrderDaoMem implements OrderDao {
         String logMessage;
         for (LineItem item : order.getItems()) {
             if (isProductInItem(product, item)) {
-                logMessage = LogMessageFactory.generateLogMessage("update", order, product, quantityDiff);
+                logMessage = LogMessageFactory.generateLogMessage(LogActionType.UPDATE, order, product, quantityDiff);
                 item.updateQuantity(quantityDiff);
                 logger.info(logMessage);
                 if (item.isQuantityZero()) {
                     order.removeItem(item);
-                    logMessage = LogMessageFactory.generateLogMessage("remove", order, product, quantityDiff);
+                    logMessage = LogMessageFactory.generateLogMessage(LogActionType.REMOVE, order, product, quantityDiff);
                     logger.info(logMessage);
                 }
                 order.refreshTotalPrice();
@@ -114,7 +115,7 @@ public class OrderDaoMem implements OrderDao {
         order.getItems().add(new LineItem(product, quantityDiff));
         order.refreshTotalPrice();
         order.refreshItemCount();
-        logMessage = LogMessageFactory.generateLogMessage("add", order, product, quantityDiff);
+        logMessage = LogMessageFactory.generateLogMessage(LogActionType.ADD, order, product, quantityDiff);
         logger.info(logMessage);
 
     }
@@ -127,6 +128,5 @@ public class OrderDaoMem implements OrderDao {
         List<LineItem> cartContentWhenLoggedIn = targetOrderWithUserID.getItems();
         List<LineItem> cartContentWhenLoggedOut = sessionOrderWithoutUserID.getItems();
         cartContentWhenLoggedIn.addAll(cartContentWhenLoggedOut);
-        // TODO SHould be OK by reference but might need setter?!
     }
 }
