@@ -6,9 +6,11 @@ import org.postgresql.ds.PGSimpleDataSource;
 import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.apache.log4j.PropertyConfigurator;
 
 import javax.sql.DataSource;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -24,13 +26,14 @@ public class AppProperties {
     private static Logger logger = LoggerFactory.getLogger(AppProperties.class);
 
     static {
+
         String rootPath = Thread.currentThread().getContextClassLoader().getResource("").getPath();
         String appConfigPath = rootPath + "connection.properties";
         Properties p = new Properties();
         try {
             p.load(new FileInputStream(appConfigPath));
         } catch (IOException e) {
-            logger.warn("{} 'connection.properties' not found, loading products from memory", DateProvider.getCurrentDateTime());
+            logger.warn("'connection.properties' not found, loading products from memory");
         }
         SERVER = p.getProperty("server", null);
         DATABASE = p.getProperty("database", null);
@@ -48,10 +51,10 @@ public class AppProperties {
         dataSource.setPassword(PASSWORD);
         try {
             dataSource.getConnection().close();
-            logger.info("{} Database connection successful, loading products from database", DateProvider.getCurrentDateTime());
+            logger.info("Database connection successful, loading products from database");
             return dataSource;
         } catch (SQLException e) {
-            logger.warn("{} Database connection failed, loading products from memory", DateProvider.getCurrentDateTime());
+            logger.warn("Database connection failed, loading products from memory");
             return null;
         }
     }
