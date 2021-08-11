@@ -11,7 +11,7 @@ import java.util.List;
 public class Order {
 
     private int orderID;
-    private final int userID;
+    private Integer userID;
     private List<LineItem> items;
     private BigDecimal totalPrice;
     private int itemCount;
@@ -20,6 +20,10 @@ public class Order {
 
     public Order(int userID) {
         this.userID = userID;
+        items = new ArrayList<>();
+    }
+
+    public Order() {
         items = new ArrayList<>();
     }
 
@@ -75,7 +79,7 @@ public class Order {
         return this.orderID;
     }
 
-    public int getUserID() {
+    public Integer getUserID() {
         return this.userID;
     }
 
