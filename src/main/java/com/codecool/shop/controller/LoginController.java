@@ -1,8 +1,8 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.controller.util.EngineProcessor;
-import com.codecool.shop.service.*;
-import javax.servlet.ServletException;
+import com.codecool.shop.dao.OrderDao;
+import com.codecool.shop.dao.implementation.OrderDaoMem;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,7 +18,10 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         Map<String, Object> templateVariables = new HashMap<>();
-        String htmlFilename = "user-related/login.html";
+        req.getSession().setAttribute("user_id", 1);
+        OrderDao orderDao = OrderDaoMem.getInstance();
+        orderDao.addUserOrder(1);
+        String htmlFilename = "product/index.html";
         EngineProcessor.apply(req, resp, templateVariables, htmlFilename);
     }
 
