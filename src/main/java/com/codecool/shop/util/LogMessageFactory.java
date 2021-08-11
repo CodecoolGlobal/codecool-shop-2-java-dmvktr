@@ -4,13 +4,13 @@ import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 
 public class LogMessageFactory {
-    public static String generateLogMessage(String operation, Order order, Product product, int quantityDiff){
+    public static String generateLogMessage(LogActionType operation, Order order, Product product, int quantityDiff){
         switch (operation){
-            case "remove":
+            case REMOVE:
                 return isUserIDMissing(order)?
                     String.format("%s Visitor removed product %d from Order %d", DateProvider.getCurrentDateTime(), product.getId(), order.getOrderID()):
                     String.format("%s User %d removed Product %d from Order %d", DateProvider.getCurrentDateTime(), order.getUserID(),product.getId(), order.getUserID());
-            case "update":
+            case UPDATE:
                 return isUserIDMissing(order)?
                     String.format("%s Visitor updated product %d quantity by %d in Order %d", DateProvider.getCurrentDateTime(), product.getId(), quantityDiff, order.getOrderID()):
                     String.format("%s User %d updated Product %d quantity by %d in Order %d", DateProvider.getCurrentDateTime(), order.getUserID(), product.getId(), quantityDiff, order.getOrderID());
