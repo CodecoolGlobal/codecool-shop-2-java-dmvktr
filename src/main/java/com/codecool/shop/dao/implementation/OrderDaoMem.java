@@ -6,11 +6,11 @@ import com.codecool.shop.model.LineItem;
 import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 
+import com.codecool.shop.service.ProductServiceStore;
 import com.codecool.shop.util.DateProvider;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -19,8 +19,12 @@ public class OrderDaoMem implements OrderDao {
 
     private List<Order> data = new ArrayList<>();
     private static OrderDaoMem instance = null;
-    private ProductDao productDataStore = ProductDaoMem.getInstance();
-    static final Logger logger = LoggerFactory.getLogger(OrderDaoMem.class);
+    private final ProductDao productDataStore;
+    private static Logger logger = LoggerFactory.getLogger(OrderDaoMem.class);
+
+    public OrderDaoMem() {
+        productDataStore = ProductServiceStore.get().getProductDao();
+    }
 
     public static OrderDaoMem getInstance() {
         if (instance == null) {
@@ -36,7 +40,7 @@ public class OrderDaoMem implements OrderDao {
         }
         else {
             Order newOrder = addOrder(userID);
-            logger.info(DateProvider.getCurrentDateTime() +  " | User " + userID + " created new order " + newOrder.getOrderID());
+            logger.info("{} User {} created Order {}", DateProvider.getCurrentDateTime(), userID, newOrder.getOrderID());
             updateProductQuantityInOrder(newOrder, productDataStore.find(productID), quantityDiff);
         }
     }
@@ -73,21 +77,18 @@ public class OrderDaoMem implements OrderDao {
 
     @Override
     public void setUsersOrderItemsToNull(int userID) {
-        Order order = data.stream().filter(o -> o.getUserID() == userID).findFirst().orElse(null);
-        if (order != null) {
-            order.setItemsToNull();
-        }
+        data.stream().filter(o -> o.getUserID() == userID).findFirst().ifPresent(Order::setItemsToNull);
     }
 
     public void updateProductQuantityInOrder(Order order, Product product, int quantityDiff) {
         for (LineItem item : order.getItems()) {
             if (isProductInItem(product, item)) {
                 item.updateQuantity(quantityDiff);
-                logger.info(DateProvider.getCurrentDateTime() +  " | User " + order.getUserID() + " updated " + product.getName() + " quantity by " + quantityDiff);
+                logger.info("{} User {} updated Product {} quantity by {} in Order {}", DateProvider.getCurrentDateTime(), + order.getUserID(), product.getId(), quantityDiff, order.getOrderID());
 
                 if (item.isQuantityZero()) {
                     order.removeItem(item);
-                    logger.info(DateProvider.getCurrentDateTime() +  " | User " + order.getUserID() + " removed " + product.getName() + " from cart.");
+                    logger.info("{} User {} removed Product {} from Order {}.", DateProvider.getCurrentDateTime(), order.getUserID(), product.getId(), order.getUserID());
                 }
                 order.refreshTotalPrice();
                 order.refreshItemCount();
@@ -97,7 +98,7 @@ public class OrderDaoMem implements OrderDao {
         order.getItems().add(new LineItem(product, quantityDiff));
         order.refreshTotalPrice();
         order.refreshItemCount();
-        logger.info(DateProvider.getCurrentDateTime() +  " | User " + order.getUserID() + " added " + product.getName() + " to cart.");
+        logger.info("{} User {} added Product {} to Order {}", DateProvider.getCurrentDateTime(), order.getUserID(), product.getId(), order.getOrderID());
 
     }
 

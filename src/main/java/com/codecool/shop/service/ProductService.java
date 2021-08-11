@@ -1,27 +1,43 @@
 package com.codecool.shop.service;
 
-import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.implementation.ProductCategoryDaoJDBC;
+import com.codecool.shop.dao.implementation.ProductDaoJDBC;
+import com.codecool.shop.dao.implementation.SupplierDaoJDBC;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
+import javax.sql.DataSource;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ProductService{
-    ProductDao productDao;
-    ProductCategoryDao productCategoryDao;
-    SupplierDao supplierDao;
-    OrderDao orderDao;
+    private final ProductDao productDao;
+    private final ProductCategoryDao productCategoryDao;
+    private final SupplierDao supplierDao;
+    private DataSource dataSource;
 
-    public ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao, SupplierDao supplierDao, OrderDao orderDao) {
+    public ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao, SupplierDao supplierDao) {
         this.productDao = productDao;
         this.productCategoryDao = productCategoryDao;
         this.supplierDao = supplierDao;
-        this.orderDao = orderDao;
+    }
+
+    public ProductService(ProductDao productDao, ProductCategoryDao productCategoryDao, SupplierDao supplierDao, DataSource dataSource) {
+        this.dataSource = dataSource;
+        this.productDao = productDao;
+        this.productCategoryDao = productCategoryDao;
+        this.supplierDao = supplierDao;
+        setDataSourceForDaos();
+    }
+
+    private void setDataSourceForDaos() {
+        ((ProductDaoJDBC) productDao).setDataSource(dataSource);
+        ((ProductCategoryDaoJDBC) productCategoryDao).setDataSource(dataSource);
+        ((SupplierDaoJDBC) supplierDao).setDataSource(dataSource);
     }
 
     public ProductCategory getProductCategory(int categoryId){
@@ -41,9 +57,7 @@ public class ProductService{
         List<Product> products = new ArrayList<>();
         for (Supplier supplier: suppliers) {
             List<Product> productsBySupplier = productDao.getBy(supplier);
-            for (Product product : productsBySupplier) {
-                products.add(product);
-            }
+            products.addAll(productsBySupplier);
         }
         return products;
     }
@@ -56,7 +70,8 @@ public class ProductService{
         return supplierDao;
     }
 
-    public OrderDao getOrderDao() {
-        return orderDao;
+    public ProductDao getProductDao() {
+        return productDao;
     }
+
 }

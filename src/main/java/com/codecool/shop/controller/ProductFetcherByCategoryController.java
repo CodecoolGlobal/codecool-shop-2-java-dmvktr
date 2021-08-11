@@ -15,7 +15,7 @@ public class ProductFetcherByCategoryController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        ProductService productService = ProductServiceFactory.get();
+        ProductService productService = ProductServiceStore.get();
 
         int categoryId = Integer.parseInt(req.getParameter("id"));
         List<Product> products = productService.getProductsForCategory(categoryId);

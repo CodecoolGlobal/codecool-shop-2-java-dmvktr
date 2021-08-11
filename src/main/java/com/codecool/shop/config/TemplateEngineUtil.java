@@ -1,6 +1,8 @@
 package com.codecool.shop.config;
 
 import javax.servlet.ServletContext;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import org.thymeleaf.TemplateEngine;
 
@@ -8,7 +10,7 @@ import org.thymeleaf.TemplateEngine;
  * Store and retrieves Thymeleaf TemplateEngine into the application servlet context.
  */
 @WebListener
-public class TemplateEngineUtil {
+public class TemplateEngineUtil implements ServletContextListener {
 
     private static final String TEMPLATE_ENGINE_ATTR = "com.thymeleafexamples.thymeleaf3.TemplateEngineInstance";
 
@@ -19,5 +21,11 @@ public class TemplateEngineUtil {
     public static TemplateEngine getTemplateEngine(ServletContext context) {
         return (TemplateEngine) context.getAttribute(TEMPLATE_ENGINE_ATTR);
     }
+
+    @Override
+    public void contextInitialized(ServletContextEvent sce) { }
+
+    @Override
+    public void contextDestroyed(ServletContextEvent sce) { }
 
 }
