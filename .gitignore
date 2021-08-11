@@ -8,6 +8,7 @@
 target/
 *.iml
 logs/
+codecoolshop.iml
 connection.properties
 
 # Mobile Tools for Java (J2ME)
