@@ -23,8 +23,7 @@ public class OrderUpdaterController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         OrderDao orderDao = OrderDaoMem.getInstance();
         HttpSession session = req.getSession();
-        Order order = null;
-        Integer userID = null;
+        Order order = (Order) session.getAttribute("cart");
         int quantityDiff = 0;
         int productID = 0;
 
@@ -34,30 +33,15 @@ public class OrderUpdaterController extends HttpServlet {
         } catch (NumberFormatException e) {
             logger.warn("Unable to process product change (please check the query string)");
         }
-        if(isUserLoggedIn(req) && doesSessionHaveCartContent(session)){ // logged in, has items/order already
-            userID = Integer.parseInt(req.getParameter("user_id"));
-            order = (Order) session.getAttribute("cart");
+        if(isUserLoggedIn(req)){
+            Integer userID = (Integer) session.getAttribute("user_id");
             orderDao.handleOrderUpdate(userID, productID, quantityDiff);
-            orderDao.mergeOrders(order, orderDao.getBy(userID).get());
-            session.removeAttribute("cart");
-        } else if(isUserLoggedIn(req) && orderDao.getBy(userID).isEmpty()) { // if user is logged in but no order yet
-            orderDao.handleOrderUpdate(userID, productID, quantityDiff);
-            session.removeAttribute("cart");
-        } else {
-            if (doesSessionHaveCartContent(session)) { // cart has content in session, user not logged in
-                order = (Order) session.getAttribute("cart");
-                orderDao.handleOrderUnassignedToUserID(order.getOrderID(), productID, quantityDiff);
-            } else { //session empty
-                order = orderDao.addOrder();
-                orderDao.handleOrderUnassignedToUserID(order.getOrderID(), productID, quantityDiff);
-            }
             session.setAttribute("cart", order);
+        } else {
+            orderDao.handleOrderUnassignedToUserID(order.getOrderID(), productID, quantityDiff);
         }
+        session.setAttribute("cart", order);
         JsonReturner.apply(resp, order);
-    }
-
-    private boolean doesSessionHaveCartContent(HttpSession session) {
-        return session.getAttribute("cart") != null;
     }
 
     private boolean isUserLoggedIn(HttpServletRequest req) {
