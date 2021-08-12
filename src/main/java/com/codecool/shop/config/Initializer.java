@@ -78,8 +78,8 @@ public class Initializer implements ServletContextListener {
         productDao.add(new Product("Laptop Sticker: Stack Overflow", new BigDecimal("12.9"), "EUR", "Vines and grass are seemingly content with their positions in the garden, none trying to reach beyond, at least not yet.", laptopSticker, coolStuff, "Sticker_Stack-overflow.jpeg", "Sticker_Stack-overflow.jpeg"));
 
         //setting up users
-//        userDao.add(new User("Laptop Sticker: Release is Coming", new BigDecimal("13.9"), "EUR", "The bushes reach 1.8m/6ft high, but this is unusual, and perhaps unique to this garden.", laptopSticker, coolStuff, "Sticker_Release-is-Coming.jpeg", "Sticker_Release-is-Coming.jpeg"));
-//        userDao.add(new User("Laptop Sticker: Stack Overflow", new BigDecimal("12.9"), "EUR", "Vines and grass are seemingly content with their positions in the garden, none trying to reach beyond, at least not yet.", laptopSticker, coolStuff, "Sticker_Stack-overflow.jpeg", "Sticker_Stack-overflow.jpeg"));
+        userDao.add(new User("Sanyi", "password"));
+        userDao.add(new User("Béla", "password"));
 
     }
 }
