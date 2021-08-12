@@ -9,6 +9,7 @@ import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,14 +26,15 @@ public class ProductDaoJDBC implements ProductDao {
 
     /* A private Constructor prevents any other class from instantiating.
      */
-    private ProductDaoJDBC() {
-        productCategoryDao = ProductCategoryDaoJDBC.getInstance();
-        supplierDao = SupplierDaoJDBC.getInstance();
+    private ProductDaoJDBC(DataSource dataSource) {
+        productCategoryDao = ProductCategoryDaoJDBC.getInstance(dataSource);
+        supplierDao = SupplierDaoJDBC.getInstance(dataSource);
+        this.dataSource = dataSource;
     }
 
-    public static ProductDaoJDBC getInstance() {
+    public static ProductDaoJDBC getInstance(DataSource dataSource) {
         if (instance == null) {
-            instance = new ProductDaoJDBC();
+            instance = new ProductDaoJDBC(dataSource);
         }
         return instance;
     }
