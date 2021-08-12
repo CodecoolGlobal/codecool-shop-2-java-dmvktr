@@ -1,7 +1,7 @@
 import {dataHandler} from "./data-handler.js";
 
 const page = {
-    userId: 1,
+    userIdPlaceHolder: document.querySelector("#session-user-id").value,
     updateOrderBaseURL: "/update-order",
     categoryEndpointURL: "/getProductsByCategory",
     supplierEndpointURL: "/getProductsBySuppliers",
@@ -21,9 +21,19 @@ const page = {
             e.preventDefault();
             this.startShoppingCartAnimation(cart);
             this.cleanUpAfterAnimation(cart);
-            const URL = `${this.updateOrderBaseURL}?user_id=${this.userId}&product_id=${cart.dataset.productId}&quantity_diff=1`;
+            const URL = this.assembleURL(cart);
             dataHandler.fetchData(URL, this.updateCartInMenu);
         }))
+    },
+
+    assembleURL(cart){
+        let URL;
+        if(page.userIdPlaceHolder === ""){
+            URL = `${this.updateOrderBaseURL}?user_id=${this.userIdPlaceHolder}&product_id=${cart.dataset.productId}&quantity_diff=1`;
+        } else {
+            URL = `${this.updateOrderBaseURL}?product_id=${cart.dataset.productId}&quantity_diff=1`;
+        }
+        return URL;
     },
 
     updateCartInMenu: function (cartContent) {
