@@ -1,16 +1,11 @@
 package com.codecool.shop.config;
 
-import com.codecool.shop.dao.implementation.OrderDaoMem;
-import com.codecool.shop.util.DateProvider;
 import org.postgresql.ds.PGSimpleDataSource;
-import org.postgresql.util.PSQLException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.apache.log4j.PropertyConfigurator;
 
 import javax.sql.DataSource;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Properties;
