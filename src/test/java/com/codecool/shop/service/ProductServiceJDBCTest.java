@@ -41,7 +41,7 @@ class ProductServiceJDBCTest {
         supplierDao = mock(SupplierDaoJDBC.class);
         orderDao = mock(OrderDao.class);
         dataSource = mock(DataSource.class);
-        productServiceJDBC = new ProductService(productDao, productCategoryDao, supplierDao, dataSource);
+        productServiceJDBC = new ProductService(productDao, productCategoryDao, supplierDao);
         sampleProductCategory = new ProductCategory("test", "test", "test");
     }
 
@@ -78,8 +78,6 @@ class ProductServiceJDBCTest {
 
     @Test
     void getProductsForSuppliers_onMethodCall_callsSupplierDaoFind() {
-//
-//        when(productCategoryDao.find(Mockito.anyInt())).thenReturn(sampleProductCategory);
         List<Integer> supplierIDs = new ArrayList<>(Arrays.asList(0, 1, 2));
         productServiceJDBC.getProductsForSuppliers(supplierIDs);
         verify(supplierDao, times(3)).find(Mockito.anyInt());
