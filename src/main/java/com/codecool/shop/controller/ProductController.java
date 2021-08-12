@@ -25,10 +25,12 @@ public class ProductController extends HttpServlet {
         Order order = (Order) session.getAttribute("cart");
 
         Map<String, Object> templateVariables = new HashMap<>();
-
-        if(userID == null && order == null) templateVariables.put("order", orderDao.addOrder());
-        else if(userID == null) templateVariables.put("order", order);
-        else templateVariables.put("order", orderDao.getBy(userID));
+        if(userID == null && order == null) {
+            Order newOrder = orderDao.addOrder();
+            templateVariables.put("order", newOrder);
+            session.setAttribute("cart", newOrder);
+        }
+        else templateVariables.put("order", order);
         templateVariables.put("categories", productService.getProductCategoryDao().getAll());
         templateVariables.put("suppliers", productService.getSupplierDao().getAll());
         templateVariables.put("products", productService.getProductsForCategory(1));
