@@ -27,6 +27,14 @@ public class Order {
         items = new ArrayList<>();
     }
 
+    public void setItems(List<LineItem> items) {
+        this.items = items;
+    }
+
+    public void setUserID(Integer userID) {
+        this.userID = userID;
+    }
+
     private void addProduct(Product product, int quantity) {
         for (LineItem item : items) {
             if (isProductInItem(product, item)) {
