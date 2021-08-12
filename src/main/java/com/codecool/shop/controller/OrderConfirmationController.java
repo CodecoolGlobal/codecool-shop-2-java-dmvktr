@@ -1,8 +1,11 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.controller.util.EngineProcessor;
+import com.codecool.shop.controller.util.OrderProvider;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.model.LineItem;
+import com.codecool.shop.model.Order;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,17 +20,12 @@ public class OrderConfirmationController extends HttpServlet{
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        OrderDao orderDao = OrderDaoMem.getInstance();
-
         Map<String, Object> templateVariables = new HashMap<>();
-        // TODO remove hardcoded order #1 during 2nd sprint
-        templateVariables.put("order", orderDao.getBy(1).orElse(null));
+        Order order = OrderProvider.get(req.getSession());
+        templateVariables.put("order", order);
 
         String htmlFilename = "product/order_confirmation.html";
         EngineProcessor.apply(req, resp, templateVariables, htmlFilename);
-
-        // TODO Remove cart items from order, needs to be changed in 2nd sprint:
-        // close finished order so that new order can be started
-        orderDao.setUsersOrderItemsToNull(1);
+        order.getItems().clear();
     }
 }

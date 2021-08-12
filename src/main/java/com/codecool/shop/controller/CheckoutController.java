@@ -1,8 +1,10 @@
 package com.codecool.shop.controller;
 
 import com.codecool.shop.controller.util.EngineProcessor;
+import com.codecool.shop.controller.util.OrderProvider;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.implementation.OrderDaoMem;
+import com.codecool.shop.model.Order;
 import com.codecool.shop.service.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -17,11 +19,9 @@ public class CheckoutController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        OrderDao orderStore = OrderDaoMem.getInstance();
-
         Map<String, Object> templateVariables = new HashMap<>();
-        // TODO remove hardcoded order #1 during 2nd sprint
-        templateVariables.put("order", orderStore.getBy(1).orElse(null));
+        Order order = OrderProvider.get(req.getSession());
+        templateVariables.put("order", order);
 
         String htmlFilename = "product/checkout.html";
         EngineProcessor.apply(req, resp, templateVariables, htmlFilename);
