@@ -39,7 +39,7 @@ DROP TABLE IF EXISTS public.users;
 CREATE TABLE users (
                           id serial PRIMARY KEY NOT NULL,
                           name text NOT NULL,
-                          hashed_password text NOT NULL
+                          hashed_password bytea NOT NULL
 );
 
 
@@ -57,8 +57,8 @@ INSERT INTO category VALUES (1, 'T-Shirt', 'Apparel', 'A t-shirt commonly shorte
 INSERT INTO category VALUES (2, 'Laptop Sticker', 'Stationery', 'A sticker to your laptop.');
 SELECT pg_catalog.setval('category_id_seq', 2, true);
 
-INSERT INTO users VALUES (1, 'Norbi', 'lol');
-INSERT INTO users VALUES (2, 'Roky', 'asd');
+INSERT INTO users VALUES (1, 'Norbi', decode('013d7d16d7ad4fefb61bd95b765c8ceb', 'hex'));
+INSERT INTO users VALUES (2, 'Roky', decode('013d7d16d7ad4fefb61bd95b765c8ceb', 'hex'));
 SELECT pg_catalog.setval('users_id_seq', 2, true);
 
 INSERT INTO product VALUES (1, 'GitHub Half Sleeve Unisex T-Shirt', 21.9, 'EUR', 'The cloth belt is mostly decorative and a sign of wealth.', 1, 2, 'CoolCode_GitHub.jpeg', 'CoolCode_GitHub_hover.jpeg');
