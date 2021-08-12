@@ -1,7 +1,6 @@
 package com.codecool.shop.service;
 
 import com.codecool.shop.dao.implementation.*;
-import com.codecool.shop.model.User;
 
 import javax.sql.DataSource;
 
@@ -11,13 +10,13 @@ public class UserServiceStore {
 
     public static void initialize() {
         if (userService == null) {
-            userService = new UserService(UserDaoMem.getInstance());
+            userService = new UserService(new UserDaoMem());
         }
     }
 
     public static void initialize(DataSource dataSource) {
         if (userService == null) {
-            userService = new UserService(UserDaoJDBC.getInstance(dataSource));
+            userService = new UserService(new UserDaoJDBC(dataSource));
         }
     }
 

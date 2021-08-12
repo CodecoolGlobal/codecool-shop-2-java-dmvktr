@@ -14,23 +14,9 @@ import java.util.List;
 
 public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
-    private static ProductCategoryDaoJDBC instance = null;
     private DataSource dataSource;
 
-    /* A private Constructor prevents any other class from instantiating.
-     */
-    private ProductCategoryDaoJDBC(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
-    public static ProductCategoryDaoJDBC getInstance(DataSource dataSource) {
-        if (instance == null) {
-            instance = new ProductCategoryDaoJDBC(dataSource);
-        }
-        return instance;
-    }
-
-    public void setDataSource(DataSource dataSource) {
+    public ProductCategoryDaoJDBC(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 

@@ -13,23 +13,9 @@ import java.sql.SQLException;
 
 public class UserDaoJDBC implements UserDao {
 
-    private static UserDaoJDBC instance = null;
     private DataSource dataSource;
 
-    /* A private Constructor prevents any other class from instantiating.
-     */
-    private UserDaoJDBC(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
-    public static UserDaoJDBC getInstance(DataSource dataSource) {
-        if (instance == null) {
-            instance = new UserDaoJDBC(dataSource);
-        }
-        return instance;
-    }
-
-    public void setDataSource(DataSource dataSource) {
+    public UserDaoJDBC(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 

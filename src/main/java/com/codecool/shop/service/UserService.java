@@ -14,22 +14,9 @@ import javax.sql.DataSource;
 public class UserService {
 
     private UserDao userDao;
-    private DataSource dataSource;
-
-
 
     public UserService(UserDao userDao) {
         this.userDao = userDao;
-    }
-
-    public UserService(UserDao userDao, DataSource dataSource) {
-        this.userDao = userDao;
-        this.dataSource = dataSource;
-        setDataSourceForDaos();
-    }
-
-    private void setDataSourceForDaos() {
-        ((UserDaoJDBC) userDao).setDataSource(dataSource);
     }
 
     public UserDao getUserDao() {
