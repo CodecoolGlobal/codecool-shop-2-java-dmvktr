@@ -19,6 +19,6 @@ public interface OrderDao {
     void setUsersOrderItemsToNull(int userID);
 
     void updateProductQuantityInOrder(Order order, Product product, int quantity);
-    void mergeOrders(Order sessionOrderWithoutUserID, Order targetOrderWithUserID);
+    Order mergeOrders(Order sessionOrderWithoutUserID, Order targetOrderWithUserID);
 
 }
