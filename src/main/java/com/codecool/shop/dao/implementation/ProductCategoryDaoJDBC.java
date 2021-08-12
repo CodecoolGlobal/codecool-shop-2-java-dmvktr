@@ -19,12 +19,13 @@ public class ProductCategoryDaoJDBC implements ProductCategoryDao {
 
     /* A private Constructor prevents any other class from instantiating.
      */
-    private ProductCategoryDaoJDBC() {
+    private ProductCategoryDaoJDBC(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
-    public static ProductCategoryDaoJDBC getInstance() {
+    public static ProductCategoryDaoJDBC getInstance(DataSource dataSource) {
         if (instance == null) {
-            instance = new ProductCategoryDaoJDBC();
+            instance = new ProductCategoryDaoJDBC(dataSource);
         }
         return instance;
     }

@@ -16,7 +16,7 @@ public class ProductServiceStore {
 
     public static void initialize(DataSource dataSource) {
         if (productService == null) {
-            productService = new ProductService(ProductDaoJDBC.getInstance(), ProductCategoryDaoJDBC.getInstance(), SupplierDaoJDBC.getInstance(), dataSource);
+            productService = new ProductService(ProductDaoJDBC.getInstance(dataSource), ProductCategoryDaoJDBC.getInstance(dataSource), SupplierDaoJDBC.getInstance(dataSource));
         }
     }
 
