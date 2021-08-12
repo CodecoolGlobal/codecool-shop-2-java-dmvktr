@@ -7,7 +7,6 @@ import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 
 import com.codecool.shop.service.ProductServiceStore;
-import com.codecool.shop.util.DateProvider;
 import com.codecool.shop.util.LogActionType;
 import com.codecool.shop.util.LogMessageFactory;
 import org.slf4j.Logger;
@@ -19,7 +18,7 @@ import java.util.Optional;
 
 public class OrderDaoMem implements OrderDao {
 
-    private List<Order> data = new ArrayList<>();
+    private final List<Order> data = new ArrayList<>();
     private static OrderDaoMem instance = null;
     private final ProductDao productDataStore;
     private final Logger logger = LoggerFactory.getLogger(OrderDaoMem.class);
@@ -39,18 +38,17 @@ public class OrderDaoMem implements OrderDao {
         Optional<Order> order = getBy(userID);
         if (order.isPresent()) {
             updateProductQuantityInOrder(order.get(), productDataStore.find(productID), quantityDiff);
-        }
-        else {
+        } else {
             Order newOrder = addUserOrder(userID);
-            logger.info("{} User {} created Order {}", DateProvider.getCurrentDateTime(), userID, newOrder.getOrderID());
+            String logMessage = LogMessageFactory.generateLogMessage(LogActionType.CREATE, newOrder.getOrderID(), productID, quantityDiff, userID);
+            logger.info(logMessage);
             updateProductQuantityInOrder(newOrder, productDataStore.find(productID), quantityDiff);
         }
     }
 
-    public void handleOrderUnassignedToUserID(int orderID, int productID, int quantityDiff){
+    public void handleOrderUnassignedToUserID(int orderID, int productID, int quantityDiff) {
         Order order = find(orderID);
         updateProductQuantityInOrder(order, productDataStore.find(productID), quantityDiff);
-        logger.info("{} Visitor updated Order {}", DateProvider.getCurrentDateTime(), orderID);
     }
 
     public Order addUserOrder(Integer userID) {
@@ -100,12 +98,12 @@ public class OrderDaoMem implements OrderDao {
         String logMessage;
         for (LineItem item : order.getItems()) {
             if (isProductInItem(product, item)) {
-                logMessage = LogMessageFactory.generateLogMessage(LogActionType.UPDATE, order, product, quantityDiff);
+                logMessage = LogMessageFactory.generateLogMessage(LogActionType.UPDATE, order.getOrderID(), product.getId(), quantityDiff, order.getUserID());
                 item.updateQuantity(quantityDiff);
                 logger.info(logMessage);
                 if (item.isQuantityZero()) {
                     order.removeItem(item);
-                    logMessage = LogMessageFactory.generateLogMessage(LogActionType.REMOVE, order, product, quantityDiff);
+                    logMessage = LogMessageFactory.generateLogMessage(LogActionType.REMOVE, order.getOrderID(), product.getId(), quantityDiff, order.getUserID());
                     logger.info(logMessage);
                 }
                 order.refreshTotalPrice();
@@ -116,7 +114,7 @@ public class OrderDaoMem implements OrderDao {
         order.getItems().add(new LineItem(product, quantityDiff));
         order.refreshTotalPrice();
         order.refreshItemCount();
-        logMessage = LogMessageFactory.generateLogMessage(LogActionType.ADD, order, product, quantityDiff);
+        logMessage = LogMessageFactory.generateLogMessage(LogActionType.ADD, order.getOrderID(), product.getId(), quantityDiff, order.getUserID());
         logger.info(logMessage);
 
     }
@@ -125,12 +123,23 @@ public class OrderDaoMem implements OrderDao {
         return item.getProduct().getId() == product.getId();
     }
 
-    public Order mergeOrders(Order sessionOrderWithoutUserID, Order targetOrderWithUserID){
+    public Order mergeOrders(Order sessionOrderWithoutUserID, Order targetOrderWithUserID) {
         List<LineItem> cartContentWhenLoggedIn = targetOrderWithUserID.getItems();
         List<LineItem> cartContentWhenLoggedOut = sessionOrderWithoutUserID.getItems();
-        cartContentWhenLoggedIn.addAll(cartContentWhenLoggedOut);
+        for (LineItem sessionLineItem : cartContentWhenLoggedOut) {
+            if (!cartContentWhenLoggedIn.contains(sessionLineItem)) {
+                handleOrderUpdate(targetOrderWithUserID.getUserID(), sessionLineItem.getProduct().getId(), sessionLineItem.getQuantity());
+            } else {
+                for (LineItem userLineItem : cartContentWhenLoggedIn) {
+                    if (userLineItem.equals(sessionLineItem)) {
+                        userLineItem.setQuantity(userLineItem.getQuantity() + sessionLineItem.getQuantity());
+                    }
+                }
+            }
+        }
         targetOrderWithUserID.setItems(cartContentWhenLoggedIn);
         targetOrderWithUserID.refreshItemCount();
+        targetOrderWithUserID.refreshTotalPrice();
         return targetOrderWithUserID;
     }
 }
