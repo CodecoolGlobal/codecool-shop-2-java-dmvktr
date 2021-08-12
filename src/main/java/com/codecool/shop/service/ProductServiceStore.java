@@ -10,13 +10,13 @@ public class ProductServiceStore {
 
     public static void initialize() {
         if (productService == null) {
-            productService = new ProductService(ProductDaoMem.getInstance(), ProductCategoryDaoMem.getInstance(), SupplierDaoMem.getInstance());
+            productService = new ProductService(new ProductDaoMem(), new ProductCategoryDaoMem(), new SupplierDaoMem());
         }
     }
 
     public static void initialize(DataSource dataSource) {
         if (productService == null) {
-            productService = new ProductService(ProductDaoJDBC.getInstance(dataSource), ProductCategoryDaoJDBC.getInstance(dataSource), SupplierDaoJDBC.getInstance(dataSource));
+            productService = new ProductService(new ProductDaoJDBC(dataSource), new ProductCategoryDaoJDBC(dataSource), new SupplierDaoJDBC(dataSource));
         }
     }
 

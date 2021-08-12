@@ -1,6 +1,5 @@
 package com.codecool.shop.dao.implementation;
 
-import com.codecool.shop.config.AppProperties;
 import com.codecool.shop.dao.OrderDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.model.LineItem;
@@ -8,8 +7,6 @@ import com.codecool.shop.model.Order;
 import com.codecool.shop.model.Product;
 
 import com.codecool.shop.service.ProductServiceStore;
-import com.codecool.shop.util.DateProvider;
-import org.apache.log4j.PropertyConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

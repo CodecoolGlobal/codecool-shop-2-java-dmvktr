@@ -14,23 +14,9 @@ import java.util.List;
 
 public class SupplierDaoJDBC implements SupplierDao {
 
-    private static SupplierDaoJDBC instance = null;
     private DataSource dataSource;
 
-    /* A private Constructor prevents any other class from instantiating.
-     */
-    private SupplierDaoJDBC(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
-    public static SupplierDaoJDBC getInstance(DataSource dataSource) {
-        if (instance == null) {
-            instance = new SupplierDaoJDBC(dataSource);
-        }
-        return instance;
-    }
-
-    public void setDataSource(DataSource dataSource) {
+    public SupplierDaoJDBC(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 
