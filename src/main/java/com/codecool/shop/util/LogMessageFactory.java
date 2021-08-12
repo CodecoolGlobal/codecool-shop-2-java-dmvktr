@@ -1,27 +1,28 @@
 package com.codecool.shop.util;
 
-import com.codecool.shop.model.Order;
-import com.codecool.shop.model.Product;
-
 public class LogMessageFactory {
-    public static String generateLogMessage(LogActionType operation, Order order, Product product, int quantityDiff){
+    public static String generateLogMessage(LogActionType operation, int orderID, int productID, int quantityDiff, int userID){
         switch (operation){
             case REMOVE:
-                return isUserIDMissing(order)?
-                    String.format("%s Visitor removed product %d from Order %d", DateProvider.getCurrentDateTime(), product.getId(), order.getOrderID()):
-                    String.format("%s User %d removed Product %d from Order %d", DateProvider.getCurrentDateTime(), order.getUserID(),product.getId(), order.getUserID());
+                return isUserIDMissing(userID)?
+                    String.format("Visitor removed product %d from Order %d", productID, orderID):
+                    String.format("User %d removed Product %d from Order %d", userID,productID, orderID);
             case UPDATE:
-                return isUserIDMissing(order)?
-                    String.format("%s Visitor updated product %d quantity by %d in Order %d", DateProvider.getCurrentDateTime(), product.getId(), quantityDiff, order.getOrderID()):
-                    String.format("%s User %d updated Product %d quantity by %d in Order %d", DateProvider.getCurrentDateTime(), order.getUserID(), product.getId(), quantityDiff, order.getOrderID());
+                return isUserIDMissing(userID)?
+                    String.format("Visitor updated product %d quantity by %d in Order %d", productID, quantityDiff, orderID):
+                    String.format("User %d updated Product %d quantity by %d in Order %d", userID, productID, quantityDiff, orderID);
+            case CREATE:
+                return isUserIDMissing(userID)?
+                    String.format("Visitor created Order %d", orderID):
+                    String.format("User %d created Order %d", orderID, productID);
             default:
-                return isUserIDMissing(order)?
-                    String.format("%s Visitor added product %d to Order %d", DateProvider.getCurrentDateTime(), product.getId(), order.getOrderID()):
-                    String.format("%s User %d added Product %d to Order %d", DateProvider.getCurrentDateTime(), order.getUserID(), product.getId(), order.getOrderID());
+                return isUserIDMissing(userID)?
+                    String.format("Visitor added product %d to Order %d", productID, orderID):
+                    String.format("User %d added Product %d to Order %d", userID, productID, orderID);
         }
     }
 
-    private static boolean isUserIDMissing(Order order){
-        return order.getUserID() == null;
+    private static boolean isUserIDMissing(int userID){
+        return userID < 0;
     }
 }
