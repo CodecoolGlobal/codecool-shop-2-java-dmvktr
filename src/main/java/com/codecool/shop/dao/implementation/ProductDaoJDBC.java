@@ -7,6 +7,7 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
+import com.codecool.shop.service.ProductServiceStore;
 
 import javax.sql.DataSource;
 import java.sql.Connection;
@@ -18,26 +19,13 @@ import java.util.List;
 
 public class ProductDaoJDBC implements ProductDao {
 
-    private static ProductDaoJDBC instance = null;
-    private DataSource dataSource;
+    private final DataSource dataSource;
     private final ProductCategoryDao productCategoryDao;
     private final SupplierDao supplierDao;
 
-    /* A private Constructor prevents any other class from instantiating.
-     */
-    private ProductDaoJDBC() {
-        productCategoryDao = ProductCategoryDaoJDBC.getInstance();
-        supplierDao = SupplierDaoJDBC.getInstance();
-    }
-
-    public static ProductDaoJDBC getInstance() {
-        if (instance == null) {
-            instance = new ProductDaoJDBC();
-        }
-        return instance;
-    }
-
-    public void setDataSource(DataSource dataSource) {
+    public ProductDaoJDBC(DataSource dataSource) {
+        productCategoryDao = ProductServiceStore.get().getProductCategoryDao();
+        supplierDao = ProductServiceStore.get().getSupplierDao();
         this.dataSource = dataSource;
     }
 

@@ -18,6 +18,10 @@ public class BaseModel {
         this.description = description;
     }
 
+    public BaseModel(int id, String name) {
+        this.name = name;
+        this.id = id;
+    }
 
     public int getId() {
         return id;

@@ -1,36 +1,33 @@
 package com.codecool.shop.dao.implementation;
 
 import com.codecool.shop.dao.SupplierDao;
+import com.codecool.shop.dao.UserDao;
 import com.codecool.shop.model.Supplier;
+import com.codecool.shop.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SupplierDaoMem implements SupplierDao {
+public class UserDaoMem implements UserDao {
 
-    private List<Supplier> data = new ArrayList<>();
+    private List<User> data = new ArrayList<>();
 
-    public SupplierDaoMem() {
+    public UserDaoMem() {
     }
 
     @Override
-    public void add(Supplier supplier) {
-        supplier.setId(data.size() + 1);
-        data.add(supplier);
+    public void add(User user) {
+        user.setId(data.size() + 1);
+        data.add(user);
     }
 
     @Override
-    public Supplier find(int id) {
+    public User find(int id) {
         return data.stream().filter(t -> t.getId() == id).findFirst().orElse(null);
     }
 
     @Override
     public void remove(int id) {
         data.remove(find(id));
-    }
-
-    @Override
-    public List<Supplier> getAll() {
-        return data;
     }
 }

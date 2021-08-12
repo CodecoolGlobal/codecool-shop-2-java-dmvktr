@@ -4,6 +4,7 @@ import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.model.Supplier;
 
 import javax.sql.DataSource;
+import javax.xml.crypto.Data;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,22 +14,9 @@ import java.util.List;
 
 public class SupplierDaoJDBC implements SupplierDao {
 
-    private static SupplierDaoJDBC instance = null;
     private DataSource dataSource;
 
-    /* A private Constructor prevents any other class from instantiating.
-     */
-    private SupplierDaoJDBC() {
-    }
-
-    public static SupplierDaoJDBC getInstance() {
-        if (instance == null) {
-            instance = new SupplierDaoJDBC();
-        }
-        return instance;
-    }
-
-    public void setDataSource(DataSource dataSource) {
+    public SupplierDaoJDBC(DataSource dataSource) {
         this.dataSource = dataSource;
     }
 

@@ -3,6 +3,8 @@ ALTER TABLE IF EXISTS ONLY public.product DROP CONSTRAINT IF EXISTS fk_supplier_
 ALTER TABLE IF EXISTS ONLY public.product DROP CONSTRAINT IF EXISTS fk_category_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.category DROP CONSTRAINT IF EXISTS pk_category_id CASCADE;
 ALTER TABLE IF EXISTS ONLY public.supplier DROP CONSTRAINT IF EXISTS pk_supplier_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.user DROP CONSTRAINT IF EXISTS pk_user_id CASCADE;
+
 
 DROP TABLE IF EXISTS public.product;
 CREATE TABLE product (
@@ -33,6 +35,13 @@ CREATE TABLE supplier (
                               description text
 );
 
+DROP TABLE IF EXISTS public.users;
+CREATE TABLE users (
+                          id serial PRIMARY KEY NOT NULL,
+                          name text NOT NULL,
+                          hashed_password bytea NOT NULL
+);
+
 
 ALTER TABLE ONLY product
     ADD CONSTRAINT fk_category_id FOREIGN KEY (category_id) REFERENCES category(id);
@@ -47,6 +56,10 @@ SELECT pg_catalog.setval('supplier_id_seq', 2, true);
 INSERT INTO category VALUES (1, 'T-Shirt', 'Apparel', 'A t-shirt commonly shortened to tee, is awesome.');
 INSERT INTO category VALUES (2, 'Laptop Sticker', 'Stationery', 'A sticker to your laptop.');
 SELECT pg_catalog.setval('category_id_seq', 2, true);
+
+INSERT INTO users VALUES (1, 'Norbi', decode('013d7d16d7ad4fefb61bd95b765c8ceb', 'hex'));
+INSERT INTO users VALUES (2, 'Roky', decode('013d7d16d7ad4fefb61bd95b765c8ceb', 'hex'));
+SELECT pg_catalog.setval('users_id_seq', 2, true);
 
 INSERT INTO product VALUES (1, 'GitHub Half Sleeve Unisex T-Shirt', 21.9, 'EUR', 'The cloth belt is mostly decorative and a sign of wealth.', 1, 2, 'CoolCode_GitHub.jpeg', 'CoolCode_GitHub_hover.jpeg');
 INSERT INTO product VALUES (2, 'Bug Feature Half Sleeve Unisex T-Shirt', 19.9, 'EUR', 'His long sleeved, silky jacket covers him to just below his waist and is buttoned up completely at the top right side.', 1, 1, 'CoolCode_Bug-Feature.jpeg', 'CoolCode_Bug-Feature_hover.jpeg');

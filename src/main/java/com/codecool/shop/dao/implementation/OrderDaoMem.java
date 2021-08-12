@@ -22,7 +22,7 @@ public class OrderDaoMem implements OrderDao {
     private List<Order> data = new ArrayList<>();
     private static OrderDaoMem instance = null;
     private final ProductDao productDataStore;
-    private static Logger logger = LoggerFactory.getLogger(OrderDaoMem.class);
+    private final Logger logger = LoggerFactory.getLogger(OrderDaoMem.class);
 
     public OrderDaoMem() {
         productDataStore = ProductServiceStore.get().getProductDao();
