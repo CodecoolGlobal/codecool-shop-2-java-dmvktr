@@ -11,13 +11,13 @@ public class UserServiceStore {
 
     public static void initialize() {
         if (userService == null) {
-            //userService = new UserService(UserDaoMem.getInstance());
+            userService = new UserService(UserDaoMem.getInstance());
         }
     }
 
     public static void initialize(DataSource dataSource) {
         if (userService == null) {
-            userService = new UserService(UserDaoJDBC.getInstance(), dataSource);
+            userService = new UserService(UserDaoJDBC.getInstance(dataSource));
         }
     }
 

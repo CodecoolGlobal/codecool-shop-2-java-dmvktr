@@ -18,6 +18,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 @WebListener
 public class Initializer implements ServletContextListener {
@@ -80,6 +81,5 @@ public class Initializer implements ServletContextListener {
         //setting up users
         userDao.add(new User("Sanyi", "password"));
         userDao.add(new User("Béla", "password"));
-
     }
 }

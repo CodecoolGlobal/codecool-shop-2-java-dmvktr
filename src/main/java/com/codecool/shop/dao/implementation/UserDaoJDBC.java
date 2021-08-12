@@ -18,12 +18,13 @@ public class UserDaoJDBC implements UserDao {
 
     /* A private Constructor prevents any other class from instantiating.
      */
-    private UserDaoJDBC() {
+    private UserDaoJDBC(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
 
-    public static UserDaoJDBC getInstance() {
+    public static UserDaoJDBC getInstance(DataSource dataSource) {
         if (instance == null) {
-            instance = new UserDaoJDBC();
+            instance = new UserDaoJDBC(dataSource);
         }
         return instance;
     }

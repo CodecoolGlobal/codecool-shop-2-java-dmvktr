@@ -16,5 +16,7 @@ public class User extends BaseModel {
         hashedPassword = PasswordHasher.generateHash(password);
     }
 
-
+    public byte[] getHashedPassword() {
+        return hashedPassword;
+    }
 }
