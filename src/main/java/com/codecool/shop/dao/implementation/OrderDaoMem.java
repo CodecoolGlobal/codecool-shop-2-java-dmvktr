@@ -63,6 +63,7 @@ public class OrderDaoMem implements OrderDao {
     public Order addOrder() {
         Order order = new Order();
         order.setOrderID(data.size() + 1);
+        order.setUserID(data.size() - 1);
         data.add(order);
         return order;
     }
@@ -124,9 +125,12 @@ public class OrderDaoMem implements OrderDao {
         return item.getProduct().getId() == product.getId();
     }
 
-    public void mergeOrders(Order sessionOrderWithoutUserID, Order targetOrderWithUserID){
+    public Order mergeOrders(Order sessionOrderWithoutUserID, Order targetOrderWithUserID){
         List<LineItem> cartContentWhenLoggedIn = targetOrderWithUserID.getItems();
         List<LineItem> cartContentWhenLoggedOut = sessionOrderWithoutUserID.getItems();
         cartContentWhenLoggedIn.addAll(cartContentWhenLoggedOut);
+        targetOrderWithUserID.setItems(cartContentWhenLoggedIn);
+        targetOrderWithUserID.refreshItemCount();
+        return targetOrderWithUserID;
     }
 }
