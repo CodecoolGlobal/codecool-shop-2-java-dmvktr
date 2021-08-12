@@ -20,13 +20,19 @@ import java.util.List;
 public class ProductDaoJDBC implements ProductDao {
 
     private final DataSource dataSource;
-    private final ProductCategoryDao productCategoryDao;
-    private final SupplierDao supplierDao;
+    private ProductCategoryDao productCategoryDao;
+    private SupplierDao supplierDao;
 
     public ProductDaoJDBC(DataSource dataSource) {
-        productCategoryDao = ProductServiceStore.get().getProductCategoryDao();
-        supplierDao = ProductServiceStore.get().getSupplierDao();
         this.dataSource = dataSource;
+    }
+
+    public void setProductCategoryDao(ProductCategoryDao productCategoryDao) {
+        this.productCategoryDao = productCategoryDao;
+    }
+
+    public void setSupplierDao(SupplierDao supplierDao) {
+        this.supplierDao = supplierDao;
     }
 
     @Override
@@ -141,4 +147,6 @@ public class ProductDaoJDBC implements ProductDao {
             throw new RuntimeException("Unable to read Products from database", e);
         }
     }
+
+
 }

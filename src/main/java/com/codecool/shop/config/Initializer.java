@@ -4,6 +4,7 @@ import com.codecool.shop.dao.ProductCategoryDao;
 import com.codecool.shop.dao.ProductDao;
 import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.UserDao;
+import com.codecool.shop.dao.implementation.*;
 import com.codecool.shop.model.Product;
 import com.codecool.shop.model.ProductCategory;
 import com.codecool.shop.model.Supplier;
@@ -18,7 +19,6 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 import javax.sql.DataSource;
 import java.math.BigDecimal;
-import java.util.Arrays;
 
 @WebListener
 public class Initializer implements ServletContextListener {
@@ -29,14 +29,32 @@ public class Initializer implements ServletContextListener {
         if (AppProperties.isProductPersistenceInDatabase()) {
             DataSource dataSource = AppProperties.getDataSource();
             if (dataSource != null) {
-                ProductServiceStore.initialize(dataSource);
+                ProductService service = initDatabaseProductService(dataSource);
+                ProductServiceStore.initialize(service);
                 UserServiceStore.initialize(dataSource);
                 return;
             }
         }
-        ProductServiceStore.initialize();
+        ProductService service = initMemoryProductService();
+        ProductServiceStore.initialize(service);
         UserServiceStore.initialize();
         createMemoryObjects();
+    }
+
+    private ProductService initMemoryProductService() {
+        ProductDaoMem productDao = new ProductDaoMem();
+        ProductCategoryDao categoryDao = new ProductCategoryDaoMem();
+        SupplierDao supplierDao = new SupplierDaoMem();
+        return new ProductService(productDao, categoryDao, supplierDao);
+    }
+
+    private ProductService initDatabaseProductService(DataSource dataSource) {
+        ProductDaoJDBC productDao = new ProductDaoJDBC(dataSource);
+        ProductCategoryDao categoryDao = new ProductCategoryDaoJDBC(dataSource);
+        SupplierDao supplierDao = new SupplierDaoJDBC(dataSource);
+        productDao.setProductCategoryDao(categoryDao);
+        productDao.setSupplierDao(supplierDao);
+        return new ProductService(productDao, categoryDao, supplierDao);
     }
 
     @Override
