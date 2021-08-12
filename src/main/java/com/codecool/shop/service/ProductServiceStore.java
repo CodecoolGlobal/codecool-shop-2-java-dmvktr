@@ -1,5 +1,8 @@
 package com.codecool.shop.service;
 
+import com.codecool.shop.dao.ProductCategoryDao;
+import com.codecool.shop.dao.ProductDao;
+import com.codecool.shop.dao.SupplierDao;
 import com.codecool.shop.dao.implementation.*;
 
 import javax.sql.DataSource;
@@ -8,15 +11,9 @@ public class ProductServiceStore {
 
     private static ProductService productService;
 
-    public static void initialize() {
+    public static void initialize(ProductService productServiceObj) {
         if (productService == null) {
-            productService = new ProductService(new ProductDaoMem(), new ProductCategoryDaoMem(), new SupplierDaoMem());
-        }
-    }
-
-    public static void initialize(DataSource dataSource) {
-        if (productService == null) {
-            productService = new ProductService(new ProductDaoJDBC(dataSource), new ProductCategoryDaoJDBC(dataSource), new SupplierDaoJDBC(dataSource));
+            productService = productServiceObj;
         }
     }
 
