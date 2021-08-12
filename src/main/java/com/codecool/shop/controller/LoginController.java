@@ -25,7 +25,6 @@ public class LoginController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        Map<String, Object> templateVariables = new HashMap<>();
         int userId = 1; // TODO hardcoded to test, change when DB is up
         req.getSession().setAttribute("user_id", userId);
         OrderDao orderDao = OrderDaoMem.getInstance();
@@ -37,8 +36,7 @@ public class LoginController extends HttpServlet {
         Order mergedOrder = orderDao.getBy(userId).get();
         req.getSession().setAttribute("cart" , mergedOrder);
 
-        String htmlFilename = "product/index.html";
-        EngineProcessor.apply(req, resp, templateVariables, htmlFilename);
+        resp.sendRedirect(req.getContextPath() + "/");
     }
 
     @Override
