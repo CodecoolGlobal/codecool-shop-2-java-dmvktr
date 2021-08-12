@@ -29,6 +29,7 @@ public class LoginController extends HttpServlet {
         int userId = 1; // TODO hardcoded to test, change when DB is up
         req.getSession().setAttribute("user_id", userId);
         OrderDao orderDao = OrderDaoMem.getInstance();
+        orderDao.handleOrderUpdate(1, 1, 3);
         if(orderDao.getBy(userId).isEmpty()){
            orderDao.addUserOrder(userId);
         }
